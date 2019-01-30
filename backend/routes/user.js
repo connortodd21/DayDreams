@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 let mongoose = require('mongoose');
+var encrypt = require('../middleware/encrypt')
+var bcrypt = require('bcrypt')
 
 mongoose.connect(process.env.MONGODB_HOST, { useNewUrlParser: true });
 mongoose.set('useCreateIndex', true);
@@ -29,46 +31,55 @@ router.post("/register", (req, res) => {
     }
 
     var verificatonCode = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
-
-    // User Data
-    var newUser = new User({
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password,
-        verified: false,
-        verificationNum: verificatonCode,
-    });
-
-    // Add to database with auth
-    newUser.save().then(() => {
-        return newUser.generateAuth().then((token) => {
-            res.header('token', token).header('verificationNum', verificatonCode).send(newUser);
-            return
+    encrypt(req.body.password).then((password) => {
+        // User Data
+        var newUser = new User({
+            username: req.body.username,
+            email: req.body.email,
+            password: password,
+            verified: false,
+            verificationNum: verificatonCode,
         });
-    }).catch((err) => {
-        if(err.code == 11000){
-            res.status(400).send({message: "User already exists"})
-            return
-        }
-        res.status(400).send(err)
-        return;
-    })
 
+        // Add to database with auth
+        newUser.save().then(() => {
+            return newUser.generateAuth().then((token) => {
+
+                res.header('token', token).header('verificationNum', verificatonCode).send(newUser);
+                return
+            });
+        }).catch((err) => {
+            if (err.code == 11000) {
+                res.status(400).send({ message: "User already exists" })
+                return
+            }
+            res.status(400).send(err)
+            return;
+        })
+    })
 });
 
 router.post('/login', (req, res) => {
-    if(!req.body.username || !req.body.password){
-        res.status(400).send({message: "Bad request"})
+    if (!req.body.username || !req.body.password) {
+        res.status(400).send({ message: "Bad request" })
         return;
     }
 
-    User.findOne({username: req.body.username}).then( (user) => {
-        if(!user.verified){
-            res.status(400).send({message: "User is not verified"})
+    User.findOne({ username: req.body.username }).then((user) => {
+        if (!user.verified) {
+            res.status(400).send({ message: "User is not verified" })
             return;
         }
-        user.generateAuth().then( (token) =>{
-            res.status(200).header('token', token).send(user)
+        bcrypt.compare(req.body.password, user.password, function (err, comp) {
+            if (comp == false) {
+                res.status(400).send({ message: "Error: Password is incorrect" })
+                return
+            }
+            else {
+                user.generateAuth().then((token) => {
+                    res.status(200).header('token', token).send(user)
+                })
+            }
         })
     }).catch((err) => {
         res.status(400).send(err)
