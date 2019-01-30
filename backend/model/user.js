@@ -29,6 +29,22 @@ let userSchema = new mongoose.Schema({
     }]
 })
 
+userSchema.methods.generateAuth = function() {
+  var user = this
+  var access = 'auth'
+
+  var token = jwt.sign({_id: user._id.toHexString(), access}, process.env.JWT_SECRET, {expiresIn:"1h"}).toString()
+  user.tokens = user.tokens.concat([{access, token}]);
+  return user.save().then(() => {
+    return token
+  })
+}
+
+/* Function to prevent too much information from being returned on request when the response is the object */
+userSchema.methods.toJSON = function () {
+  return ld.pick(this.toObject(), ['_id', 'username', 'email', 'verified'])
+}
+
 /* Creating the user model from the schema and giving it to Mongoose */
 let User = mongoose.model('User', userSchema);
 
