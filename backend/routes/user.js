@@ -39,22 +39,40 @@ router.post("/register", (req, res) => {
         verificationNum: verificatonCode,
     });
 
-
-    //Add to database w/o auth
-    newUser.save().then(() => {
-        res.status(200).send(newUser)
-    })
-/*
     // Add to database with auth
     newUser.save().then(() => {
-        return newUser.generateAuthToken();
-    }).then((token) => {
-        res.header('token', token).header('verificationNum', verificatonCode).send(newUser);
+        return newUser.generateAuth().then((token) => {
+            res.header('token', token).header('verificationNum', verificatonCode).send(newUser);
+            return
+        });
     }).catch((err) => {
+        if(err.code == 11000){
+            res.status(400).send({message: "User already exists"})
+            return
+        }
         res.status(400).send(err)
         return;
     })
-*/
+
 });
+
+router.post('/login', (req, res) => {
+    if(!req.body.username || !req.body.password){
+        res.status(400).send({message: "Bad request"})
+        return;
+    }
+
+    User.findOne({username: req.body.username}).then( (user) => {
+        if(!user.verified){
+            res.status(400).send({message: "User is not verified"})
+            return;
+        }
+        user.generateAuth().then( (token) =>{
+            res.status(200).header('token', token).send(user)
+        })
+    }).catch((err) => {
+        res.status(400).send(err)
+    })
+})
 
 module.exports = router;
