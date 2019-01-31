@@ -7,6 +7,10 @@ let circleSchema = new mongoose.Schema({
     dateCreated: {type: Date, default: Date.now},
     numberOfPeople: {type: Number, default: 1},
     dayDreams: {type: [String]},
+    chat: [{
+        user: String,
+        message: String,
+    }]
 })
 
 
