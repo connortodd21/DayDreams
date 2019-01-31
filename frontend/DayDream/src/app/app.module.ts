@@ -12,6 +12,7 @@ import { AuthComponent } from './auth/auth.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { FormsModule, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './auth/login/login.component';
+import { CircleComponent } from './circle/circle.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { LoginComponent } from './auth/login/login.component';
     AppComponent,
     SignUpComponent,
     AuthComponent,
-    LoginComponent
+    LoginComponent,
+    CircleComponent
   ],
   imports: [
   BrowserModule,

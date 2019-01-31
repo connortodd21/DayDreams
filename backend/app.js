@@ -5,6 +5,7 @@ require('dotenv').config();
 
 /* Routes */
 let user = require('./routes/user.js');
+let circle = require('./routes/user.js');
 
 const app = express(cors());
 

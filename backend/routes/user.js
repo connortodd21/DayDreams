@@ -67,10 +67,10 @@ router.post('/login', (req, res) => {
     }
 
     User.findOne({ username: req.body.username }).then((user) => {
-        if (!user.verified) {
-            res.status(401).send({ message: "User is not verified" })
-            return;
-        }
+        // if (!user.verified) {
+        //     res.status(401).send({ message: "User is not verified" })
+        //     return;
+        // }
         bcrypt.compare(req.body.password, user.password, function (err, comp) {
             if (comp == false) {
                 res.status(400).send({ message: "Error: Password is incorrect" })
