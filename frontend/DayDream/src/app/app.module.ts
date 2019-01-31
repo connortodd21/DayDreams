@@ -11,6 +11,7 @@ import { SignUpComponent } from './auth/signup/signup.component';
 import { AuthComponent } from './auth/auth.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { FormsModule, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './auth/login/login.component';
 
 
 @NgModule({
@@ -18,9 +19,10 @@ import { FormsModule, FormGroup, ReactiveFormsModule } from '@angular/forms';
     AppComponent,
     SignUpComponent,
     AuthComponent,
+    LoginComponent
   ],
   imports: [
-    BrowserModule,
+  BrowserModule,
     HttpModule,
     HttpClientModule,
     FormsModule,                            

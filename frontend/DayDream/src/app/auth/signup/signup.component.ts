@@ -48,8 +48,6 @@ export class SignUpComponent implements OnInit {
             return;
         }
         this.authService.registerUser(form.value.email, form.value.username, form.value.password).then((res) => {
-            console.log(res)
-            console.log("AD")
             this.response = "complete"
         }).catch((err) => {
             if (err.error.name == "MongoError") {

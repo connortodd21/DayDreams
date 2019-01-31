@@ -35,6 +35,7 @@ export class AuthService{
 
     login(username: string, password: string) {
         const auth: AuthData = { username: username, password: password, email: "" }
+        console.log(auth)
         this.http.post("http://localhost:5000/user/login", auth, httpOptions)
             .subscribe(response => {
                 const token = response.headers.get('token');

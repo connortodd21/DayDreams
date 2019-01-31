@@ -1,0 +1,62 @@
+<div class="p-2 profile animated fadeInUp">
+        <mdb-card>
+          <mdb-card-body>
+      
+            <form (submit)="onLogin(f)" #f="ngForm" class="text-center border border-light p-5" [formGroup]="loginForm">
+      
+              <p class="h4 mb-4">Sign In</p>
+      
+              <!-- Username -->
+              <div class="form-group">
+                <input type="text" id="username" formControlName="username" class="form-control" placeholder="Username"
+                  [ngClass]="{ 'is-invalid': submitted && form.username.errors }">
+                <div *ngIf="submitted && form.username.errors" class="invalid-feedback">
+                  <div *ngIf="form.username.errors.required">Please Enter your Username</div>
+                </div>
+              </div>
+      
+              <!-- <input type="password" id="password" name="password" class="form-control mb-4" placeholder="Password" ngModel -->
+              <!-- #passwordInput="ngModel"> -->
+      
+              <!-- Password -->
+              <div class="form-group">
+                <input type="password" id="password" formControlName="password" class="form-control" placeholder="Password"
+                  [ngClass]="{ 'is-invalid': submitted && form.password.errors }">
+                <div *ngIf="submitted && form.password.errors" class="invalid-feedback">
+                  <div *ngIf="form.password.errors.required">Please Enter your Password</div>
+                </div>
+              </div>
+      
+              <div class="d-flex justify-content-around">
+                <div>
+                  <!-- Forgot password -->
+                  <a href="/forgot">Forgot password?</a>
+                </div>
+              </div>
+      
+              <!-- Sign in button -->
+              <button mdbBtn color="info" block="true" class="my-4" type="submit">Sign in</button>
+      
+              <!-- Register -->
+              <p>Not a member?
+                <a routerLink="/register">Register</a>
+              </p>
+      
+              <div *ngIf="response_msg === 'failed' " class="alert alert-danger" role="alert">
+                Username or Password is Incorrect
+              </div>
+              <!-- <div *ngIf="response_msg === 'verify' " class="alert alert-info" role="alert">
+                User Account Still Needs to Be Verified. Please Check your Email for your Verification Code.
+              </div> -->
+      
+      
+              <div *ngIf="response_msg === 'verify'" #alert class="alert alert-info alert-dismissible fade show" role="alert">
+                <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                User Account Still Needs to Be Verified. Please Check your Email for your Verification Code.
+              </div>
+            </form>
+          </mdb-card-body>
+        </mdb-card>
+      </div>
