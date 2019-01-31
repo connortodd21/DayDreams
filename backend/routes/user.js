@@ -26,7 +26,7 @@ router.get("/", function (req, res) {
  * Register new user 
  */
 router.post("/register", (req, res) => {
-    if (!req.body.email || !req.body.password || !req.body.username || !req.body.age) {
+    if (!req.body.email || !req.body.password || !req.body.username) {
         res.status(400).send({ message: "User data is incomplete" });
         return;
     }
