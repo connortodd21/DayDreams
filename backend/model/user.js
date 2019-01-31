@@ -40,6 +40,22 @@ userSchema.methods.generateAuth = function() {
   })
 }
 
+userSchema.statics.findByToken = function(token){
+  var user = this
+  var decoded
+
+  try{
+    decoded = jwt.verify(token, process.env.JWT_SECRET)
+  } catch(err){
+    return Promise.reject
+  }
+  return user.findOne({
+    _id: decoded, 
+    'tokens.token': token,
+    'tokens.access': 'auth'
+  });
+}
+
 /* Function to prevent too much information from being returned on request when the response is the object */
 userSchema.methods.toJSON = function () {
   return ld.pick(this.toObject(), ['_id', 'username', 'email', 'verified'])

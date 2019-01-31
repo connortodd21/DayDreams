@@ -8,3 +8,9 @@ let circleSchema = new mongoose.Schema({
     numberOfPeople: {type: Number, default: 1},
     dayDreams: {type: [String]},
 })
+
+
+/* Creating the user model from the schema and giving it to Mongoose */
+let Circle = mongoose.model('Circles', circleSchema);
+
+module.exports = Circle

@@ -3,6 +3,7 @@ var router = express.Router();
 let mongoose = require('mongoose');
 var encrypt = require('../middleware/encrypt')
 var bcrypt = require('bcrypt')
+var authenticate = require('../middleware/authenticate')
 
 mongoose.connect(process.env.MONGODB_HOST, { useNewUrlParser: true });
 mongoose.set('useCreateIndex', true);
@@ -84,6 +85,10 @@ router.post('/login', (req, res) => {
     }).catch((err) => {
         res.status(400).send(err)
     })
+})
+
+router.post('/add', authenticate, (req, res) => {
+    
 })
 
 module.exports = router;
