@@ -1,3 +1,64 @@
-import { Component, OnInit, ViewChild, ElementRef} from "@angular/core";
-import { NgForm, FormGroup, FormBuilder, Validators } from "@angular/forms";
+<form (submit)="signUp(f)" #f="ngForm" class="text-center p-5" [formGroup]="signUpForm">
+    <mdb-card>
+        <mdb-card-body>
+            <p class="h4 mb-4">Register</p>
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="username" formControlName="username" class="form-control" placeholder="Username"
+                    [ngClass]="{ 'is-invalid': submitted && form.username.errors }" />
+                <div *ngIf="submitted && form.username.errors" class="invalid-feedback">
+                    <div *ngIf="form.username.errors.required">Username is required</div>
+                </div>
+            </div>
 
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" formControlName="password" class="form-control" placeholder="Password"
+                    [ngClass]="{ 'is-invalid': submitted && form.password.errors }" />
+                <div *ngIf="submitted && form.password.errors" class="invalid-feedback">
+                    <div *ngIf="form.password.errors.required">Password is required</div>
+                    <div *ngIf="form.password.errors.minlength">Password must be 8 characters long</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control"
+                    placeholder="Confirm Password" [ngClass]="{ 'is-invalid': submitted && signUpForm.hasError('notSame') }" />
+                <div *ngIf="submitted && signUpForm.hasError('notSame')" class="invalid-feedback">
+                    <div *ngIf="signUpForm.hasError('notSame')">Passwords do not match</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="text" id="email" formControlName="email" class="form-control" placeholder="Email"
+                    [ngClass]="{ 'is-invalid': submitted && form.email.errors }" />
+                <div *ngIf="submitted && form.email.errors" class="invalid-feedback">
+                    <div *ngIf="form.email.errors.required">Email is required</div>
+                    <div *ngIf="form.email.errors.email">Must be a valid email</div>
+                </div>
+            </div>
+
+
+            <!-- Sign in button -->
+            <button mdbBtn color="info" block="true" class="my-4" type="submit">Register</button>
+
+            <!-- Login -->
+            <p>Already Have an Account?
+                <a routerLink="/login">Login</a>
+            </p>
+
+            <div *ngIf="response_msg === 'complete'" class="alert alert-success" role="alert">
+                Account Successfully Created
+            </div>
+            <div *ngIf="response_msg === 'duplicate'" class="alert alert-danger" role="alert">
+                Username or Email Already Exists
+            </div>
+            <div *ngIf="response_msg === 'fatalError'" class="alert alert-danger" role="alert">
+                A Fatal Error Has Occoured. PLease Try Again Later.
+            </div>
+
+        </mdb-card-body>
+    </mdb-card>
+</form>
