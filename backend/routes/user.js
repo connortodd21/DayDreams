@@ -46,7 +46,7 @@ router.post("/register", (req, res) => {
         newUser.save().then(() => {
             return newUser.generateAuth().then((token) => {
 
-                res.header('token', token).header('verificationNum', verificatonCode).send(newUser);
+                res.header('verificationNum', verificatonCode).send(newUser);
                 return
             });
         }).catch((err) => {
@@ -85,10 +85,6 @@ router.post('/login', (req, res) => {
     }).catch((err) => {
         res.status(400).send(err)
     })
-})
-
-router.post('/add', authenticate, (req, res) => {
-    
 })
 
 module.exports = router;
