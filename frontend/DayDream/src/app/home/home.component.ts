@@ -19,7 +19,6 @@ export class HomeComponent implements OnInit {
       imageUrl: ['', Validators.required],
       image_id: ['', Validators.required]
     });
-    this.image = 'https://i.pinimg.com/236x/c5/be/c1/c5bec1075ad6fc292c655c6f8364b5b0--facebook-profile-profile-pictures.jpg'
   }
 
   ngOnInit() {
@@ -29,13 +28,6 @@ export class HomeComponent implements OnInit {
   displayCircles() {
     this.userService.getUserCircles().then((circ) => {
       this.Circles = circ
-      // console.log(circ[0].imageUrl)
-      let i:number
-      for(let c in circ){
-        if(!circ[c].hasImage){
-          circ[c].imageUrl = this.image
-        }
-      }
     })
   }
 

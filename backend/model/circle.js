@@ -11,7 +11,7 @@ let circleSchema = new mongoose.Schema({
         user: String,
         message: String,
     }],
-    imageUrl: {type: String},
+    imageUrl: {type: String, default: process.env.DEFAULT_IMAGE},
     image_id: {type: String},
     hasImage: {type: Boolean, default: false},
 })
