@@ -6,8 +6,7 @@
           <div class="modal-header">
             <h4 class="modal-title w-100" id="myModalLabel">{{c.circleName}}</h4>
 
-            <img [src]="c.imageUrl" ngShow="c.hasImage"/>
-            <img [src]="image" ngShow="!(c.hasImage)"/>
+            <img [src]="c.imageUrl"/>
 
             <form (submit)="submitFile(f, c.circleName)" #f="ngForm" class="text-center border border-light p-5" [formGroup]="fileForm">
               <div class="form-group">
