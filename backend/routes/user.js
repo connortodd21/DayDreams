@@ -14,6 +14,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 /* Objects */
 var User = require('../model/user');
+var Circle = require('../model/circle')
 
 /**
  * All user related routes
@@ -82,6 +83,14 @@ router.post('/login', (req, res) => {
                 })
             }
         })
+    }).catch((err) => {
+        res.status(400).send(err)
+    })
+})
+
+router.get('/all-circles', authenticate, (req, res) => {
+    Circle.find({members: req.user.username}).then((circle) => {
+        res.status(200).send(circle)
     }).catch((err) => {
         res.status(400).send(err)
     })

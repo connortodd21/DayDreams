@@ -25,7 +25,7 @@ router.get("/", function (req, res) {
 })
 
 router.post("/add", authenticate, function (req, res) {
-    b
+    
     if (!req.body || !req.body.circleName) {
         res.status(400).send({ message: "User data is incomplete" });
         return;
