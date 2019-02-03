@@ -13,21 +13,41 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 /* Objects */
-var circle = require('../model/circle');
+var Circle = require('../model/circle');
+var User = require('../model/user')
 
 
 /**
 * All circle related routes
 */
-router.get("/", function(req, res){
+router.get("/", function (req, res) {
     res.send('This router is for all circle related tasks');
 })
 
-router.post("/add", authenticate, function(req,res){
-       //code to create a new circle
-       //look at the register function in user.js for an example
-       //req is the request (from postman or from the frontend)
-       //res is the response to return. HTTP request and response like the 252 lab
+router.post("/add", authenticate, function (req, res) {
+    b
+    if (!req.body || !req.body.circleName) {
+        res.status(400).send({ message: "User data is incomplete" });
+        return;
+    }
+    var newCircle = new Circle ({
+        founder: req.user.username,
+        circleName: req.body.circleName,
+    })
+    
+    newCircle.save().then(() => {
+        Circle.findOneAndUpdate({circleName: req.body.circleName}, {
+            $push: {
+                'members': req.user.username,
+            }
+        }).then((circle) => {
+            res.status(200).send(circle)
+            return
+        }).catch((err) => {
+            console.log(err)
+        })
+    })
+
 });
 
 module.exports = router;

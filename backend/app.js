@@ -5,7 +5,7 @@ require('dotenv').config();
 
 /* Routes */
 let user = require('./routes/user.js');
-let circle = require('./routes/user.js');
+let circle = require('./routes/circle.js');
 
 const app = express(cors());
 
@@ -25,6 +25,7 @@ app.use((req, res, next) => {
 
 /* Routes */
 app.use('/user', user);
+app.use('/circle', circle)
 
 app.get('/', (res, req) => {
 });
