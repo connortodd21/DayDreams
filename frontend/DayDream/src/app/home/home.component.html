@@ -4,6 +4,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
+              <img *ngIf="c" [src]="c.imageUrl"/>
             <h4 class="modal-title w-100" id="myModalLabel">{{c.circleName}}</h4>
           </div>
           <div class="modal-footer">
