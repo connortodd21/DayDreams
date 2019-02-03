@@ -1,6 +1,9 @@
 const express = require('express')
 let cookieParser = require('cookie-parser');
 var cors = require('cors');
+const multer = require("multer");
+const cloudinary = require("cloudinary");
+const cloudinaryStorage = require("multer-storage-cloudinary");
 require('dotenv').config();
 
 /* Routes */

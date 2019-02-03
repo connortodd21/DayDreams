@@ -4,6 +4,11 @@ let mongoose = require('mongoose');
 var encrypt = require('../middleware/encrypt')
 var bcrypt = require('bcrypt')
 var authenticate = require('../middleware/authenticate')
+var multer = require("multer");
+var cloudinary = require("cloudinary");
+var cloudinaryStorage = require("multer-storage-cloudinary");
+var upload = require('../middleware/photo_upload')
+
 
 mongoose.connect(process.env.MONGODB_HOST, { useNewUrlParser: true });
 mongoose.set('useCreateIndex', true);
@@ -25,18 +30,18 @@ router.get("/", function (req, res) {
 })
 
 router.post("/add", authenticate, function (req, res) {
-    
+
     if (!req.body || !req.body.circleName) {
         res.status(400).send({ message: "User data is incomplete" });
         return;
     }
-    var newCircle = new Circle ({
+    var newCircle = new Circle({
         founder: req.user.username,
         circleName: req.body.circleName,
     })
-    
+
     newCircle.save().then(() => {
-        Circle.findOneAndUpdate({circleName: req.body.circleName}, {
+        Circle.findOneAndUpdate({ circleName: req.body.circleName }, {
             $push: {
                 'members': req.user.username,
             }
@@ -48,6 +53,32 @@ router.post("/add", authenticate, function (req, res) {
         })
     })
 
+});
+
+router.post('/add-photo', authenticate, upload.single("image"), function (req, res) {
+
+    if(!req.file || !req.body || !req.body.circleName){
+        res.status(400).send({message: "Bad Request"})
+        return
+    }
+
+    Circle.findOneAndUpdate({ circleName: req.body.circleName }, {
+        $set: {
+            imageUrl: req.file.url,
+            image_id: req.file.public_id
+        }
+    }).then((circ) => {
+        Circle.findOne({circleName: req.body.circleName}).then((circle) => {
+            res.status(200).send(circle)
+            return
+        }).catch((err) => {
+            res.status(400).send("Backend error with adding image")
+            return
+        })
+    }).catch((err) => {
+        res.status(400).send("Circle does not exist")
+        return
+    })
 });
 
 module.exports = router;
