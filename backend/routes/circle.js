@@ -57,15 +57,14 @@ router.post("/add", authenticate, function (req, res) {
 
 router.post('/add-photo', authenticate, upload.single("image"), function (req, res) {
 
-    if(!req.file || !req.body || !req.body.circleName){
+    if(!req.body || !req.body.circleName || !req.body.imageUrl){
         res.status(400).send({message: "Bad Request"})
         return
     }
 
     Circle.findOneAndUpdate({ circleName: req.body.circleName }, {
         $set: {
-            imageUrl: req.file.url,
-            image_id: req.file.public_id
+            imageUrl: req.body.imageUrl,
         }
     }).then((circ) => {
         Circle.findOne({circleName: req.body.circleName}).then((circle) => {
