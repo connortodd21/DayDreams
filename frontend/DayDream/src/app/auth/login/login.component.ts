@@ -16,7 +16,11 @@ export class LoginComponent implements OnInit {
     response: string;
     submitted = false;
 
-    constructor(private router:Router, public authService: AuthService, private formBuilder: FormBuilder) { }
+    constructor(private router:Router, public authService: AuthService, private formBuilder: FormBuilder) {
+        if(authService.getAuthenticationStatus()){
+            this.router.navigate(['/home']);
+        }
+     }
 
     ngOnInit() {
         this.loginForm = this.formBuilder.group({

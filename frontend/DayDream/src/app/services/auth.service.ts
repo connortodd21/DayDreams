@@ -30,7 +30,10 @@ export class AuthService{
     }
 
     getAuthenticationStatus(){
-        return this.isAuthenticated
+        if(localStorage.getItem('token')){
+            return true;
+        }
+        return false;
     }
 
     login(username: string, password: string) {

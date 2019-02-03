@@ -30,7 +30,8 @@ const routes: Routes = [
   {
     //404 error, leave this one as last route check
     path: '**',
-    redirectTo: 'login',
+    redirectTo: 'home',
+    canActivate: [AuthGuard]
   }
 ];
 
