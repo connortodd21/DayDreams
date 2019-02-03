@@ -8,6 +8,7 @@ var multer = require("multer");
 var cloudinary = require("cloudinary");
 var cloudinaryStorage = require("multer-storage-cloudinary");
 var upload = require('../middleware/photo_upload')
+var validate = require('../middleware/validate_url')
 
 
 mongoose.connect(process.env.MONGODB_HOST, { useNewUrlParser: true });
@@ -62,9 +63,14 @@ router.post('/add-photo', authenticate, upload.single("image"), function (req, r
         return
     }
 
+    if(!validate(req.body.imageUrl)){
+        res.status(400).send({message: "Invalid image, url is not validated"})
+    }
+
     Circle.findOneAndUpdate({ circleName: req.body.circleName }, {
         $set: {
             imageUrl: req.body.imageUrl,
+            hasImage: true
         }
     }).then((circ) => {
         Circle.findOne({circleName: req.body.circleName}).then((circle) => {

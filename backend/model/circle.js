@@ -13,6 +13,7 @@ let circleSchema = new mongoose.Schema({
     }],
     imageUrl: {type: String},
     image_id: {type: String},
+    hasImage: {type: Boolean, default: false},
 })
 
 
