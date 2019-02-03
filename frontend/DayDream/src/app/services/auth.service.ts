@@ -26,7 +26,10 @@ export class AuthService{
     }
     
     getAuthToken(){
-        return this.token
+        if(localStorage.getItem('token')){
+            return localStorage.getItem('token');
+        }
+        return false;
     }
 
     getAuthenticationStatus(){
