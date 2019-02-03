@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
 
     closeAlert() {
         this.alert.nativeElement.classList.remove('show');
-        this.router.navigate(['verify']);
+        this.router.navigate(['home']);
     }
 
     onLogin(form: NgForm) {

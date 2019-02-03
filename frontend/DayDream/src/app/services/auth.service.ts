@@ -38,6 +38,7 @@ export class AuthService{
         console.log(auth)
         this.http.post("http://localhost:5000/user/login", auth, httpOptions)
             .subscribe(response => {
+                console.log(auth)
                 const token = response.headers.get('token');
                 this.token = token
                 if (token) {
