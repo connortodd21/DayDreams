@@ -89,11 +89,13 @@ router.post('/login', (req, res) => {
             else {
                 user.generateAuth().then((token) => {
                     res.status(200).header('token', token).send(user)
+                    return
                 })
             }
         })
     }).catch((err) => {
         res.status(400).send(err)
+        return
     })
 })
 
