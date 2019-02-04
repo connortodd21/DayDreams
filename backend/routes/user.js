@@ -136,7 +136,7 @@ router.post("/verify-email", (req, res) => {
 /**
  * Reset Password
  */
-router.post("/reset-password-email", (req, res) => {
+router.post("/forgot-password", (req, res) => {
     if (!req.body || !req.body.email) {
         res.status(400).send({ message: "Reset information is incomplete" });
         return;
@@ -149,7 +149,6 @@ router.post("/reset-password-email", (req, res) => {
             var email_body = "Dear " + usr.email + ", \n\nOur records indicate that you have requested a password " +
                 "reset. Your new temporary password is:\n\n" +
                 tempPassword + "\n\nSincerely, \n\nThe DayDreams Team";
-
             // find user by email and set temp password
             encrypt(tempPassword).then(encryptedPassword => {
                 User.findOneAndUpdate({ email: usr.email }, { $set: { password: encryptedPassword } }).then(() => {
@@ -160,7 +159,6 @@ router.post("/reset-password-email", (req, res) => {
             }).catch(err => {
                 console.log("err: " + err)
             });
-
             // Send email to user
             mailer(usr.email, email_subject, email_body);
             res.status(200).send({ message: 'Password has successfully been reset.' });
