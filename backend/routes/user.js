@@ -99,6 +99,39 @@ router.post('/login', (req, res) => {
     })
 })
 
+
+/**
+ * Verify new user's email
+ */
+router.post("/verify-email", (req, res) => {
+    // Check if user data is complete
+    console.log("works")
+    if (!req.body || !req.body.verificationNum || !req.body.email) {
+        res.status(400).send({ message: "User data is incomplete" });
+        return;
+    }
+
+    console.log(req.body.email)
+    User.findVerificationNumByEmail(req.body.email).then((verificationNum) => {
+        // Check if user has entered in the correct verification number
+        if (verificationNum != req.body.verificationNum) {
+            res.status(400).send({ message: "Verification code does not match" });
+            return;
+        }
+        else {
+            User.findOneAndUpdate({ email: req.body.email }, { $set: { verified: true } }).then(() => {
+                res.status(200).send({ message: "User has been succesfully verified" });
+            }).catch((err) => {
+                res.status(400).send({ message: "An error has occoured with verifying your account" });
+                res.send(err);
+            });
+        }
+    }).catch((err) => {
+        res.status(400).send({ message: "Email does not exist in our records" });
+    });
+
+})
+
 router.get('/all-circles', authenticate, (req, res) => {
     Circle.find({members: req.user.username}).then((circle) => {
         res.status(200).send(circle)
