@@ -132,6 +132,46 @@ router.post("/verify-email", (req, res) => {
 
 })
 
+
+/**
+ * Reset Password
+ */
+router.post("/reset-password-email", (req, res) => {
+    if (!req.body || !req.body.email) {
+        res.status(400).send({ message: "Reset information is incomplete" });
+        return;
+    }
+    // Find user by email
+    if (req.body.email) {
+        User.findByEmail(req.body.email).then((usr) => {
+            var tempPassword = Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
+            var email_subject = "DayDreams Password Reset";
+            var email_body = "Dear " + usr.email + ", \n\nOur records indicate that you have requested a password " +
+                "reset. Your new temporary password is:\n\n" +
+                tempPassword + "\n\nSincerely, \n\nThe DayDreams Team";
+
+            // find user by email and set temp password
+            encrypt(tempPassword).then(encryptedPassword => {
+                User.findOneAndUpdate({ email: usr.email }, { $set: { password: encryptedPassword } }).then(() => {
+                }).catch((err) => {
+                    res.status(400).send({ message: "New password not set." });
+                    res.send(err);
+                });
+            }).catch(err => {
+                console.log("err: " + err)
+            });
+
+            // Send email to user
+            mailer(usr.email, email_subject, email_body);
+            res.status(200).send({ message: 'Password has successfully been reset.' });
+        }).catch((err) => {
+            res.status(400).send({ message: "Email does not exist in our records." });
+            console.log(err)
+            return;
+        });
+    }
+})
+
 router.get('/all-circles', authenticate, (req, res) => {
     Circle.find({members: req.user.username}).then((circle) => {
         res.status(200).send(circle)

@@ -71,6 +71,21 @@ userSchema.statics.findVerificationNumByEmail = function(email) {
   });
 };
 
+userSchema.statics.findByEmail = function(email) {
+  var User = this;
+
+  return User.findOne({email}).then((user) => {
+    // console.log(user)
+    //console.log("email is: " + user.email)
+    if (!user.email) {
+      return Promise.reject();
+    }
+    else {
+      return Promise.resolve(user);
+    }
+  });
+};
+
 
 /* Function to prevent too much information from being returned on request when the response is the object */
 userSchema.methods.toJSON = function () {
