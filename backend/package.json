@@ -4,12 +4,14 @@
   "description": "DayDreams backend",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test --recursive --exit"
   },
   "author": "Connor Todd",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^3.0.3",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
     "cloudinary": "^1.13.2",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.5",

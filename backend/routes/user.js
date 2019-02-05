@@ -105,13 +105,13 @@ router.post('/login', (req, res) => {
  */
 router.post("/verify-email", (req, res) => {
     // Check if user data is complete
-    console.log("works")
+    // console.log("works")
     if (!req.body || !req.body.verificationNum || !req.body.email) {
         res.status(400).send({ message: "User data is incomplete" });
         return;
     }
 
-    console.log(req.body.email)
+    // console.log(req.body.email)
     User.findVerificationNumByEmail(req.body.email).then((verificationNum) => {
         // Check if user has entered in the correct verification number
         if (verificationNum != req.body.verificationNum) {
