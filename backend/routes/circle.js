@@ -33,7 +33,7 @@ router.get("/", function (req, res) {
 router.post("/add", authenticate, function (req, res) {
 
     if (!req.body || !req.body.circleName) {
-        res.status(400).send({ message: "User data is incomplete" });
+        res.status(400).send({ message: "Circle data is incomplete" });
         return;
     }
     var newCircle = new Circle({

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 let dayDreamSchema = new mongoose.Schema({
     circleID: {type: String},
-    destinatin: {type: String},
+    destination: {type: String},
     description: {type: String},
     /* information for travel widget */
     travelInformation: [{
