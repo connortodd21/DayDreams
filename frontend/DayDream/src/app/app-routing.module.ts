@@ -4,6 +4,7 @@ import { AuthGuard } from './auth/auth-guard';
 import { SignUpComponent } from './auth/signup/signup.component';
 import {LoginComponent} from './auth/login/login.component'
 import {HomeComponent} from './home/home.component'
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: SignUpComponent
+  },
+  {
+    path: 'forgot',
+    component: ForgotPasswordComponent
   },
   {
     //404 error, leave this one as last route check

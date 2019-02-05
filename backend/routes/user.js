@@ -170,6 +170,29 @@ router.post("/forgot-password", (req, res) => {
     }
 })
 
+
+/**
+ * Edit a user's email
+ */
+router.post("/change-email", authenticate, (req, res) => {
+    if (!req.body || !req.body.email) {
+        res.status(400).send({ message: "User data is incomplete" });
+        return;
+    }
+
+    User.findOneAndUpdate({ username: req.user.username },
+        {
+            $set: {
+                email: req.body.email
+            }
+        }).then(() => {
+            res.status(200).send({ message: 'User email successfully updated' })
+        }).catch((err) => {
+            res.status(400).send({ message: "Error changing email" });
+            res.send(err);
+        })
+})
+
 router.get('/all-circles', authenticate, (req, res) => {
     Circle.find({members: req.user.username}).then((circle) => {
         res.status(200).send(circle)
