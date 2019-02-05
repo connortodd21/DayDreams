@@ -4,7 +4,7 @@
   "description": "DayDreams backend",
   "main": "app.js",
   "scripts": {
-    "test": "mocha test --recursive --exit"
+    "test": "./test/runtest.sh"
   },
   "author": "Connor Todd",
   "license": "ISC",

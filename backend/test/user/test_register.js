@@ -1,8 +1,8 @@
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var server = require('../../app');
-var should = chai.should();
 var User = require('../../model/user');
+var should = require('chai').should();
 
 chai.use(chaiHttp);
 
@@ -11,7 +11,7 @@ var uname = process.env.UNIT_TEST_USERNAME
 var pword = process.env.UNIT_TEST_PASSWORD
 var mail = process.env.UNIT_TEST_EMAIL
 
-describe('Register', () => {
+describe('Test Register', () => {
 
     after( function() {
         User.deleteOne({username: uname}).then(() => {
@@ -51,6 +51,7 @@ describe('Register', () => {
                 .set('content-type', 'application/x-www-form-urlencoded')
                 .send(info)
                 .end((err, res) => {
+                    // console.log(res)
                     res.should.have.status(400);
                     done();
                 });
@@ -129,6 +130,7 @@ describe('Register', () => {
                 .set('content-type', 'application/x-www-form-urlencoded')
                 .send(info)
                 .end((err, res) => {
+                    // console.log(res)
                     res.should.have.status(200);
                     done();
                 });
