@@ -30,23 +30,6 @@ router.get("/", function (req, res) {
     res.send('This router is for all circle related tasks');
 })
 
-/*
-*   Get all members in a circle
-*/
-router.get('/all-members', authenticate, (req, res) => {
-    if(!req.body || !req.body.circleID){
-        res.status(400).send({ message: "Bad request" });
-        return;
-    }
-
-    Circle.findById(req.body.circleID, (err, circ) => {
-        res.status(200).send(circ.members)
-    }).catch((err) => {
-        res.status(400).send({ message: "Could not find circle" });
-        return;
-    })
-})
-
 router.post("/add", authenticate, function (req, res) {
 
     if (!req.body || !req.body.circleName) {
@@ -75,13 +58,13 @@ router.post("/add", authenticate, function (req, res) {
 
 router.post('/add-photo', authenticate, upload.single("image"), function (req, res) {
 
-    if(!req.body || !req.body.circleName || !req.body.imageUrl){
-        res.status(400).send({message: "Bad Request"})
+    if (!req.body || !req.body.circleName || !req.body.imageUrl) {
+        res.status(400).send({ message: "Bad Request" })
         return
     }
 
-    if(!validate(req.body.imageUrl)){
-        res.status(400).send({message: "Invalid image, url is not validated"})
+    if (!validate(req.body.imageUrl)) {
+        res.status(400).send({ message: "Invalid image, url is not validated" })
     }
 
     Circle.findOneAndUpdate({ circleName: req.body.circleName }, {
@@ -90,7 +73,7 @@ router.post('/add-photo', authenticate, upload.single("image"), function (req, r
             hasImage: true
         }
     }).then((circ) => {
-        Circle.findOne({circleName: req.body.circleName}).then((circle) => {
+        Circle.findOne({ circleName: req.body.circleName }).then((circle) => {
             res.status(200).send(circle)
             return
         }).catch((err) => {
@@ -102,6 +85,80 @@ router.post('/add-photo', authenticate, upload.single("image"), function (req, r
         return
     })
 });
+
+router.post('/add-user', authenticate, (req, res) => {
+
+    if (!req.body || !req.body.username || !req.body.circleID) {
+        res.status(400).send("Bad request")
+        return
+    }
+
+    Circle.findById(req.body.circleID, (err, circ) => {
+
+        if(err){
+            res.status(400).send({message: "Circle does not exist"})
+            return
+        }
+
+        for (var i = 0; i < circ.members.length; i++) {
+            if (circ.members[i] == req.body.username) {
+                res.send({message: "User is already in circle"})
+                return
+            }
+        }
+
+        User.findOne({ username: req.body.username }).then((user) => {
+
+            if (!user) {
+                res.status(400).send({ message: "Username does not exist" });
+                return;
+            }
+
+            Circle.findOneAndUpdate({ _id: req.body.circleID }, {
+                $push: {
+                    members: req.body.username,
+                }
+            }).then(() => {
+                Circle.findOneAndUpdate({ _id: req.body.circleID }, {
+                    $inc: {
+                        numberOfPeople: 1
+                    }
+                }).then(() => {
+                    res.status(200).send({ message: req.body.username + " added to Circle" })
+                    return
+                }).catch((err) => {
+                    res.status(400).send(err);
+                    return;
+                })
+            }).catch((err) => {
+                res.status(400).send(err);
+                return;
+            })
+        }).catch((err) => {
+            res.send(err);
+            return;
+        })
+
+    })
+})
+
+/*
+*   Get all members in a circle
+*/
+router.get('/all-members', authenticate, (req, res) => {
+    if (!req.body || !req.body.circleID) {
+        res.status(400).send({ message: "Bad request" });
+        return;
+    }
+
+    Circle.findById(req.body.circleID, (err, circ) => {
+        res.status(200).send(circ.members)
+    }).catch((err) => {
+        res.status(400).send({ message: "Could not find circle" });
+        return;
+    })
+})
+
 
 module.exports = router;
 
