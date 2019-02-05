@@ -65,6 +65,7 @@ router.post('/add-photo', authenticate, upload.single("image"), function (req, r
 
     if (!validate(req.body.imageUrl)) {
         res.status(400).send({ message: "Invalid image, url is not validated" })
+        return
     }
 
     Circle.findOneAndUpdate({ circleName: req.body.circleName }, {
