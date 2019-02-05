@@ -77,7 +77,7 @@ router.post('/add-photo', authenticate, upload.single("image"), function (req, r
             res.status(200).send(circle)
             return
         }).catch((err) => {
-            res.status(400).send("Backend error with adding image")
+            res.send(err)
             return
         })
     }).catch((err) => {
