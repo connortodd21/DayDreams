@@ -27,7 +27,8 @@ let dayDreamSchema = new mongoose.Schema({
     individualContribution: [{
         user: String,
         money: Number
-    }]
+    }],
+    completed: {type: Boolean, default: false}
 })
 
 /* Creating the user model from the schema and giving it to Mongoose */
