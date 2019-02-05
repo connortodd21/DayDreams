@@ -30,6 +30,23 @@ router.get("/", function (req, res) {
     res.send('This router is for all circle related tasks');
 })
 
+/*
+*   Get all members in a circle
+*/
+router.get('/all-members', authenticate, (req, res) => {
+    if(!req.body || !req.body.circleID){
+        res.status(400).send({ message: "Bad request" });
+        return;
+    }
+
+    Circle.findById(req.body.circleID, (err, circ) => {
+        res.status(200).send(circ.members)
+    }).catch((err) => {
+        res.status(400).send({ message: "Could not find circle" });
+        return;
+    })
+})
+
 router.post("/add", authenticate, function (req, res) {
 
     if (!req.body || !req.body.circleName) {
