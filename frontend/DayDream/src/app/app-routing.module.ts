@@ -2,9 +2,10 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './auth/auth-guard';
 import { SignUpComponent } from './auth/signup/signup.component';
-import {LoginComponent} from './auth/login/login.component'
-import {HomeComponent} from './home/home.component'
+import { LoginComponent } from './auth/login/login.component'
+import { HomeComponent } from './home/home.component'
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { CircleComponent } from './circle/circle.component'
 
 
 const routes: Routes = [
@@ -18,6 +19,11 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'circle',
+    component: CircleComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'login',

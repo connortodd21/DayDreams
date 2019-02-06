@@ -160,6 +160,13 @@ router.get('/all-members', authenticate, (req, res) => {
     })
 })
 
+/*
+*   Get circle info
+*/
+router.get('/info', authenticate, (req, res) => {
+    
+})
+
 
 module.exports = router;
 

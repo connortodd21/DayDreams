@@ -47,8 +47,8 @@ router.post("/register", (req, res) => {
 
 
         var newMemberEmailBody = "Dear " + req.body.username +
-        ",\n\nWelcome to DayDreams! We ask you to please verify your account with us. Your verification code is:\n" +
-        verificatonCode + "\nWe look forward to having you with us!\n\nSincerely, \nThe DayDreams Team";
+            ",\n\nWelcome to DayDreams! We ask you to please verify your account with us. Your verification code is:\n" +
+            verificatonCode + "\nWe look forward to having you with us!\n\nSincerely, \nThe DayDreams Team";
         var newMemberEmailSubject = "Welcome to DayDreams!"
 
         // Add to database with auth
@@ -77,6 +77,11 @@ router.post('/login', (req, res) => {
     }
 
     User.findOne({ username: req.body.username }).then((user) => {
+
+        if (!user) {
+            res.status(400).send({ message: "Error: User does not exist, register before logging in" })
+            return
+        }
         // if (!user.verified) {
         //     res.status(401).send({ message: "User is not verified" })
         //     return;
@@ -194,7 +199,7 @@ router.post("/change-email", authenticate, (req, res) => {
 })
 
 router.get('/all-circles', authenticate, (req, res) => {
-    Circle.find({members: req.user.username}).then((circle) => {
+    Circle.find({ members: req.user.username }).then((circle) => {
         res.status(200).send(circle)
     }).catch((err) => {
         res.status(400).send(err)

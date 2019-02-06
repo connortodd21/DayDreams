@@ -44,6 +44,7 @@ router.post('/add', authenticate, (req, res) => {
 
     newDayDream.save().then(() => {
         res.status(200).send(newDayDream)
+        return
     }).catch((err) => {
         res.status(400).send(err)
         return;
