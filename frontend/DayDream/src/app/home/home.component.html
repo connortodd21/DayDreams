@@ -1,29 +1,35 @@
-  <ul *ngFor="let c of Circles" id="circles">
-    <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
-      aria-hidden="true" [config]="{backdrop: false, ignoreBackdropClick: true}">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title w-100" id="myModalLabel">{{c.circleName}}</h4>
+<mdb-card>
+  <mdb-card-body>
+    <ul *ngFor="let c of Circles" id="circles">
+      <!-- <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
+        aria-hidden="true" [config]="{backdrop: false, ignoreBackdropClick: true}">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header"> -->
+              <!-- <h4 class="modal-title w-100" id="myModalLabel">{{c.circleName}}</h4> -->
+              <h4>{{c.circleName}}</h4>
 
-            <img [src]="c.imageUrl"/>
+              <img [src]="c.imageUrl" />
 
-            <form (submit)="submitFile(f, c.circleName)" #f="ngForm" class="text-center border border-light p-5" [formGroup]="fileForm">
-              <div class="form-group">
+              <form (submit)="submitFile(f, c.circleName)" #f="ngForm" class="text-center border border-light p-5"
+                [formGroup]="fileForm">
+                <div class="form-group">
                   <input type="text" id="url" formControlName="imageUrl" class="form-control" placeholder="Paste the url of the image you would like to upload"
                     [ngClass]="{ 'is-invalid': submitted && form.imageUrl.errors }">
                 </div>
-              <button type="submit"></button>
-            </form>
+                <button type="submit" mdbBtn type="button" color="primary" mdbWavesEffect>Add Image</button>
+              </form>
 
-          </div>
-          <div class="modal-footer">
+            <!-- </div> -->
+            <!-- <div class="modal-footer"> -->
+            <!-- </div>
           </div>
         </div>
-      </div>
-    </div>
-  </ul>
+      </div> -->
+    </ul>
 
-  <div>
-    <button >Create a New Circle</button>
-  </div>
+    <div>
+      <button mdbBtn type="button" color="primary" mdbWavesEffect>Create a New Circle</button>
+    </div>
+  </mdb-card-body>
+</mdb-card>
