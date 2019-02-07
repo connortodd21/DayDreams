@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CircleService } from '../services/circle.service';
 import { Circle } from '../models/circle.model';
 import { Router, ActivatedRoute, Params, Data } from '@angular/router';
+import { DayDream } from '../models/daydream.model';
 
 @Component({
   selector: 'app-circle',
@@ -14,7 +15,8 @@ export class CircleComponent implements OnInit {
   @Output() returnToParent = new EventEmitter<string>();
 
   /* myCircle object of Circle */
-  myCircle:Circle;
+  myCircle: Circle;
+  dayDreams: DayDream[]
 
   /* variables used in editing circle name*/
   renderComponent: string;
@@ -22,6 +24,7 @@ export class CircleComponent implements OnInit {
 
   constructor(  private route: ActivatedRoute,
     private circleService:CircleService, private _router: Router) { }
+
 
   ngOnInit() {
 
@@ -35,8 +38,18 @@ export class CircleComponent implements OnInit {
     */
 
     this.circleService.getAllCircleInfo(id).then((data) => {
-      this.myCircle = new Circle(data);
-      console.log(this.myCircle);
+      this.circleService.getDayDreamsInCircle(id).then((daydreams) => {
+        this.myCircle = new Circle(data);
+        let i:number;
+        for(i = 0; i < daydreams.length; i+=1) {
+          let dd = new DayDream(daydreams[i])
+          console.log(dd)
+          this.dayDreams[i] = dd;
+       }
+        console.log(this.dayDreams);
+      }).catch((err) => {
+        console.log(err)
+      })
     });
   }
 
@@ -44,7 +57,12 @@ export class CircleComponent implements OnInit {
   *   Method that deletes a circle and redirects back to the homepage
   */
   delCir(circle:Circle) {
+
     // call delete method from service
+    var confirm = window.confirm('Are you sure you want to remove this circle. This action cannot be undone')
+    if (confirm == false) {
+      return
+    }
     var id = this.route.snapshot.params['id'];
     this.circleService.deleteChosenCircle(id).then((data) => {
       this.myCircle = new Circle(data);
@@ -66,5 +84,9 @@ export class CircleComponent implements OnInit {
 
   getChildEvent(event: string) {
     this.returnToParent.emit('reload');
+
+  back() {
+    this._router.navigate(['/home']);
+
   }
 }

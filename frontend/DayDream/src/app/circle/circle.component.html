@@ -6,19 +6,42 @@
 
 
 <div>
+
+
+<div>
   <div *ngIf="myCircle">
     <h1>hello {{myCircle.circleName}} 
         <button (click)="renderEditCircleName()" ><i class="far fa-edit"></i></button>
     </h1>
     <h2>Founder: {{myCircle.founder}}</h2>
     <h2>Number of People: {{myCircle.numberOfPeople}}</h2>
+
     <h2>Members: {{myCircle.members}}</h2>
-    <h2></h2>
+    <button type="button" class="btn btn-danger" (click)=delCir(myCircle)>Delete Circle</button>
+    <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=back()>Back to Circles</button>
+ 
+  <h4  class="pageHeader">{{myCircle.circleName}}'s DayDreams</h4>
+  <div *ngFor="let d of dayDreams" class="topMargin">
+    <h1>{{d.destination}}</h1>
+    <h1>{{d.description}}</h1>
+    <div class="circleInfo">
+    
+  </div>
+  </div>
+
+
+ 
 
   </div> 
+  
+    </div> 
+
+ 
+
 
   
   <button type="button" class="btn btn-danger" (click)=delCir(myCircle)>Delete Circle</button>
+
 
   <!-- <ul *ngFor="let c of Circle">
     <h1>{{c.numberOfPeople}}</h1>

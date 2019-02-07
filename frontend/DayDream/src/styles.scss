@@ -19,16 +19,18 @@ body {
 
 .pageHeader{
     font-size: 50px;
+    margin-top: 20px;
 }
 
 .cardProperties{
     margin-top: 20px;
     border-radius: 50%;
     border: 3px solid rgb(0, 176, 255);
-    padding: 20px; 
-    height: 30em;
-    width: 30em;
+    padding: 25px; 
+    height: 25em;
+    width: 25em;
     overflow: hidden;
+    background-color: white;
 
 }
 
@@ -36,10 +38,25 @@ body {
 
 .content{
     margin-top: 20px;
-    margin-left: 600px;
-    margin-right: 600px;
     text-align: center;
     
+}
+
+.flex-container {
+    padding: 0;
+    margin: 0;
+    // display: -webkit-box;
+    // display: -moz-box;
+    // display: -ms-flexbox;
+    // display: -webkit-flex;
+    // display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.testing{
+    margin: 0 auto !important;
+    display: block !important;
 }
 
 .softblue{

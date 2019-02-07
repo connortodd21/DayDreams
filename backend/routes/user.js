@@ -209,6 +209,36 @@ router.post("/change-email", authenticate, (req, res) => {
         })
 })
 
+/*
+ * Change Password 
+ */
+router.post("/change-password", authenticate, (req, res) => {
+
+    if (!req.body || !req.body.password) {
+        res.status(400).send({ message: "User information incomplete" })
+        return
+    }
+
+    var username = req.user.username;
+    var newPassword = req.body.password;
+
+    encrypt(newPassword).then(encryptedPassword => {
+        // console.log("encrypt: " + encryptedPassword)
+        User.findOneAndUpdate({ username: username }, { $set: { password: encryptedPassword } }).then(() => {
+            // console.log("passwd set")
+            res.status(200).send({message: "Password changed!"})
+        }).catch((err) => {
+            res.status(400).send({ message: "New password not set." });
+            res.send(err);
+        });
+    }).catch(err => {
+        console.log("err: " + err)
+    });
+})
+
+/**
+ * Get all circles
+ */
 router.get('/all-circles', authenticate, (req, res) => {
     Circle.find({ members: req.user.username }).then((circle) => {
         res.status(200).send(circle)
