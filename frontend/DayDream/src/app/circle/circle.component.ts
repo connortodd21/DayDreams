@@ -44,19 +44,15 @@ export class CircleComponent implements OnInit {
 //     this._router.navigate(['/circle/' + circle.ID]);
 // }
   
-  // delCir(circle:Circle) {
-  //   // call delete method from service
-  //   var id = this.route.snapshot.params['id'];
-  //   this.circleService.deleteChosenCircle(id).then((data) => {
-  //     this.myCircle = new Circle(data);
-  //     console.log("Deleting Circle");
-  //   })
-  //   this._router.navigate(['/home']);
+  delCir(circle:Circle) {
+    // call delete method from service
+    var id = this.route.snapshot.params['id'];
+    this.circleService.deleteChosenCircle(id).then((data) => {
+      this.myCircle = new Circle(data);
+      console.log("Deleting Circle");
+    })
 
-    // make this navigate back to home
-
-
-    
-    
-  //}
+    //navigate back to home page
+    this._router.navigate(['/home']);
+  }
 }

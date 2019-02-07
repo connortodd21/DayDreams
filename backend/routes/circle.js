@@ -194,5 +194,34 @@ router.get('/info', authenticate, (req, res) => {
 })
 
 
+/*
+*   Delete chosen circle
+*/
+router.post('/delete', authenticate, (req, res) => {
+
+    //ensure that requesthas circleID
+    //if not, send bad request
+    if (!req.body || !req.body.circleID) {
+        console.log(req.body)
+        res.status(400).send({ message: "Bad request" });
+        return;
+    }
+
+    //find specific Circle object by ID
+    //requires circleid to be passed in as a header
+    Circle.findByIdAndDelete(req.body.circleID, (err, circ) => {
+        if (err || circ == null) {
+            res.status(400).send({ message: "Could not find circle" });
+            return;
+        }
+        res.status(200).send(circ) //returns all circle properties
+        console.log(circ);
+    }).catch((err) => {
+        res.status(400).send(err);
+        return;
+    })
+})
+
+
 module.exports = router;
 
