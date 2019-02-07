@@ -1,8 +1,13 @@
+<div class="marginTop">
+    <button mdbBtn type="button" color="primary" mdbWavesEffect>Create a New Circle</button>
+  </div>
 <div class="content">
 <h4 class="pageHeader">Your Circles</h4>
-<mdb-card class="cardProperties"> 
+<mdb-card class="cardProperties" *ngFor="let c of Circles" id="circles"> 
   <mdb-card-body>
-    <ul *ngFor="let c of myCircles" id="circles">
+    
+
+
       <!-- <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
         aria-hidden="true" [config]="{backdrop: false, ignoreBackdropClick: true}">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -15,14 +20,14 @@
 
               <img [src]="c.imageUrl" (click) = "renderCircle(c)"/>
 
-              <form (submit)="submitFile(f, c.circleName)" #f="ngForm" class="text-center border border-light p-5"
+              <!-- <form (submit)="submitFile(f, c.circleName)" #f="ngForm" class="text-center border border-light p-5"
                 [formGroup]="fileForm">
                 <div class="form-group">
                   <input type="text" id="url" formControlName="imageUrl" class="form-control" placeholder="Paste the url of the image you would like to upload"
                     [ngClass]="{ 'is-invalid': submitted && form.imageUrl.errors }">
                 </div>
                 <button type="submit" mdbBtn type="button" color="primary" mdbWavesEffect>Add Image</button>
-              </form>
+              </form> -->
 
             <!-- </div> -->
             <!-- <div class="modal-footer"> -->
@@ -30,12 +35,10 @@
           </div>
         </div>
       </div> -->
-    </ul>
+    
 
     
   </mdb-card-body>
 </mdb-card>
-<div>
-    <button mdbBtn type="button" color="primary" mdbWavesEffect>Create a New Circle</button>
-  </div>
+
 </div>
