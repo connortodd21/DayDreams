@@ -18,3 +18,4 @@ echo CIRCLE TESTS
 echo ------------------------------------------------------------------------
 
 mocha test/circle/test_add_circle.js --exit
+mocha test/circle/test_upload_photo.js --exit
