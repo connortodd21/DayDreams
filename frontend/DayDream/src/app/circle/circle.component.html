@@ -9,7 +9,9 @@
 
 
 <div>
+  
   <div *ngIf="myCircle">
+      <img [src]="myCircle.imageUrl" class="imgSize" />
     <h1>hello {{myCircle.circleName}} 
         <button (click)="renderEditCircleName()" ><i class="far fa-edit"></i></button>
     </h1>
@@ -22,8 +24,8 @@
  
   <h4  class="pageHeader">{{myCircle.circleName}}'s DayDreams</h4>
   <div *ngFor="let d of dayDreams" class="topMargin">
-    <h1>{{d.destination}}</h1>
-    <h1>{{d.description}}</h1>
+    <h1><b>Destination:</b> {{d.destination}}</h1>
+    <h1><b>Description:</b> {{d.description}}</h1>
     <div class="circleInfo">
     
   </div>
