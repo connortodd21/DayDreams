@@ -84,6 +84,7 @@ export class CircleComponent implements OnInit {
 
   getChildEvent(event: string) {
     this.returnToParent.emit('reload');
+  }
 
   back() {
     this._router.navigate(['/home']);
