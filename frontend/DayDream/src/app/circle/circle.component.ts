@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CircleService } from '../services/circle.service';
 import { Circle } from '../models/circle.model';
 import { Router, ActivatedRoute, Params, Data } from '@angular/router';
+import { DayDream } from '../models/daydream.model';
 
 
 
@@ -12,15 +13,18 @@ import { Router, ActivatedRoute, Params, Data } from '@angular/router';
   styleUrls: ['./circle.component.scss']
 })
 export class CircleComponent implements OnInit {
-  
+
 
   //Circle:Object;
 
   /* myCircle object of Circle */
-  myCircle:Circle;
+  myCircle: Circle;
+  dayDreams: DayDream[]
 
-  constructor(    private route: ActivatedRoute,
-    private circleService:CircleService, private _router: Router) { }
+  constructor(private route: ActivatedRoute,
+    private circleService: CircleService, private _router: Router) { 
+      this.dayDreams = []
+    }
 
   ngOnInit() {
 
@@ -34,20 +38,30 @@ export class CircleComponent implements OnInit {
     */
 
     this.circleService.getAllCircleInfo(id).then((data) => {
-      this.myCircle = new Circle(data);
-      console.log(this.myCircle);
+      this.circleService.getDayDreamsInCircle(id).then((daydreams) => {
+        this.myCircle = new Circle(data);
+        let i:number;
+        for(i = 0; i < daydreams.length; i+=1) {
+          let dd = new DayDream(daydreams[i])
+          console.log(dd)
+          this.dayDreams[i] = dd;
+       }
+        console.log(this.dayDreams);
+      }).catch((err) => {
+        console.log(err)
+      })
     });
   }
 
-//   renderCircle(circle:Circle){
-//     /* Navigate to /circle/id */
-//     this._router.navigate(['/circle/' + circle.ID]);
-// }
-  
-  delCir(circle:Circle) {
+  //   renderCircle(circle:Circle){
+  //     /* Navigate to /circle/id */
+  //     this._router.navigate(['/circle/' + circle.ID]);
+  // }
+
+  delCir(circle: Circle) {
     // call delete method from service
     var confirm = window.confirm('Are you sure you want to remove this circle. This action cannot be undone')
-    if(confirm == false){
+    if (confirm == false) {
       return
     }
     var id = this.route.snapshot.params['id'];
@@ -60,7 +74,7 @@ export class CircleComponent implements OnInit {
     this._router.navigate(['/home']);
   }
 
-  back(){
+  back() {
     this._router.navigate(['/home']);
   }
 }

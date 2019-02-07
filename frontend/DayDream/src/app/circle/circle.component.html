@@ -20,8 +20,10 @@
     <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=back()>Back to Circles</button>
    </mdb-card-body>
   </mdb-card>
-  <div  class="topMargin">
-    <h4  class="pageHeader">{{myCircle.circleName}}'s DayDreams</h4>
+  <h4  class="pageHeader">{{myCircle.circleName}}'s DayDreams</h4>
+  <div *ngFor="let d of dayDreams" class="topMargin">
+    <h1>{{d.destination}}</h1>
+    <h1>{{d.description}}</h1>
     <div class="circleInfo">
     
   </div>
