@@ -46,6 +46,10 @@ export class CircleComponent implements OnInit {
   
   delCir(circle:Circle) {
     // call delete method from service
+    var confirm = window.confirm('Are you sure you want to remove this circle. This action cannot be undone')
+    if(confirm == false){
+      return
+    }
     var id = this.route.snapshot.params['id'];
     this.circleService.deleteChosenCircle(id).then((data) => {
       this.myCircle = new Circle(data);
