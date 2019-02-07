@@ -21,7 +21,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 /* Objects */
 var Circle = require('../model/circle');
 var User = require('../model/user')
-var DayDeam = require('../model/daydream')
+var DayDream = require('../model/daydream')
 
 
 /**
@@ -234,7 +234,7 @@ router.get('/all-daydreams', authenticate, (req, res) => {
             res.status(400).send({ message: "Could not find circle" });
             return;
         }
-        DayDeam.find({ _id: { $in: circ.dayDreams } }).then((dd) => {
+        DayDream.find({ _id: { $in: circ.dayDreams } }).then((dd) => {
             if (dd == null) {
                 res.status(400).send({ message: "Could not find any daydreams" });
                 return;
