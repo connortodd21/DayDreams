@@ -21,7 +21,9 @@ export class HomeComponent implements OnInit {
   constructor(private userService: UserService, private circleService: CircleService, private formBuilder: FormBuilder, private _router: Router) {
     this.fileForm = this.formBuilder.group({
       imageUrl: ['', Validators.required],
-      image_id: ['', Validators.required]
+      image_id: ['', Validators.required],
+      circleDesc: ['', Validators.required],
+      circleName: ['', Validators.required],
     });
     
   }
