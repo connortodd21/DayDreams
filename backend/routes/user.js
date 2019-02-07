@@ -147,6 +147,11 @@ router.post("/forgot-password", (req, res) => {
         res.status(400).send({ message: "Reset information is incomplete" });
         return;
     }
+
+    if(!validate_email(req.body.email)){
+        res.status(400).send({ message: "Invalid email" });
+        return;
+    }
     // Find user by email
     if (req.body.email) {
         User.findByEmail(req.body.email).then((usr) => {

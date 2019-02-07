@@ -77,7 +77,7 @@ userSchema.statics.findByEmail = function(email) {
   return User.findOne({email}).then((user) => {
     // console.log(user)
     //console.log("email is: " + user.email)
-    if (!user.email) {
+    if (user == null || !user.email) {
       return Promise.reject();
     }
     else {
