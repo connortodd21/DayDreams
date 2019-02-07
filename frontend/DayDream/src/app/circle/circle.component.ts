@@ -23,7 +23,9 @@ export class CircleComponent implements OnInit {
   chosenCircle: Circle;
 
   constructor(  private route: ActivatedRoute,
-    private circleService:CircleService, private _router: Router) { }
+    private circleService:CircleService, private _router: Router) { 
+      this.dayDreams = [];
+    }
 
 
   ngOnInit() {
