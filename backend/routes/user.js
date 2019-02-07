@@ -5,6 +5,7 @@ var encrypt = require('../middleware/encrypt')
 var bcrypt = require('bcrypt')
 var authenticate = require('../middleware/authenticate')
 var mailer = require('../middleware/mailer')
+var validate_email = require('../middleware/validate_email')
 
 mongoose.connect(process.env.MONGODB_HOST, { useNewUrlParser: true });
 mongoose.set('useCreateIndex', true);
@@ -182,6 +183,11 @@ router.post("/forgot-password", (req, res) => {
 router.post("/change-email", authenticate, (req, res) => {
     if (!req.body || !req.body.email) {
         res.status(400).send({ message: "User data is incomplete" });
+        return;
+    }
+
+    if(!validate_email(req.body.email)){
+        res.status(400).send({ message: "Invalid email" });
         return;
     }
 

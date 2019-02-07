@@ -2,6 +2,7 @@ var chai = require('chai');
 var chaiHttp = require('chai-http');
 var server = require('../../app');
 var User = require('../../model/user');
+var should = require('chai').should();
 
 chai.use(chaiHttp);
 
@@ -12,7 +13,7 @@ var mail = process.env.UNIT_TEST_EMAIL
 
 describe('Test Change Email', () => {
 
-    before(() => {
+    before((done) => {
         var info = {
             username: uname,
             password: pword,
@@ -21,13 +22,14 @@ describe('Test Change Email', () => {
         chai.request(server)
             .post('/user/register')
             .set('content-type', 'application/x-www-form-urlencoded')
-            .send(info)
-        chai.request(server)
-            .post('/user/login')
-            .set('content-type', 'application/x-www-form-urlencoded')
-            .send(info)
-            .then(() => {
-                done()
+            .send(info).then(() => {
+                chai.request(server)
+                    .post('/user/login')
+                    .set('content-type', 'application/x-www-form-urlencoded')
+                    .send(info)
+                    .then((res) => {
+                        done()
+                    })
             })
     })
 
@@ -42,9 +44,8 @@ describe('Test Change Email', () => {
             var info = {
                 email: mail
             }
-            User.findOne({ username: uname }, (err, user) => {
+            User.findOne({ username: uname }).then((user) => {
                 //do the get request here 
-                console.log(user)
                 var token = user['tokens'][0]['token'][0]
                 chai.request(server)
                     .post('/user/change-email')
@@ -55,7 +56,9 @@ describe('Test Change Email', () => {
                         res.should.have.status(400)
                         done()
                     })
-            });
+            }).catch((err) => {
+
+            })
         })
     })
 
@@ -98,7 +101,7 @@ describe('Test Change Email', () => {
                     .set('token', 'bad auth')
                     .send(info)
                     .end((err, res) => {
-                        res.should.have.status(400)
+                        res.should.have.status(401)
                         done()
                     })
             });
@@ -121,7 +124,7 @@ describe('Test Change Email', () => {
                     .set('token', token)
                     .send(info)
                     .end((err, res) => {
-                        res.should.have.status(400)
+                        res.should.have.status(200)
                         done()
                     })
             });
