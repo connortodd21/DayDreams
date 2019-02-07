@@ -143,6 +143,29 @@ router.post('/add-user', authenticate, (req, res) => {
     })
 })
 
+/* 
+*   Edit existing circle
+*/
+router.post("/edit-name", authenticate, (req, res) => { 
+    if (!req.body.changedCircleName || !req.body.circleID) {
+        res.status(400).json({ message: "Circle name change is incomplete" });
+        return;
+    }
+
+    Circle.findOneAndUpdate({ _id: req.body.circleID },
+        {
+            $set: {
+                circleName: req.body.changedCircleName,
+            }
+        }).then(() => {
+            res.status(200).send({ message: 'Circle name updated!' })
+        }).catch((err) => {
+            res.status(400).send({ message: "Error changing circle name" });
+            res.send(err);
+        })
+})
+
+
 /*
 *   Get all members in a circle
 */
