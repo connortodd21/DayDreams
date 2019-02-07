@@ -1,7 +1,10 @@
+<div class="marginTop">
+    <button mdbBtn type="button" color="primary" mdbWavesEffect>Create a New Circle</button>
+  </div>
 <div class="content">
 <h4 class="pageHeader">Your Circles</h4>
 <mdb-card class="cardProperties"> 
-  <mdb-card-body>
+  <mdb-card-body class="dummy">
     <ul *ngFor="let c of Circles" id="circles">
       <!-- <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
         aria-hidden="true" [config]="{backdrop: false, ignoreBackdropClick: true}">
@@ -33,7 +36,5 @@
     
   </mdb-card-body>
 </mdb-card>
-<div>
-    <button mdbBtn type="button" color="primary" mdbWavesEffect>Create a New Circle</button>
-  </div>
+
 </div>
