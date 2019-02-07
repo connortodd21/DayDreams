@@ -1,11 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CircleService } from '../services/circle.service';
 import { Circle } from '../models/circle.model';
 import { Router, ActivatedRoute, Params, Data } from '@angular/router';
 import { DayDream } from '../models/daydream.model';
-
-
-
 
 @Component({
   selector: 'app-circle',
@@ -14,17 +11,20 @@ import { DayDream } from '../models/daydream.model';
 })
 export class CircleComponent implements OnInit {
 
-
-  //Circle:Object;
+  @Input('childCircle') cir: Circle;
+  @Output() returnToParent = new EventEmitter<string>();
 
   /* myCircle object of Circle */
   myCircle: Circle;
   dayDreams: DayDream[]
 
-  constructor(private route: ActivatedRoute,
-    private circleService: CircleService, private _router: Router) { 
-      this.dayDreams = []
-    }
+  /* variables used in editing circle name*/
+  renderComponent: string;
+  chosenCircle: Circle;
+
+  constructor(  private route: ActivatedRoute,
+    private circleService:CircleService, private _router: Router) { }
+
 
   ngOnInit() {
 
@@ -53,12 +53,11 @@ export class CircleComponent implements OnInit {
     });
   }
 
-  //   renderCircle(circle:Circle){
-  //     /* Navigate to /circle/id */
-  //     this._router.navigate(['/circle/' + circle.ID]);
-  // }
+  /* 
+  *   Method that deletes a circle and redirects back to the homepage
+  */
+  delCir(circle:Circle) {
 
-  delCir(circle: Circle) {
     // call delete method from service
     var confirm = window.confirm('Are you sure you want to remove this circle. This action cannot be undone')
     if (confirm == false) {
@@ -70,11 +69,24 @@ export class CircleComponent implements OnInit {
       console.log("Deleting Circle");
     })
 
-    //navigate back to home page
+    //navigate back to page
     this._router.navigate(['/home']);
   }
 
+
+// renderEditCircleName(circle: Circle) {
+   renderEditCircleName() {
+    this._router.navigate(['/edit-name/' + this.myCircle.ID]);
+
+    // this.chosenCircle = circle;
+    // console.log(this.chosenCircle);
+  }
+
+  getChildEvent(event: string) {
+    this.returnToParent.emit('reload');
+
   back() {
     this._router.navigate(['/home']);
+
   }
 }

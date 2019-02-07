@@ -16,6 +16,7 @@ import { CircleComponent } from './circle/circle.component';
 import { HomeComponent } from './home/home.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { DaydreamComponent } from './daydream/daydream.component';
+import { EditNameComponent } from './circle/edit-name/edit-name.component';
 
 
 @NgModule({
@@ -27,8 +28,9 @@ import { DaydreamComponent } from './daydream/daydream.component';
     CircleComponent,
     HomeComponent,
     ForgotPasswordComponent,
-    DaydreamComponent
-  ],
+    DaydreamComponent,
+    EditNameComponent
+    ],
   imports: [
   BrowserModule,
     HttpModule,
