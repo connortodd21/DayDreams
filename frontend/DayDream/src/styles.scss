@@ -13,11 +13,24 @@ body {
     background-color: #a8e6cf !important;
 }
 
-.content {
-    font-size: 20px;
+.navbarPadding {
+    padding: 5px;
+}
+
+.pageHeader{
+    font-size: 50px;
+}
+
+.cardProperties{
+    border-radius: 25px;
+    border: 2px solid rgb(0, 176, 255);
+     padding: 20px; 
+   
+}
+
+.content{
+    margin-top: 20px;
     text-align: center;
-    padding: 5px 15px;
-  
 }
 
 .softblue{
