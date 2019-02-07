@@ -68,4 +68,31 @@ router.post('/add', authenticate, (req, res) => {
 
 })
 
+router.get('/info', authenticate, (req, res) => {
+
+    //ensure that request has body and has circleID
+    //if not, send bad request
+    if (!req.headers.circleid) {
+        console.log(req.headers)
+        res.status(400).send({ message: "Bad request" });
+        return;
+    }
+    Circle.findById(req.headers.circleid, (err, circ) => {
+
+        if (err) {
+            res.status(400).send({ message: "Could not find daydream" });
+            return;
+        }
+        res.status(200).send(circ) //returns all circle properties
+        console.log("success in returning circle properties");
+    }).catch((err) => {
+        res.status(400).send(err);
+        return;
+    })
+    //to get circle info of a specific circle
+    //use ID
+
+    // make sure ID
+    })
+
 module.exports = router;
