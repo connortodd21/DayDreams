@@ -11,6 +11,8 @@
               <!-- <h4 class="modal-title w-100" id="myModalLabel">{{c.circleName}}</h4> -->
               <h4>{{c.circleName}}</h4>
 
+              
+
               <img [src]="c.imageUrl" (click) = "renderCircle(c)"/>
 
               <form (submit)="submitFile(f, c.circleName)" #f="ngForm" class="text-center border border-light p-5"

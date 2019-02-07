@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
   }
 
   renderCircle(circle:Circle){
+      /* Navigate to /circle/id  */
       this._router.navigate(['/circle/' + circle.ID]);
   }
 

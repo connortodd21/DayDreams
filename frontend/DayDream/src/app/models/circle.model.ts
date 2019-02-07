@@ -13,6 +13,7 @@ export class Circle {
     imageUrl: string;
     ID: string;
 
+    
     constructor(response: any) {
         this.ID = response._id;
         this.founder = response.founder;

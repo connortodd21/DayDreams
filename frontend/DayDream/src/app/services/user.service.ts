@@ -19,6 +19,7 @@ export class UserService{
         
     }
 
+    
     getUserCircles(){
         return this.http.get<Circle[]>('http://localhost:5000/user/all-circles').toPromise();
     }
