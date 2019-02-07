@@ -29,6 +29,11 @@
   
 }
 
-.imgSize:hover {
+#circles{
+  transition-duration: 2s ease-in-out;
+}
+
+#circles:hover{
+  transform: scale(1.05);
   cursor: pointer;
 }
