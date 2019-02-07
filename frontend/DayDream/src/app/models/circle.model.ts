@@ -10,8 +10,11 @@ export class Circle {
         user: string,
         message: string,
     }];
+    imageUrl: string;
+    ID: string;
 
     constructor(response: any) {
+        this.ID = response._id;
         this.founder = response.founder;
         this.members = response.members;
         this.circleName = response.circleName;
@@ -19,6 +22,7 @@ export class Circle {
         this.numberOfPeople = response.numberOfPeople;
         this.dayDreams = response.dayDreams;
         this.chat = response.chat;
+        this.imageUrl = response.imageUrl;
         
         
     }
