@@ -40,7 +40,7 @@ export class CircleComponent implements OnInit {
     */
 
     this.circleService.getAllCircleInfo(id).then((data) => {
-      this.circleService.getDayDreamsInCircle(id).then((daydreams) => {
+      this.circleService.getDayDreamsInCircle(id).then((daydreams: []) => {
         this.myCircle = new Circle(data);
         let i:number;
         for(i = 0; i < daydreams.length; i+=1) {
