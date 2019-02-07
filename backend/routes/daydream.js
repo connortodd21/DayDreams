@@ -42,27 +42,27 @@ router.post('/add', authenticate, (req, res) => {
         totalCost: req.body.cost,
     })
 
-    Circle.findOneAndUpdate({_id: req.body.circleID}, {
-      $push:{
-        dayDreams: req.body.circleID
-      }
+    Circle.findOneAndUpdate({ _id: req.body.circleID }, {
+        $push: {
+            dayDreams: newDayDream._id
+        }
     }).then((circ) => {
-      if(circ ==null){
-        //no circle found{}
-        res.status(400).send({ message: "Circle doesn't exist" });
-        return;
-      }
-      newDayDream.save().then(() => {
-          res.status(200).send(newDayDream)
-          return
-      }).catch((err) => {
-          res.status(400).send(err)
-          return;
-      })
-      //works
+        if (circ == null) {
+            //no circle found{}
+            res.status(400).send({ message: "Circle doesn't exist" });
+            return;
+        }
+        newDayDream.save().then(() => {
+            res.status(200).send(newDayDream)
+            return
+        }).catch((err) => {
+            res.status(400).send(err)
+            return;
+        })
+        //works
     }).catch((err) => {
-      res.send(err);
-      return;
+        res.send(err);
+        return;
     })
 
 
@@ -73,7 +73,7 @@ router.get('/info', authenticate, (req, res) => {
     //ensure that request has body and has circleID
     //if not, send bad request
     if (!req.headers.circleid) {
-        console.log(req.headers)
+        // console.log(req.headers)
         res.status(400).send({ message: "Bad request" });
         return;
     }
@@ -93,6 +93,6 @@ router.get('/info', authenticate, (req, res) => {
     //use ID
 
     // make sure ID
-    })
+})
 
 module.exports = router;

@@ -21,6 +21,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 /* Objects */
 var Circle = require('../model/circle');
 var User = require('../model/user')
+var DayDeam = require('../model/daydream')
 
 
 /**
@@ -75,8 +76,8 @@ router.post('/add-photo', authenticate, upload.single("image"), function (req, r
         }
     }).then((circ) => {
         Circle.findOne({ _id: req.body.circleID }).then((circle) => {
-            if(circle == null){
-                res.status(400).send({message: "Circle does not exist"})
+            if (circle == null) {
+                res.status(400).send({ message: "Circle does not exist" })
                 return
             }
             res.status(200).send(circle)
@@ -150,7 +151,7 @@ router.post('/add-user', authenticate, (req, res) => {
 /* 
 *   Edit existing circle
 */
-router.post("/edit-name", authenticate, (req, res) => { 
+router.post("/edit-name", authenticate, (req, res) => {
     if (!req.body.changedCircleName || !req.body.circleID) {
         res.status(400).json({ message: "Circle name change is incomplete" });
         return;
@@ -174,12 +175,12 @@ router.post("/edit-name", authenticate, (req, res) => {
 *   Get all members in a circle
 */
 router.get('/all-members', authenticate, (req, res) => {
-    if (!req.body || !req.body.circleID) {
+    if (!req.body || !req.body.circleid) {
         res.status(400).send({ message: "Bad request" });
         return;
     }
 
-    Circle.findById(req.body.circleID, (err, circ) => {
+    Circle.findById(req.body.circleid, (err, circ) => {
         res.status(200).send(circ.members)
     }).catch((err) => {
         res.status(400).send({ message: "Could not find circle" });
@@ -204,7 +205,7 @@ router.get('/info', authenticate, (req, res) => {
     //requires circleid to be passed in as a header
     Circle.findById(req.headers.circleid, (err, circ) => {
 
-        if (err) {
+        if (err || circ == null) {
             res.status(400).send({ message: "Could not find circle" });
             return;
         }
@@ -219,6 +220,38 @@ router.get('/info', authenticate, (req, res) => {
 
     // make sure ID 
 })
+
+
+router.get('/all-daydreams', authenticate, (req, res) => {
+
+    if (!req.headers.circleid) {
+        res.status(400).send({ message: "Bad request" });
+        return;
+    }
+
+    Circle.findOne({ _id: req.headers.circleid }).then((circ) => {
+        if (circ == null) {
+            res.status(400).send({ message: "Could not find circle" });
+            return;
+        }
+        DayDeam.find({ _id: { $in: circ.dayDreams } }).then((dd) => {
+            if (dd == null) {
+                res.status(400).send({ message: "Could not find any daydreams" });
+                return;
+            }
+            res.status(200).send(dd)
+            return
+        }).catch((err) => {
+            res.send(err)
+            return
+        })
+    }).catch((err) => {
+        res.send(err)
+        return
+    })
+})
+
+
 
 
 /*
@@ -249,6 +282,4 @@ router.post('/delete', authenticate, (req, res) => {
     })
 })
 
-
 module.exports = router;
-
