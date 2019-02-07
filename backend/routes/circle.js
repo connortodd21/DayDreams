@@ -75,6 +75,10 @@ router.post('/add-photo', authenticate, upload.single("image"), function (req, r
         }
     }).then((circ) => {
         Circle.findOne({ _id: req.body.circleID }).then((circle) => {
+            if(circle == null){
+                res.status(400).send({message: "Circle does not exist"})
+                return
+            }
             res.status(200).send(circle)
             return
         }).catch((err) => {
