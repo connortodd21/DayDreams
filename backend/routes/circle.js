@@ -107,7 +107,7 @@ router.post('/add-user', authenticate, (req, res) => {
 
         for (var i = 0; i < circ.members.length; i++) {
             if (circ.members[i] == req.body.username) {
-                res.send({ message: "User is already in circle" })
+                res.status(400).send({ message: "User is already in circle" })
                 return
             }
         }
