@@ -47,6 +47,8 @@ export class HomeComponent implements OnInit {
           this.myCircles[i] = circle;
        }
 
+       console.log(this.myCircles)
+
        console.log(response);
     })
   }
