@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { AuthData } from '../models/auth-data.model'
 import { Subject } from "rxjs";
 import { Router } from "@angular/router";
+import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -23,6 +24,11 @@ export class AuthService{
         const auth: AuthData = { email: email, username: username, password: password}
         console.log(auth)
         return this.http.post<Object>("http://localhost:5000/user/register", auth).toPromise()
+    }
+
+    forgotPassword(email: string){
+        const auth: AuthData = {username: "", password: "", email: email}
+        return this.http.post<Object>('http://localhost:5000/user/forgot-password', auth).toPromise()
     }
     
     getAuthToken(){
