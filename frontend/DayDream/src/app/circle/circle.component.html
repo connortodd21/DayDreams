@@ -1,3 +1,25 @@
-<p>
-  circle works!
-</p>
+<!-- <ul *ngFor="let c of Circle">
+  <h1>{{c.chat}}</h1>
+  <h1>{{c.numberOfPeople}}</h1>
+</ul> -->
+
+
+<div>
+  <h1>hello</h1>
+
+  
+  <div *ngIf="myCircle">
+      <h2>Founder: {{myCircle.founder}}</h2>
+    <h1>{{myCircle.circleName}}</h1>
+    
+    <h2>Number of People: {{myCircle.numberOfPeople}}</h2>
+    <h2>Members: {{myCircle.members}}</h2>
+    <h2></h2>
+
+  </div> 
+
+  <!-- <ul *ngFor="let c of Circle">
+    <h1>{{c.numberOfPeople}}</h1>
+  </ul> -->
+
+</div>

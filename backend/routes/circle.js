@@ -96,14 +96,14 @@ router.post('/add-user', authenticate, (req, res) => {
 
     Circle.findById(req.body.circleID, (err, circ) => {
 
-        if(err){
-            res.status(400).send({message: "Circle does not exist"})
+        if (err) {
+            res.status(400).send({ message: "Circle does not exist" })
             return
         }
 
         for (var i = 0; i < circ.members.length; i++) {
             if (circ.members[i] == req.body.username) {
-                res.send({message: "User is already in circle"})
+                res.send({ message: "User is already in circle" })
                 return
             }
         }
@@ -164,7 +164,33 @@ router.get('/all-members', authenticate, (req, res) => {
 *   Get circle info
 */
 router.get('/info', authenticate, (req, res) => {
-    
+
+    //ensure that request has body and has circleID
+    //if not, send bad request
+    if (!req.headers.circleid) {
+        console.log(req.headers)
+        res.status(400).send({ message: "Bad request" });
+        return;
+    }
+
+    //find specific Circle object by ID
+    //requires circleid to be passed in as a header
+    Circle.findById(req.headers.circleid, (err, circ) => {
+
+        if (err) {
+            res.status(400).send({ message: "Could not find circle" });
+            return;
+        }
+        res.status(200).send(circ) //returns all circle properties
+        console.log("success in returning circle properties");
+    }).catch((err) => {
+        res.status(400).send(err);
+        return;
+    })
+    //to get circle info of a specific circle
+    //use ID 
+
+    // make sure ID 
 })
 
 

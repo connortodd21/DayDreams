@@ -13,9 +13,12 @@ const httpOptions = {
 
 export class CircleService{
 
+    Circle: Object;
+
     constructor(private http:HttpClient) {
         
     }
+
 
     uploadPhoto(url:string, circleName:string){
         const options = {
@@ -23,5 +26,16 @@ export class CircleService{
             circleName: circleName,
         }
         return this.http.post<Object>("http://localhost:5000/circle/add-photo", options).toPromise()
+    }
+
+    getAllCircleInfo(circleID:string) {
+        const info = {
+            headers: new HttpHeaders({
+                'circleID': circleID
+            })
+        }
+
+        /* calls /circle/info from the backend*/
+        return this.http.get("http://localhost:5000/circle/info", info).toPromise()
     }
 }

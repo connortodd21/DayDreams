@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 /* Access Headers */
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Authorization, token, Origin, X-Requested-With, Content-Type, Accept, verificationNum");
+    res.header("Access-Control-Allow-Headers", "Authorization, token, Origin, X-Requested-With, Content-Type, Accept, verificationNum, circleID");
     res.header("Access-Control-Expose-Headers", "token");
     res.header('Access-Control-Allow-Credentials', 'true');
     next();
