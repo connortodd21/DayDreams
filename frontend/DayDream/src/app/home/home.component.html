@@ -1,62 +1,70 @@
 <div class="marginTop">
-    <html>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<body>
+  <html>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-<div class="w3-container">
-  <button onclick="document.getElementById('id01').style.display='block'" mdbBtn type="button" color="primary" mdbWavesEffect>Create a New Circle</button>
+  <body>
 
-  <div id="id01" class="w3-modal">
-    <div class="w3-modal-content">
-      <div class="w3-container">
-        <mdb-card>
-            <mdb-card-body>
-        <form (submit)="submitFile(f, c.circleName)" #f="ngForm" class="text-center border border-light p-5"
-                [formGroup]="fileForm">
+    <div class="w3-container">
+      <button onclick="document.getElementById('id01').style.display='block'" mdbBtn type="button" color="primary"
+        mdbWavesEffect>Create a New Circle</button>
 
-                <h4 class="pageHeader">Create a New Circle</h4>
+      <div id="id01" class="w3-modal">
+        <div class="w3-modal-content">
+          <div class="w3-container">
+            <mdb-card>
+              <mdb-card-body>
+                <form (submit)="submitFile(f, c.circleName)" #f="ngForm" class="text-center border border-light p-5"
+                  [formGroup]="fileForm">
 
-                <div class="form-group">
-                    <input type="text" id="circleName" formControlName="circleName" class="form-control" placeholder="What is the name of your circle?"
-                    [(ngModel)]="circleName" [ngClass]="{ 'is-invalid': submitted && form.circleName.errors }">
+                  <h4 class="pageHeader">Create a New Circle</h4>
+
+                  <div class="form-group">
+                    <input type="text" id="circleName" formControlName="circleName" class="form-control"
+                      placeholder="What is the name of your circle?" [(ngModel)]="circleName"
+                      [ngClass]="{ 'is-invalid': submitted && form.circleName.errors }">
                   </div>
 
                   <div class="form-group">
-                      <input type="text" id="circleDesc" formControlName="circleDesc" class="form-control" placeholder="Circle Description"
-                      [(ngModel)]="circleDesc" [ngClass]="{ 'is-invalid': submitted && form.circleDesc.errors }">
-                    </div>
+                    <input type="text" id="circleDesc" formControlName="circleDesc" class="form-control"
+                      placeholder="Circle Description" [(ngModel)]="circleDesc"
+                      [ngClass]="{ 'is-invalid': submitted && form.circleDesc.errors }">
+                  </div>
 
-                <div class="form-group">
-                  <input type="text" id="imageUrl" formControlName="imageUrl" class="form-control" placeholder="Paste the url of the image you would like to upload"
-                  [(ngModel)]="imageUrl"[ngClass]="{ 'is-invalid': submitted && form.imageUrl.errors }">
-                </div>
-
-
-                <button mdbBtn color="info" block="true" class="my-4" type="submit" (click)="createCircle(circleName, circleDesc, imageUrl)">Create Circle</button>
-                <button  onclick="document.getElementById('id01').style.display='none'" mdbBtn color="info" block="true" class="my-4" >Cancel</button>
+                  <div class="form-group">
+                    <input type="text" id="imageUrl" formControlName="imageUrl" class="form-control"
+                      placeholder="Paste the url of the image you would like to upload" [(ngModel)]="imageUrl"
+                      [ngClass]="{ 'is-invalid': submitted && form.imageUrl.errors }">
+                  </div>
 
 
-      
+                  <button mdbBtn color="info" block="true" class="my-4" type="submit"
+                    (click)="createCircle(circleName, circleDesc, imageUrl)">Create Circle</button>
+                  <button onclick="document.getElementById('id01').style.display='none'" mdbBtn color="info"
+                    block="true" class="my-4">Cancel</button>
 
 
-              </form>
-            </mdb-card-body>
+
+
+
+                </form>
+              </mdb-card-body>
             </mdb-card>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+
+  </body>
+
+  </html>
 </div>
-            
-</body>
-</html>
-  </div>
-<div >
-<h4 class="pageHeader">Your Circles</h4>
-<div class="grid-container">
-<div class="cardProperties grid-item" *ngFor="let c of myCircles" id="circles"> 
-  
-    
+<div>
+  <h4 class="pageHeader">Your Circles</h4>
+  <div class="grid-container" id="circleObject">
+    <div class="cardProperties grid-item" *ngFor="let c of myCircles" id="circles">
+
+
 
 
       <!-- <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
@@ -64,14 +72,14 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header"> -->
-              <!-- <h4 class="modal-title w-100" id="myModalLabel">{{c.circleName}}</h4> -->
-              <h4>{{c.circleName}}</h4>
+      <!-- <h4 class="modal-title w-100" id="myModalLabel">{{c.circleName}}</h4> -->
+      <h4>{{c.circleName}}</h4>
 
-              
 
-              <img [src]="c.imageUrl" class="imgSize" (click) = "renderCircle(c)"/>
 
-              <!-- <form (submit)="submitFile(f, c.circleName)" #f="ngForm" class="text-center border border-light p-5"
+      <img [src]="c.imageUrl" class="imgSize" (click)="renderCircle(c)" />
+
+      <!-- <form (submit)="submitFile(f, c.circleName)" #f="ngForm" class="text-center border border-light p-5"
                 [formGroup]="fileForm">
                 <div class="form-group">
                   <input type="text" id="url" formControlName="imageUrl" class="form-control" placeholder="Paste the url of the image you would like to upload"
@@ -80,16 +88,16 @@
                 <button type="submit" mdbBtn type="button" color="primary" mdbWavesEffect>Add Image</button>
               </form> -->
 
-            <!-- </div> -->
-            <!-- <div class="modal-footer"> -->
-            <!-- </div>
+      <!-- </div> -->
+      <!-- <div class="modal-footer"> -->
+      <!-- </div>
           </div>
         </div>
       </div> -->
-    
 
-    
+
+
 
     </div>
-</div>
+  </div>
 </div>
