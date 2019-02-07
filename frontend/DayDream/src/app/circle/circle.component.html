@@ -4,20 +4,20 @@
 </ul> -->
 
 
-<div>
-  <h1>hello</h1>
 
-  
+<div>
   <div *ngIf="myCircle">
-      <h2>Founder: {{myCircle.founder}}</h2>
-    <h1>{{myCircle.circleName}}</h1>
-    
+    <h1>hello {{myCircle.circleName}} 
+        <button (click)="renderEditCircleName()" ><i class="far fa-edit"></i></button>
+    </h1>
+    <h2>Founder: {{myCircle.founder}}</h2>
     <h2>Number of People: {{myCircle.numberOfPeople}}</h2>
     <h2>Members: {{myCircle.members}}</h2>
     <h2></h2>
 
   </div> 
 
+  
   <button type="button" class="btn btn-danger" (click)=delCir(myCircle)>Delete Circle</button>
 
   <!-- <ul *ngFor="let c of Circle">

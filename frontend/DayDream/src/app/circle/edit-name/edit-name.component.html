@@ -1,0 +1,19 @@
+<!-- <mdb-card *ngIf="cir != null" class="outerCard"> -->
+<h1> EDIT NAME WORKS </h1>
+<mdb-card class="outerCard">
+
+    <mdb-card-body >
+      <mdb-card-title> <h5 class="header">Edit Circle Name</h5> </mdb-card-title>
+  <form>
+      <div class="md-form">
+        <textarea mdbInputDirective type="text" id="form7" class="md-textarea form-control" rows="3" [(ngModel)]="cirName"></textarea>
+        <label for="form7">New Circle Name</label>
+      </div>
+
+      <button type="submit" mdbBtn (click) = "sendEdits(cir)" class="btn tableColor" mdbWavesEffect block="true">Submit</button>
+      <button  mdbBtn (click) = "cancelEdits()"  color="danger" outline="true" mdbWavesEffect block="true">Cancel</button>
+  </form>
+    </mdb-card-body>
+</mdb-card> 
+
+

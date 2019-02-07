@@ -6,6 +6,7 @@ import { LoginComponent } from './auth/login/login.component'
 import { HomeComponent } from './home/home.component'
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { CircleComponent } from './circle/circle.component'
+import { EditNameComponent } from './circle/edit-name/edit-name.component'
 
 
 const routes: Routes = [
@@ -41,6 +42,10 @@ const routes: Routes = [
   {
     path: 'forgot',
     component: ForgotPasswordComponent
+  },
+  {
+    path: 'edit-name/:id',
+    component: EditNameComponent
   },
   {
     //404 error, leave this one as last route check
