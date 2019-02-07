@@ -6,6 +6,8 @@
 <mdb-card class="cardProperties" *ngFor="let c of Circles" id="circles"> 
   <mdb-card-body>
     
+
+
       <!-- <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
         aria-hidden="true" [config]="{backdrop: false, ignoreBackdropClick: true}">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -14,7 +16,9 @@
               <!-- <h4 class="modal-title w-100" id="myModalLabel">{{c.circleName}}</h4> -->
               <h4>{{c.circleName}}</h4>
 
-              <img [src]="c.imageUrl" />
+              
+
+              <img [src]="c.imageUrl" (click) = "renderCircle(c)"/>
 
               <!-- <form (submit)="submitFile(f, c.circleName)" #f="ngForm" class="text-center border border-light p-5"
                 [formGroup]="fileForm">

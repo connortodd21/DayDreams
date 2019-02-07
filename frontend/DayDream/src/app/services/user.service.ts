@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { AuthData } from '../models/auth-data.model'
 import { Subject } from "rxjs";
 import { Router } from "@angular/router";
+import {Circle} from "../models/circle.model"
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -18,7 +19,8 @@ export class UserService{
         
     }
 
+    
     getUserCircles(){
-        return this.http.get<Object>('http://localhost:5000/user/all-circles').toPromise();
+        return this.http.get<Circle[]>('http://localhost:5000/user/all-circles').toPromise();
     }
 }

@@ -21,9 +21,13 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'circle',
+    //:id is parameter, important 
+    path: 'circle/:id',
     component: CircleComponent,
     canActivate: [AuthGuard],
+    data: {
+      type: 'circle'
+    }
   },
   {
     path: 'login',

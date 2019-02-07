@@ -28,6 +28,7 @@ export class CircleService{
         return this.http.post<Object>("http://localhost:5000/circle/add-photo", options).toPromise()
     }
 
+    
     getAllCircleInfo(circleID:string) {
         const info = {
             headers: new HttpHeaders({
@@ -37,5 +38,13 @@ export class CircleService{
 
         /* calls /circle/info from the backend*/
         return this.http.get("http://localhost:5000/circle/info", info).toPromise()
+    }
+
+    deleteChosenCircle(circleID:string) {
+        const chosen = {
+            circleID: circleID
+        }
+
+        return this.http.post("http://localhost:5000/circle/delete", chosen).toPromise()
     }
 }

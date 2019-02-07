@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CircleService } from '../services/circle.service';
 import { Circle } from '../models/circle.model';
+import { Router, ActivatedRoute, Params, Data } from '@angular/router';
+
 
 
 
@@ -10,22 +12,20 @@ import { Circle } from '../models/circle.model';
   styleUrls: ['./circle.component.scss']
 })
 export class CircleComponent implements OnInit {
+  
 
   //Circle:Object;
 
   /* myCircle object of Circle */
   myCircle:Circle;
 
-  constructor(private circleService:CircleService) { }
+  constructor(    private route: ActivatedRoute,
+    private circleService:CircleService, private _router: Router) { }
 
   ngOnInit() {
-    
-    var id = "5c5b38e57b938841c9d8ad04"
-    /*
-    this.circleService.getAllCircleInfo(id).then((circle) => {
-      console.log(circle);
-      this.Circle = circle
-    })*/
+
+    /* grabs url and finds parameter 'id' */
+    var id = this.route.snapshot.params['id'];
 
     /* circleService calls getAllCircleInfo of specified ID 
     * result is passed into data
@@ -37,5 +37,22 @@ export class CircleComponent implements OnInit {
       this.myCircle = new Circle(data);
       console.log(this.myCircle);
     });
+  }
+
+//   renderCircle(circle:Circle){
+//     /* Navigate to /circle/id */
+//     this._router.navigate(['/circle/' + circle.ID]);
+// }
+  
+  delCir(circle:Circle) {
+    // call delete method from service
+    var id = this.route.snapshot.params['id'];
+    this.circleService.deleteChosenCircle(id).then((data) => {
+      this.myCircle = new Circle(data);
+      console.log("Deleting Circle");
+    })
+
+    //navigate back to home page
+    this._router.navigate(['/home']);
   }
 }
