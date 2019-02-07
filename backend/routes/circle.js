@@ -58,7 +58,7 @@ router.post("/add", authenticate, function (req, res) {
 
 router.post('/add-photo', authenticate, upload.single("image"), function (req, res) {
 
-    if (!req.body || !req.body.circleName || !req.body.imageUrl) {
+    if (!req.body || !req.body.circleID || !req.body.imageUrl) {
         res.status(400).send({ message: "Bad Request" })
         return
     }
@@ -68,13 +68,13 @@ router.post('/add-photo', authenticate, upload.single("image"), function (req, r
         return
     }
 
-    Circle.findOneAndUpdate({ circleName: req.body.circleName }, {
+    Circle.findOneAndUpdate({ _id: req.body.circleID }, {
         $set: {
             imageUrl: req.body.imageUrl,
             hasImage: true
         }
     }).then((circ) => {
-        Circle.findOne({ circleName: req.body.circleName }).then((circle) => {
+        Circle.findOne({ _id: req.body.circleID }).then((circle) => {
             res.status(200).send(circle)
             return
         }).catch((err) => {
