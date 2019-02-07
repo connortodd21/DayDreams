@@ -5,6 +5,7 @@ import { CircleService } from '../services/circle.service';
 import { Circle } from '../models/circle.model';
 import { Router } from '@angular/router'
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -15,17 +16,25 @@ export class HomeComponent implements OnInit {
   myCircles: Circle[];
   fileForm: FormGroup;
   image: string;
+  
 
   constructor(private userService: UserService, private circleService: CircleService, private formBuilder: FormBuilder, private _router: Router) {
     this.fileForm = this.formBuilder.group({
       imageUrl: ['', Validators.required],
       image_id: ['', Validators.required]
     });
+    
   }
+
+  circleName: '';
+  circleDesc: '';
+  
 
   ngOnInit() {
     this.displayCircles();
   }
+
+ 
 
   renderCircle(circle:Circle){
       /* Navigate to /circle/id  */
@@ -58,6 +67,10 @@ export class HomeComponent implements OnInit {
       console.log(res)
       this.displayCircles()
     })
+  }
+
+  createCircle(){
+
   }
 
 }
