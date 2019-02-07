@@ -5,3 +5,24 @@
 .hideOverflow{
     overflow: hidden;
 }
+
+.imgSize{
+    height: 250px;
+    width: 250px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    padding: 10px;
+  }
+  .grid-item {
+    text-align: center;
+  }
+
+  .header{
+    font-size:50px;
+    margin-top: 35px;
+    color: rgb(0, 176, 255);
+  
+}

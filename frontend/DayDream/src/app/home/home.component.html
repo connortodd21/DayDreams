@@ -1,9 +1,10 @@
 <div class="marginTop">
     <button mdbBtn type="button" color="primary" mdbWavesEffect>Create a New Circle</button>
   </div>
-<div class="content">
+<div >
 <h4 class="pageHeader">Your Circles</h4>
-<mdb-card class="cardProperties" *ngFor="let c of myCircles" id="circles"> 
+<div class="grid-container">
+<mdb-card class="cardProperties grid-item" *ngFor="let c of myCircles" id="circles"> 
   <mdb-card-body>
     
 
@@ -18,7 +19,7 @@
 
               
 
-              <img [src]="c.imageUrl" (click) = "renderCircle(c)"/>
+              <img [src]="c.imageUrl" class="imgSize" (click) = "renderCircle(c)"/>
 
               <!-- <form (submit)="submitFile(f, c.circleName)" #f="ngForm" class="text-center border border-light p-5"
                 [formGroup]="fileForm">
@@ -40,5 +41,5 @@
     
   </mdb-card-body>
 </mdb-card>
-
+</div>
 </div>

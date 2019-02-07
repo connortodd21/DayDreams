@@ -55,4 +55,8 @@ export class CircleComponent implements OnInit {
     //navigate back to home page
     this._router.navigate(['/home']);
   }
+
+  back(){
+    this._router.navigate(['/home']);
+  }
 }
