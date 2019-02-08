@@ -17,3 +17,24 @@
     float: left;
 }
 
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 10px;
+  }
+  .grid-item {
+    text-align: left;
+    margin-left: 50px;
+    overflow: hidden;
+  }
+
+  .grid-container-daydreams {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    padding: 10px;
+  }
+  .grid-item-daydreams {
+    text-align: center;
+    margin-left: 50px;
+    overflow: hidden;
+  }

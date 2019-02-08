@@ -57,7 +57,7 @@
 <div>
   <h4 class="pageHeader">Your Circles</h4>
   <div class="grid-container" id="circleObject">
-    <div class="cardProperties grid-item" *ngFor="let c of myCircles" id="circles">
+    <div class="cardProperties grid-item" *ngFor="let c of myCircles" id="circles" (click)="renderCircle(c)">
 
 
 
@@ -72,7 +72,7 @@
 
 
 
-      <img [src]="c.imageUrl" class="imgSize" (click)="renderCircle(c)" />
+      <img [src]="c.imageUrl" class="imgSize"  />
 
       <!-- <form (submit)="submitFile(f, c.circleName)" #f="ngForm" class="text-center border border-light p-5"
                 [formGroup]="fileForm">
