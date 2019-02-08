@@ -23,13 +23,13 @@
 
             <!-- Dropdown -->
             <li class="nav-item dropdown" dropdown>
-                <a dropdownToggle mdbWavesEffect type="none" class="nav-link dropdown-toggle waves-light tableColor"
+                <a dropdownToggle mdbWavesEffect type="none " class="nav-link dropdown-toggle waves-light tableColor"
                     mdbWavesEffect>
                     User<span class="caret"></span></a>
                 <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
-                    <!-- <a class="dropdown-item waves-light" mdbWavesEffect href="#">Action</a>
-                        <a class="dropdown-item waves-light" mdbWavesEffect href="#">Another action</a>
-                        <a class="dropdown-item waves-light" mdbWavesEffect href="#">Something else here</a> -->
+                    <a class="dropdown-item waves-light" mdbWavesEffect href="#" routerLink="/change-email">Change Email</a>
+                    <a class="dropdown-item waves-light" mdbWavesEffect href="#" routerLink-="/change-password">Change Password</a>
+                    <!-- <a class="dropdown-item waves-light" mdbWavesEffect href="#">Something else here</a> -->
                     <div class="divider dropdown-divider"></div>
                     <a (click)="logout()" routerlinkactive="active" class="dropdown-item waves-light" mdbWavesEffect
                         href="#">Logout</a>
@@ -51,8 +51,3 @@
         </div>
     </div>
 </div>
-
-<!-- <div>
-        <button type="button" mdbBtn color="primary" mdbWavesEffect>Create a New Circle</button>
-    </div> -->
-<!-- </div> -->
