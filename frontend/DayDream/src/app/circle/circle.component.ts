@@ -91,9 +91,7 @@ export class CircleComponent implements OnInit {
     // console.log(this.chosenCircle);
   }
 
-  addDaydream(Daydream:Daydream) {
-
-  }
+  
 
   getChildEvent(event: string) {
     this.returnToParent.emit('reload');

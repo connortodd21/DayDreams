@@ -6,9 +6,15 @@
     overflow: hidden;
 }
 
+.center{
+  text-align:center;
+  margin-left: 53px;
+}
 .imgSize{
-    height: 250px;
-    width: 250px;
+    height: 300px;
+    width: 300px;
+    margin-top: 11px;
+    border-radius: 50%;
 }
 
 .grid-container {

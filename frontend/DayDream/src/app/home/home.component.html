@@ -57,7 +57,9 @@
 <div>
   <h4 class="pageHeader">Your Circles</h4>
   <div class="grid-container" id="circleObject">
-    <div class="cardProperties grid-item" *ngFor="let c of myCircles" id="circles" (click)="renderCircle(c)">
+    <div *ngFor="let c of myCircles"  >
+    <h2 class="center">{{c.circleName}}</h2>
+    <div class="cardProperties grid-item" id="circles" (click)="renderCircle(c)">
 
 
 
@@ -68,7 +70,7 @@
           <div class="modal-content">
             <div class="modal-header"> -->
       <!-- <h4 class="modal-title w-100" id="myModalLabel">{{c.circleName}}</h4> -->
-      <h4>{{c.circleName}}</h4>
+     
 
 
 
@@ -92,7 +94,7 @@
 
 
 
-
+    </div>
     </div>
   </div>
 </div>
