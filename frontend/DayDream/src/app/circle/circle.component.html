@@ -8,11 +8,10 @@
   <div >
       <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=back()> <i class="fa fa-arrow-left"> </i>   Back to Circles </button>
 
-      
-      <h1 class="circleTitle">{{myCircle.circleName}}
-        </h1>
+  
     <div *ngIf="myCircle" class="mainDiv">
-
+        <h1 class="circleTitle">{{myCircle.circleName}}
+          </h1>
       <div class="grid-container">
         <div class="grid-item">
       <img [src]="myCircle.imageUrl" class="imgSize" />
