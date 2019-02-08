@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { NgForm, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { CircleService } from '../services/circle.service';
 import { Circle } from '../models/circle.model';
 import { Router, ActivatedRoute, Params, Data } from '@angular/router';
@@ -16,6 +17,7 @@ export class CircleComponent implements OnInit {
 
   /* myCircle object of Circle */
   myCircle: Circle;
+  fileForm: FormGroup;
   dayDreams: DayDream[]
 
   /* variables used in editing circle name*/
@@ -23,8 +25,13 @@ export class CircleComponent implements OnInit {
   chosenCircle: Circle;
 
   constructor(  private route: ActivatedRoute,
-    private circleService:CircleService, private _router: Router) { 
+    private circleService:CircleService, private formBuilder: FormBuilder, private _router: Router) {
       this.dayDreams = [];
+      this.fileForm = this.formBuilder.group({
+        destination: ['', Validators.required],
+        description: ['', Validators.required],
+        totalCost: ['', Validators.required],
+      });
     }
 
 
@@ -33,9 +40,9 @@ export class CircleComponent implements OnInit {
     /* grabs url and finds parameter 'id' */
     var id = this.route.snapshot.params['id'];
 
-    /* circleService calls getAllCircleInfo of specified ID 
+    /* circleService calls getAllCircleInfo of specified ID
     * result is passed into data
-    * 
+    *
     * Circle model gets data and passes it to myCircle
     */
 
@@ -55,7 +62,7 @@ export class CircleComponent implements OnInit {
     });
   }
 
-  /* 
+  /*
   *   Method that deletes a circle and redirects back to the homepage
   */
   delCir(circle:Circle) {
@@ -82,6 +89,10 @@ export class CircleComponent implements OnInit {
 
     // this.chosenCircle = circle;
     // console.log(this.chosenCircle);
+  }
+
+  addDaydream(Daydream:Daydream) {
+
   }
 
   getChildEvent(event: string) {

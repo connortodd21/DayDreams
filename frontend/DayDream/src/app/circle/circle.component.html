@@ -2,9 +2,6 @@
   <h1>{{c.chat}}</h1>
   <h1>{{c.numberOfPeople}}</h1>
 </ul> -->
-
-
-
 <div>
 
 
@@ -15,35 +12,83 @@
       <h1 class="circleTitle">{{myCircle.circleName}}
         </h1>
     <div *ngIf="myCircle" class="mainDiv">
-      
-        
+
       <div class="grid-container">
         <div class="grid-item">
+      <img [src]="myCircle.imageUrl" class="imgSize" />
+    </div>
+
+    <div class="grid-item">
+      <h4 class="circleTitle adjustLeftMargin">About This Circle <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=renderEditCircleName()>Edit Circle <i class="fa fa-edit"> </i></button> <button type="button" class="btn btn-danger" (click)=renderEditCircleName()>Delete Circle <i class="fa fa-trash"> </i></button>
+        
+      </h4>
+      <div class="adjustLeftMargin">
+      <h2>Founder: {{myCircle.founder}}</h2>
+      <h2>Description: {{myCircle.description}}</h2>
+
+    </div>
+    <h1 class="blueLine">__________________________________________________________________</h1>
+    <div class="adjustLeftMargin">
+    <h4 class="pageHeader">Members of This Circle <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=back()>Add Member <i class="fa fa-user"> </i></button></h4>
+    <h2>{{myCircle.members}} </h2>
+  </div>
+  <h1 class="blueLine">__________________________________________________________________</h1>
+
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<body>
+    <div class="w3-container">
+      <h4 class="pageHeader">This Circle's DayDreams
+        <button onclick="document.getElementById('id01').style.display='block'" mdbBtn type="button" color="primary"
+        mdbWavesEffect (click)=addDaydream(myDaydream)>Add A DayDream <i class="fa fa-cloud"> </i> </button>
+
+        <div id="id01" class="w3-modal">
+          <div class="w3-modal-content">
+            <div class="w3-container">
             <mdb-card>
               <mdb-card-body>
-      <img [src]="myCircle.imageUrl" class="imgSize" />
-    </mdb-card-body>
-  </mdb-card>
-    </div>
-    
-      <div class="grid-item">
-          <h4 class="pageHeader">About This Circle</h4>
-          <mdb-card>
-              <mdb-card-body>
-          <h2>Founder: {{myCircle.founder}}</h2>
-          <h2>Number of People: {{myCircle.numberOfPeople}}</h2>
-          <h2>Description: {{myCircle.description}}</h2>
-    
-          <h2>Members: {{myCircle.members}}</h2>
-          <button type="button" class="btn btn-danger" (click)=delCir(myCircle)>Delete Circle <i class="fa fa-trash"></i></button>
-          <button mdbBtn type="button" color="primary" mdbWavesEffect  (click)="renderEditCircleName()">Edit Circle <i class="fa fa-edit"></i></button>
-        </mdb-card-body>
-      </mdb-card>
-      <h4 class="pageHeader">This Circle's DayDreams</h4>
-      <mdb-card>
-          <mdb-card-body>
-      
-      <div class="grid-container-daydreams">
+                <form (submit)="submitFile(f)" #f="ngForm" class="text-center border border-light p-5"
+                  [formGroup]="fileForm">
+
+                  <h4 class="pageHeader">Create a New Daydream</h4>
+
+                  <div class="form-group">
+                    <input type="text" id="destination" formControlName="destination" class="form-control"
+                      placeholder="Where are you going?" [(ngModel)]="destination"
+                      [ngClass]="{ 'is-invalid': submitted && form.daydream.errors }">
+                  </div>
+
+                  <div class="form-group">
+                    <input type="text" id="description" formControlName="description" class="form-control"
+                      placeholder="Describe your daydream" [(ngModel)]="description"
+                      [ngClass]="{ 'is-invalid': submitted && form.description.errors }">
+                  </div>
+
+                  <div class="form-group">
+                    <input type="text" id="totalCost" formControlName="totalCost" class="form-control"
+                      placeholder="Please enter the total cost for this excursion" [(ngModel)]="totalCost"
+                      [ngClass]="{ 'is-invalid': submitted && form.imageUrl.errors }">
+                  </div>
+
+
+                  <button mdbBtn color="info" block="true" class="my-4" type="submit" prevent-default>Create Daydream</button>
+                  <button onclick="document.getElementById('id01').style.display='none'" mdbBtn color="info"
+                    block="true" class="my-4">Cancel</button>
+
+                </form>
+              </mdb-card-body>
+            </mdb-card>
+          </div>
+        </div>
+      </div>
+      </h4>
+      </div>
+    </body>
+
+    </html>
+    <div class="grid-container-daydreams">
       <div *ngFor="let d of dayDreams" class="topMargin cardProperties grid-item-daydreams">
         <h1>{{d.destination}}</h1>
         <div class="circleInfo">
@@ -51,23 +96,13 @@
         </div>
       </div>
     </div>
-  </mdb-card-body>
-</mdb-card>
+
+    </div>
+    </div>
+
 
     </div>
   </div>
-
-      
-
-
-
-
-    </div>
-
-  </div>
-
-
-
 
 
   <!-- <button type="button" class="btn btn-danger" (click)=delCir(myCircle)>Delete Circle</button> -->

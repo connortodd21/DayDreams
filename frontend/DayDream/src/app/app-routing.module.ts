@@ -8,6 +8,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { CircleComponent } from './circle/circle.component'
 import { EditNameComponent } from './circle/edit-name/edit-name.component'
 import { ChangePasswordComponent } from './change-password/change-password.component'
+import { ChangeEmailComponent } from './change-email/change-email.component'
+
 
 
 const routes: Routes = [
@@ -47,6 +49,10 @@ const routes: Routes = [
   {
     path: 'change-password',
     component: ChangePasswordComponent
+  },
+  {
+    path: 'change-email',
+    component: ChangeEmailComponent
   },
   {
     path: 'edit-name/:id',
