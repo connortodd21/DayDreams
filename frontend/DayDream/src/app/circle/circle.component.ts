@@ -92,7 +92,7 @@ export class CircleComponent implements OnInit {
     // console.log(this.chosenCircle);
   }
 
-  
+
 
   getChildEvent(event: string) {
     this.returnToParent.emit('reload');
@@ -105,10 +105,15 @@ export class CircleComponent implements OnInit {
 
   submitFile(event) {
     console.log(event.value)
-    this.DaydreamService.createDaydream(event.value.destination, event.value.description, event.value.totalCost).then(() => {
+    console.log(this.myCircle.ID);
+    this.DaydreamService.createDaydream(this.myCircle.ID, event.value.destination, event.value.description, event.value.totalCost).then(() => {
       var confirm = window.alert('Daydream ' + event.value.destination + ' Created!')
-      console.log(confirm)
-      this._router.navigate(['/edit-name']);
+      console.log(confirm);
+      window.location.replace("/circle/" + this.myCircle.ID);
+    }).catch(e => {
+      console.log(e);
+      console.log(this.myCircle.ID);
+
     })
   }
 }

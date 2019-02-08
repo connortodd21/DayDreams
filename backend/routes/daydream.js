@@ -31,15 +31,16 @@ router.get("/", function (req, res) {
 });
 
 router.post('/add', authenticate, (req, res) => {
-    if (!req.body || !req.body.circleID || !req.body.destination || !req.body.description || !req.body.cost) {
+    if (!req.body || !req.body.circleID || !req.body.destination || !req.body.description || !req.body.totalCost) {
         res.status(400).send({ message: "DayDream data is incomplete" });
         return;
     }
+    console.log(req);
     var newDayDream = new DayDream({
         circleID: req.body.circleID,
         destination: req.body.destination,
         description: req.body.description,
-        totalCost: req.body.cost,
+        totalCost: req.body.totalCost,
     })
 
     Circle.findOneAndUpdate({ _id: req.body.circleID }, {
@@ -56,12 +57,14 @@ router.post('/add', authenticate, (req, res) => {
             res.status(200).send(newDayDream)
             return
         }).catch((err) => {
+          console.log(req.body);
             res.status(400).send(err)
             return;
         })
         //works
     }).catch((err) => {
         res.send(err);
+        console.log(req);
         return;
     })
 
@@ -133,7 +136,7 @@ router.post('/delete', authenticate, (req, res) => {
                 console.log("pushing: " + circ.dayDreams[i]);
             }
         }
- 
+
         Circle.findOneAndUpdate({ _id: req.body.circleID }, {
             $set:
                 {

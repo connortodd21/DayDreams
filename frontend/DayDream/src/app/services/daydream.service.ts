@@ -38,8 +38,9 @@ export class DaydreamService{
         return this.http.post("http://localhost:5000/daydream/delete", chosen).toPromise()
     }
 
-    createDaydream(destination:string, description:string, totalCost:Number){
+    createDaydream(circleID:string, destination:string, description:string, totalCost:Number){
         const daydream = {
+            circleID: circleID,
             destination: destination,
             description: description,
             totalCost: totalCost
