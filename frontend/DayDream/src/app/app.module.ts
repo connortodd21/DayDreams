@@ -17,6 +17,7 @@ import { HomeComponent } from './home/home.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { DaydreamComponent } from './daydream/daydream.component';
 import { EditNameComponent } from './circle/edit-name/edit-name.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { EditNameComponent } from './circle/edit-name/edit-name.component';
     HomeComponent,
     ForgotPasswordComponent,
     DaydreamComponent,
-    EditNameComponent
+    EditNameComponent,
+    ChangePasswordComponent
     ],
   imports: [
   BrowserModule,
