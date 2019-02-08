@@ -12,7 +12,7 @@ export class Circle {
     }];
     imageUrl: string;
     ID: string;
-
+    description: string;
     
     constructor(response: any) {
         this.ID = response._id;
@@ -24,6 +24,7 @@ export class Circle {
         this.dayDreams = response.dayDreams;
         this.chat = response.chat;
         this.imageUrl = response.imageUrl;
+        this.description = response.description;
         
         
     }
