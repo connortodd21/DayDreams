@@ -6,19 +6,32 @@
 
 
   <div >
+      <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=back()> <i class="fa fa-arrow-left"> </i>   Back to Circles </button>
 
+  
     <div *ngIf="myCircle" class="mainDiv">
+        <h1 class="circleTitle">{{myCircle.circleName}}
+          </h1>
+      <div class="grid-container">
+        <div class="grid-item">
       <img [src]="myCircle.imageUrl" class="imgSize" />
-      <h1>hello {{myCircle.circleName}}
-        <button (click)="renderEditCircleName()"><i class="far fa-edit"></i></button>
-      </h1>
-      <h2>Founder: {{myCircle.founder}}</h2>
-      <h2>Number of People: {{myCircle.numberOfPeople}}</h2>
-      <h2>Description: {{myCircle.description}}</h2>
+    </div>
 
-      <h2>Members: {{myCircle.members}}</h2>
-      <button type="button" class="btn btn-danger" (click)=delCir(myCircle)>Delete Circle</button>
-      <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=back()>Back to Circles</button>
+    <div class="grid-item">
+      <h4 class="circleTitle adjustLeftMargin">About This Circle <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=renderEditCircleName()>Edit Circle <i class="fa fa-edit"> </i></button> <button type="button" class="btn btn-danger" (click)=renderEditCircleName()>Delete Circle <i class="fa fa-trash"> </i></button>
+        
+      </h4>
+      <div class="adjustLeftMargin">
+      <h2>{{myCircle.description}}</h2>
+
+    </div>
+    <h1 class="blueLine">__________________________________________________________________</h1>
+    <div class="adjustLeftMargin">
+    <h4 class="pageHeader">Members of This Circle <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=back()>Add Member <i class="fa fa-user"> </i></button></h4>
+    <h2>Founder: {{myCircle.founder}}</h2>
+    <h2>Members: {{myCircle.members}} </h2>
+  </div>
+  <h1 class="blueLine">__________________________________________________________________</h1>
 
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,9 +39,9 @@
 
 <body>
     <div class="w3-container">
-      <h4 class="pageHeader">{{myCircle.circleName}}'s DayDreams
+      <h4 class="pageHeader">This Circle's DayDreams
         <button onclick="document.getElementById('id01').style.display='block'" mdbBtn type="button" color="primary"
-        mdbWavesEffect (click)=addDaydream(myDaydream)>Add DayDream</button>
+        mdbWavesEffect (click)=addDaydream(myDaydream)>Add A DayDream <i class="fa fa-cloud"> </i> </button>
 
         <div id="id01" class="w3-modal">
           <div class="w3-modal-content">
@@ -74,15 +87,17 @@
     </body>
 
     </html>
-      <div *ngFor="let d of dayDreams" class="topMargin">
-        <h1><b>Destination:</b> {{d.destination}}</h1>
-        <h1><b>Description:</b> {{d.description}}</h1>
+    <div class="grid-container-daydreams">
+      <div *ngFor="let d of dayDreams" class="topMargin cardProperties grid-item-daydreams">
+        <h1>{{d.destination}}</h1>
         <div class="circleInfo">
 
         </div>
       </div>
+    </div>
 
-
+    </div>
+    </div>
 
 
     </div>

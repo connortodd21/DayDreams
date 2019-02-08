@@ -13,6 +13,10 @@
     margin-top: 60px;
 }
 
+.topMargin{
+    margin-top: 20px;
+}
+
 .img {
     float: left;
 }
@@ -37,4 +41,16 @@
     text-align: center;
     margin-left: 50px;
     overflow: hidden;
+  }
+
+  .circleTitle{
+      font-size: 50px;
+  }
+
+  .adjustLeftMargin{
+      margin-left: 20px;
+  }
+
+  .blueLine{
+      color: rgb(0, 176, 255);
   }
