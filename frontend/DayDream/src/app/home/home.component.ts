@@ -70,8 +70,9 @@ export class HomeComponent implements OnInit {
     console.log(event.value)
     this.circleService.createCircle(event.value.circleName, event.value.circleDesc, event.value.imageUrl).then(() => {
       var confirm = window.alert('Circle ' + event.value.circleName + ' Created!')
+      window.location.replace("/home")
       console.log(confirm)
-      this._router.navigate(['/edit-name']);
+      // this._router.navigate(['/edit-name']);
     })
   }
 }
