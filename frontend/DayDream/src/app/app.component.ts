@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthService } from "./services/auth.service";
-import { Router } from "@angular/router";
+import { Router, UrlSerializer } from "@angular/router";
+import { BehaviorSubject } from 'rxjs';
+
 
 @Component({
   selector: 'app-root',
@@ -9,10 +11,21 @@ import { Router } from "@angular/router";
 })
 export class AppComponent {
   title = 'DayDream';
+  userAuthed:boolean;
+  private loggedIn = new BehaviorSubject<boolean>(false); // {1}
 
-  constructor(private router:Router, public authService: AuthService, ) {}
+
+  constructor(private router:Router, public authService: AuthService ) {}
+
+  get auth() { return this.userAuthed }
 
   logout(){
     this.authService.logout()
+  }
+
+  ngOnInit() {
+    this.userAuthed = this.authService.getAuthenticationStatus()
+    // this.loggedIn = this.authService.getAuthStatObservible()
+    console.log("auth is:" + this.userAuthed)
   }
 }

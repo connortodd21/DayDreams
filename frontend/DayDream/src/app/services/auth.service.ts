@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { AuthData } from '../models/auth-data.model'
-import { Subject } from "rxjs";
+import { Subject, Observable } from "rxjs";
 import { Router } from "@angular/router";
 
 const httpOptions = {
@@ -11,48 +11,58 @@ const httpOptions = {
 
 @Injectable({ providedIn: "root" })
 
-export class AuthService{
-    private token:string
+export class AuthService {
+    private token: string
     private tokenTimer: any;
-    private isAuthenticated = false
+    private isAuthenticated = false;
     response_login: string = "NULL";
 
     constructor(private http: HttpClient, private router: Router) { }
 
     registerUser(email: string, username: string, password: string) {
-        const auth: AuthData = { email: email, username: username, password: password}
+        const auth: AuthData = { email: email, username: username, password: password }
         console.log(auth)
         return this.http.post<Object>("http://localhost:5000/user/register", auth).toPromise()
     }
 
-    forgotPassword(email: string){
-        const auth: AuthData = {username: "", password: "", email: email}
+    forgotPassword(email: string) {
+        const auth: AuthData = { username: "", password: "", email: email }
         return this.http.post<Object>('http://localhost:5000/user/forgot-password', auth).toPromise()
     }
 
-    changePassword(newPassword:string) {
-        const auth: AuthData = {username: "", password: newPassword, email: ""}
+    changePassword(newPassword: string) {
+        const auth: AuthData = { username: "", password: newPassword, email: "" }
         return this.http.post<Object>('http://localhost:5000/user/change-password', auth).toPromise()
     }
-    
-    changeEmail(newEmail:string) {
-        const auth: AuthData = {username: "", password: "", email: newEmail}
+
+    changeEmail(newEmail: string) {
+        const auth: AuthData = { username: "", password: "", email: newEmail }
         return this.http.post<Object>('http://localhost:5000/user/change-email', auth).toPromise()
     }
-    
-    
-    getAuthToken(){
-        if(localStorage.getItem('token')){
+
+    getAuthToken() {
+        if (localStorage.getItem('token')) {
             return localStorage.getItem('token');
         }
         return false;
     }
 
-    getAuthenticationStatus(){
-        if(localStorage.getItem('token')){
+    getAuthenticationStatus() {
+        if (localStorage.getItem('token')) {
             return true;
         }
         return false;
+    }
+
+    getAuthStatObservible() {
+        return new Observable<boolean>( observer => {
+            if (localStorage.getItem('token')) {
+                observer.next(true)
+            }
+            else {
+                observer.next(false)
+            }
+        })        
     }
 
     login(username: string, password: string) {
@@ -70,7 +80,8 @@ export class AuthService{
                     this.isAuthenticated = true;
                     this.response_login = "comlpete"
                     this.addAuthToLocalStorage(token, expirationDate);
-                    this.router.navigate(["/home"]);
+                    window.location.replace("/home");
+                    // this.router.navigate(["/home"]);
                 }
             },
                 error => {
@@ -86,6 +97,7 @@ export class AuthService{
         return this.response_login
     }
 
+
     logout() {
         this.token = null;
         this.isAuthenticated = false;
@@ -94,12 +106,12 @@ export class AuthService{
         this.router.navigate(['/login']);
     }
 
-    private addAuthToLocalStorage(token: string, expirationDate: Date){
+    private addAuthToLocalStorage(token: string, expirationDate: Date) {
         localStorage.setItem('token', token)
         localStorage.setItem('expiresIn', expirationDate.toISOString())
     }
 
-    private clearLocalStorage(){
+    private clearLocalStorage() {
         localStorage.clear()
     }
 
