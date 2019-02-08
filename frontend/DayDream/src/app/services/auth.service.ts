@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { AuthData } from '../models/auth-data.model'
 import { Subject } from "rxjs";
 import { Router } from "@angular/router";
-import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -30,6 +29,17 @@ export class AuthService{
         const auth: AuthData = {username: "", password: "", email: email}
         return this.http.post<Object>('http://localhost:5000/user/forgot-password', auth).toPromise()
     }
+
+    changePassword(newPassword:string) {
+        const auth: AuthData = {username: "", password: newPassword, email: ""}
+        return this.http.post<Object>('http://localhost:5000/user/change-password', auth).toPromise()
+    }
+    
+    changeEmail(newEmail:string) {
+        const auth: AuthData = {username: "", password: "", email: newEmail}
+        return this.http.post<Object>('http://localhost:5000/user/change-email', auth).toPromise()
+    }
+    
     
     getAuthToken(){
         if(localStorage.getItem('token')){

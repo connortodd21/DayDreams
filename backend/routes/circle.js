@@ -224,7 +224,7 @@ router.get('/info', authenticate, (req, res) => {
             return;
         }
         res.status(200).send(circ) //returns all circle properties
-        console.log("success in returning circle properties");
+        // console.log("success in returning circle properties");
     }).catch((err) => {
         res.status(400).send(err);
         return;
