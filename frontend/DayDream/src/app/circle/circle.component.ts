@@ -92,11 +92,8 @@ export class CircleComponent implements OnInit {
     // console.log(this.chosenCircle);
   }
 
-<<<<<<< HEAD
   
 
-=======
->>>>>>> 7eab8be95fa7bf21f9102e055f515edb7ba83cf0
   getChildEvent(event: string) {
     this.returnToParent.emit('reload');
   }
