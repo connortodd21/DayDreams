@@ -9,36 +9,55 @@
 
 
   <div >
+      <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=back()> <i class="fa fa-arrow-left"> </i>   Back to Circles </button>
 
+      
+      <h1 class="circleTitle">{{myCircle.circleName}}
+        </h1>
     <div *ngIf="myCircle" class="mainDiv">
-      <h1>{{myCircle.circleName}}
-        <button (click)="renderEditCircleName()"><i class="far fa-edit"></i></button>
-      </h1>
+      
+        
       <div class="grid-container">
-      <img [src]="myCircle.imageUrl" class="imgSize grid-item" />
-
-
-      <div class="grid-item">
-      <h2>Founder: {{myCircle.founder}}</h2>
-      <h2>Number of People: {{myCircle.numberOfPeople}}</h2>
-      <h2>Description: {{myCircle.description}}</h2>
-
-      <h2>Members: {{myCircle.members}}</h2>
-      <button type="button" class="btn btn-danger" (click)=delCir(myCircle)>Delete Circle</button>
-      <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=back()>Back to Circles</button>
+        <div class="grid-item">
+            <mdb-card>
+              <mdb-card-body>
+      <img [src]="myCircle.imageUrl" class="imgSize" />
+    </mdb-card-body>
+  </mdb-card>
     </div>
-  </div>
-
-      <h4 class="pageHeader">{{myCircle.circleName}}'s DayDreams</h4>
+    
+      <div class="grid-item">
+          <h4 class="pageHeader">About This Circle</h4>
+          <mdb-card>
+              <mdb-card-body>
+          <h2>Founder: {{myCircle.founder}}</h2>
+          <h2>Number of People: {{myCircle.numberOfPeople}}</h2>
+          <h2>Description: {{myCircle.description}}</h2>
+    
+          <h2>Members: {{myCircle.members}}</h2>
+          <button type="button" class="btn btn-danger" (click)=delCir(myCircle)>Delete Circle <i class="fa fa-trash"></i></button>
+          <button mdbBtn type="button" color="primary" mdbWavesEffect  (click)="renderEditCircleName()">Edit Circle <i class="fa fa-edit"></i></button>
+        </mdb-card-body>
+      </mdb-card>
+      <h4 class="pageHeader">This Circle's DayDreams</h4>
+      <mdb-card>
+          <mdb-card-body>
+      
       <div class="grid-container-daydreams">
       <div *ngFor="let d of dayDreams" class="topMargin cardProperties grid-item-daydreams">
-        <h1><b>Destination:</b> {{d.destination}}</h1>
-        <h1><b>Description:</b> {{d.description}}</h1>
+        <h1>{{d.destination}}</h1>
         <div class="circleInfo">
 
         </div>
       </div>
     </div>
+  </mdb-card-body>
+</mdb-card>
+
+    </div>
+  </div>
+
+      
 
 
 
