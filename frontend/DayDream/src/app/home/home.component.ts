@@ -54,6 +54,9 @@ export class HomeComponent implements OnInit {
 
       for(i = 0; i< response[0].length; i+=1) {
           let circle = new Circle(response[0][i])
+          if(circle.circleName.length > 18){
+            circle.circleName = circle.circleName.substring(0,20) + '...'
+          }
           this.myCircles[i] = circle;
        }
 
@@ -67,7 +70,8 @@ export class HomeComponent implements OnInit {
     console.log(event.value)
     this.circleService.createCircle(event.value.circleName, event.value.circleDesc, event.value.imageUrl).then(() => {
       var confirm = window.alert('Circle ' + event.value.circleName + ' Created!')
-      this._router.navigate(['/']);
+      console.log(confirm)
+      this._router.navigate(['/edit-name']);
     })
   }
 }
