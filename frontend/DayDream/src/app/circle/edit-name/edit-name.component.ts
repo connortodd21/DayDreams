@@ -19,16 +19,21 @@ export class EditNameComponent implements OnInit {
   constructor(private route: ActivatedRoute, private circleService:CircleService, private _router: Router) { }
   cirName: '';
   
-  sendEdits(cir) {
-    this.circleService.editCircleName(this.cirName)
-    .subscribe ((response) => {
+  sendEdits(myCircle) {
+    console.log("cirName: " +this.cirName);
+    myCircle.circleName = this.cirName;
+
+    console.log("myCircle.circleName: " + myCircle.circleName);
+
+    
+    this.circleService.editCircleName(myCircle.circleName,this.myCircle.ID).subscribe ((response) => {
       console.log(response);
        this._router.navigate(['/circle/' + this.myCircle.ID]);
     },
     (err) =>{
       console.log(err)
     })
-    cir.circleName = this.cirName
+    
   }
 
   cancelEdits(){

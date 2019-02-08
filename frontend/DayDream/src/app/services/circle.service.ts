@@ -51,9 +51,10 @@ export class CircleService{
         return this.http.post("http://localhost:5000/circle/delete", chosen).toPromise()
     }
 
-    editCircleName(circleName:string) {
+    editCircleName(circleName:string, circleID:string) {
         const circle:Object = {
-            circleName: circleName
+            circleName: circleName,
+            circleID: circleID,
         }
         return this.http.post("http://localhost:5000/circle/edit-name", circle)
     }
