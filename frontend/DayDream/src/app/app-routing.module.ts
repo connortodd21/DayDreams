@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component'
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { CircleComponent } from './circle/circle.component'
 import { EditNameComponent } from './circle/edit-name/edit-name.component'
+import { ChangePasswordComponent } from './change-password/change-password.component'
 
 
 const routes: Routes = [
@@ -42,6 +43,10 @@ const routes: Routes = [
   {
     path: 'forgot',
     component: ForgotPasswordComponent
+  },
+  {
+    path: 'change-password',
+    component: ChangePasswordComponent
   },
   {
     path: 'edit-name/:id',
