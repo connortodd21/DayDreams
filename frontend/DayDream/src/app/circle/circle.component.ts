@@ -4,6 +4,7 @@ import { CircleService } from '../services/circle.service';
 import { Circle } from '../models/circle.model';
 import { Router, ActivatedRoute, Params, Data } from '@angular/router';
 import { DayDream } from '../models/daydream.model';
+import { DaydreamService } from '../services/daydream.service'
 
 @Component({
   selector: 'app-circle',
@@ -25,7 +26,7 @@ export class CircleComponent implements OnInit {
   chosenCircle: Circle;
 
   constructor(  private route: ActivatedRoute,
-    private circleService:CircleService, private formBuilder: FormBuilder, private _router: Router) {
+    private circleService:CircleService, private DaydreamService: DaydreamService, private formBuilder: FormBuilder, private _router: Router) {
       this.dayDreams = [];
       this.fileForm = this.formBuilder.group({
         destination: ['', Validators.required],
@@ -91,8 +92,11 @@ export class CircleComponent implements OnInit {
     // console.log(this.chosenCircle);
   }
 
+<<<<<<< HEAD
   
 
+=======
+>>>>>>> 7eab8be95fa7bf21f9102e055f515edb7ba83cf0
   getChildEvent(event: string) {
     this.returnToParent.emit('reload');
   }
@@ -100,5 +104,14 @@ export class CircleComponent implements OnInit {
   back() {
     this._router.navigate(['/home']);
 
+  }
+
+  submitFile(event) {
+    console.log(event.value)
+    this.DaydreamService.createDaydream(event.value.destination, event.value.description, event.value.totalCost).then(() => {
+      var confirm = window.alert('Daydream ' + event.value.destination + ' Created!')
+      console.log(confirm)
+      this._router.navigate(['/edit-name']);
+    })
   }
 }

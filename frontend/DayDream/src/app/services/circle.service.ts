@@ -23,7 +23,7 @@ export class CircleService{
         }
         return this.http.post<Object>("http://localhost:5000/circle/add-photo", options).toPromise()
     }
-    
+
     getAllCircleInfo(circleID:string) {
         const info = {
             headers: new HttpHeaders({

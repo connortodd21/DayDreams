@@ -1,3 +1,39 @@
-<p>
-  change-email works!
-</p>
+<div class="p-2 profile animated fadeInUp">
+  <mdb-card class="content">
+    <mdb-card-body>
+      <form (submit)="onSubmitEmail(h)" #h=ngForm [formGroup]="changeEmailForm">
+        <p class="h4 mb-4">Change Email</p>
+        <div class="form-group">
+          <label>New Email</label>
+          <input type="text" placeholder="New Email" class="form-control" formControlName="email" [ngClass]="{ 'is-invalid': submitted_email && form_email.email.errors }" />
+          <div *ngIf="submitted_email && form_email.email.errors" class="invalid-feedback">
+            <!-- <div *ngIf="form_email.email.errors.required">Please Enter an Email</div> -->
+            <div *ngIf="form_email.email.errors.email">Invalid Email</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Confirm Email</label>
+          <input type="text" placeholder="Confirm Email" class="form-control" formControlName="confirmEmail" [ngClass]="{ 'is-invalid': submitted_email && changeEmailForm.hasError('notSame') }" />
+          <div *ngIf="submitted_email && changeEmailForm.hasError('notSame')" class="invalid-feedback">
+            <div *ngIf="changeEmailForm.hasError('notSame')">Emails Do Not Match</div>
+          </div>
+          <button mdbBtn color="info" block="true" class="my-4" type="submit">Change Email</button>
+        </div>
+      </form>
+
+      <!-- Alert Toasts -->
+      <div *ngIf="response_msg === 'fatalError'" class="alert alert-danger" role="alert">
+        Fatal Error. Please Try Again Later
+      </div>
+      <div *ngIf="response_msg === 'complete_email'" class="alert alert-success" role="alert">
+        Email Successfully Changed
+      </div>
+
+      <!-- Home -->
+      <p>Done?
+        <a routerLink="/home">Home</a>
+      </p>
+
+    </mdb-card-body>
+  </mdb-card>
+</div>

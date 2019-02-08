@@ -8,7 +8,7 @@
   <div >
       <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=back()> <i class="fa fa-arrow-left"> </i>   Back to Circles </button>
 
-  
+
     <div *ngIf="myCircle" class="mainDiv">
         <h1 class="circleTitle">{{myCircle.circleName}}
           </h1>
@@ -19,7 +19,7 @@
 
     <div class="grid-item">
       <h4 class="circleTitle adjustLeftMargin">About This Circle <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=renderEditCircleName()>Edit Circle <i class="fa fa-edit"> </i></button> <button type="button" class="btn btn-danger" (click)=renderEditCircleName()>Delete Circle <i class="fa fa-trash"> </i></button>
-        
+
       </h4>
       <div class="adjustLeftMargin">
       <h2>{{myCircle.description}}</h2>
@@ -41,7 +41,7 @@
     <div class="w3-container">
       <h4 class="pageHeader">This Circle's DayDreams
         <button onclick="document.getElementById('id01').style.display='block'" mdbBtn type="button" color="primary"
-        mdbWavesEffect (click)=addDaydream(myDaydream)>Add A DayDream <i class="fa fa-cloud"> </i> </button>
+        mdbWavesEffect>Add A DayDream <i class="fa fa-cloud"> </i> </button>
 
         <div id="id01" class="w3-modal">
           <div class="w3-modal-content">

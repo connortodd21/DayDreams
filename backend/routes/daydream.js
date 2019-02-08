@@ -95,4 +95,60 @@ router.get('/info', authenticate, (req, res) => {
     // make sure ID
 })
 
+/*
+*   Delete chosen DayDream
+*/
+router.post('/delete', authenticate, (req, res) => {
+
+    //ensure that requesthas circleID and daydreamID
+    if (!req.body || !req.body.circleID || !req.body.daydreamID) {
+        console.log(req.body)
+        res.status(400).send({ message: "Bad request" });
+        return;
+    }
+
+    //find specific DayDream object by ID and delete
+    DayDream.findByIdAndDelete(req.body.daydreamID, (err, dream) => {
+        if (err || dream == null) {
+            res.status(400).send({ message: "Could not find Dream" });
+            return;
+        }
+        // res.status(200).send(dream) //returns all circle properties
+        console.log(dream);
+    }).catch((err) => {
+        res.status(400).send(err);
+        return;
+    })
+
+
+    Circle.findOne({ _id: req.body.circleID }).then((circ) => {
+        if (circ == null) {
+            res.status(400).send({ message: "Could not find circle" });
+            return;
+        }
+        let temp =[];
+        for (var i = 0; i < cir.dayDreams.length; i++) {
+            if (circ.dayDreams[i] != req.body.daydreamID) {
+                temp.push(circ.dayDreams[i]);
+                console.log("pushing: " + circ.dayDreams[i]);
+            }
+        }
+ 
+        Circle.findOneAndUpdate({ _id: req.body.circleID }, {
+            $set:
+                {
+                    dayDreams: temp,
+                }
+        }).then(() => {
+            res.status(200).send({message: "Daydream Removed!"})
+            return;
+        })
+    })
+
+
+
+})
+
+
+
 module.exports = router;
