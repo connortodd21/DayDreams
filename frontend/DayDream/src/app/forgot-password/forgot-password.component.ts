@@ -20,7 +20,7 @@ export class ForgotPasswordComponent implements OnInit {
     });
   }
 
-  get form() { return this.resetPasswordForm.controls } A
+  get form() { return this.resetPasswordForm.controls }
   get response_msg() { return this.response }
 
   onSubmitReset(form: NgForm) {
