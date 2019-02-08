@@ -16,7 +16,6 @@ export class HomeComponent implements OnInit {
   myCircles: Circle[];
   fileForm: FormGroup;
   image: string;
-  
 
   constructor(private userService: UserService, private circleService: CircleService, private formBuilder: FormBuilder, private _router: Router) {
     this.fileForm = this.formBuilder.group({
@@ -64,15 +63,11 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  submitFile(event, circleName: string) {
-    this.circleService.uploadPhoto(event.value.imageUrl, circleName).then((res) => {
-      console.log(res)
-      this.displayCircles()
+  submitFile(event) {
+    console.log(event.value)
+    this.circleService.createCircle(event.value.circleName, event.value.circleDesc, event.value.imageUrl).then(() => {
+      var confirm = window.alert('Circle ' + event.value.circleName + ' Created!')
+      this._router.navigate(['/']);
     })
   }
-
-  createCircle(){
-
-  }
-
 }

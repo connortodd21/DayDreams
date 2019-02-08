@@ -37,9 +37,21 @@ router.post("/add", authenticate, function (req, res) {
         res.status(400).send({ message: "Circle data is incomplete" });
         return;
     }
+
+    let desc = 'A circle ready to go on some trips';
+    let url = process.env.DEFAULT_IMAGE;
+    if(req.body.description){
+        desc = req.body.description
+    }
+    if(req.body.imageUrl){
+        url = req.body.imageUrl
+    }
+
     var newCircle = new Circle({
         founder: req.user.username,
         circleName: req.body.circleName,
+        description: desc,
+        imageUrl: url,
     })
 
     newCircle.save().then(() => {

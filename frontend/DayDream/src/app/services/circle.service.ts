@@ -57,4 +57,13 @@ export class CircleService{
         }
         return this.http.post("http://localhost:5000/circle/edit-name", circle)
     }
+
+    createCircle(circleName:string, circleDescription:string, imageUrl: string){
+        const circle = {
+            circleName: circleName,
+            description: circleDescription,
+            imageUrl: imageUrl
+        }
+        return this.http.post("http://localhost:5000/circle/add", circle).toPromise()
+    }
 }

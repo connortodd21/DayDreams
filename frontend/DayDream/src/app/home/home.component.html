@@ -14,7 +14,7 @@
           <div class="w3-container">
             <mdb-card>
               <mdb-card-body>
-                <form (submit)="submitFile(f, c.circleName)" #f="ngForm" class="text-center border border-light p-5"
+                <form (submit)="submitFile(f)" #f="ngForm" class="text-center border border-light p-5"
                   [formGroup]="fileForm">
 
                   <h4 class="pageHeader">Create a New Circle</h4>
@@ -38,14 +38,9 @@
                   </div>
 
 
-                  <button mdbBtn color="info" block="true" class="my-4" type="submit"
-                    (click)="createCircle(circleName, circleDesc, imageUrl)">Create Circle</button>
+                  <button mdbBtn color="info" block="true" class="my-4" type="submit" prevent-default>Create Circle</button>
                   <button onclick="document.getElementById('id01').style.display='none'" mdbBtn color="info"
                     block="true" class="my-4">Cancel</button>
-
-
-
-
 
                 </form>
               </mdb-card-body>
