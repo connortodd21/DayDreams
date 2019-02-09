@@ -56,14 +56,14 @@ router.post('/add', authenticate, (req, res) => {
             res.status(200).send(newDayDream)
             return
         }).catch((err) => {
-          console.log(req.body);
+        //   console.log(req.body);
             res.status(400).send(err)
             return;
         })
         //works
     }).catch((err) => {
         res.send(err);
-        console.log(req);
+        // console.log(req);
         return;
     })
 
@@ -104,7 +104,7 @@ router.post('/delete', authenticate, (req, res) => {
 
     //ensure that requesthas circleID and daydreamID
     if (!req.body || !req.body.circleID || !req.body.daydreamID) {
-        console.log(req.body)
+        // console.log(req.body)
         res.status(400).send({ message: "Bad request" });
         return;
     }
@@ -116,7 +116,7 @@ router.post('/delete', authenticate, (req, res) => {
             return;
         }
         // res.status(200).send(dream) //returns all circle properties
-        console.log(dream);
+        // console.log(dream);
     }).catch((err) => {
         res.status(400).send(err);
         return;
@@ -132,7 +132,7 @@ router.post('/delete', authenticate, (req, res) => {
         for (var i = 0; i < cir.dayDreams.length; i++) {
             if (circ.dayDreams[i] != req.body.daydreamID) {
                 temp.push(circ.dayDreams[i]);
-                console.log("pushing: " + circ.dayDreams[i]);
+                // console.log("pushing: " + circ.dayDreams[i]);
             }
         }
 

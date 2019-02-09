@@ -25,3 +25,12 @@ mocha test/circle/test_all_members.js --exit
 mocha test/circle/test_get_circle_info.js --exit
 mocha test/circle/test_get_all_daydreams.js --exit
 mocha test/circle/test_remove_circle.js --exit
+
+sleep 2
+
+#daydream tests
+clear
+echo DAYDREAM TESTS
+echo ------------------------------------------------------------------------
+
+mocha test/daydream/test_add_daydream.js --exit
