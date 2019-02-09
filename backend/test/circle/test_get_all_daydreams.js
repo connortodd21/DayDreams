@@ -3,6 +3,7 @@ var chaiHttp = require('chai-http');
 var server = require('../../app');
 var User = require('../../model/user');
 var Circle = require('../../model/circle')
+var DayDream = require('../../model/daydream')
 var should = require('chai').should();
 
 chai.use(chaiHttp);
@@ -40,7 +41,21 @@ describe('Test Get Cirlce info', () => {
                             .set('token', res.headers.token)
                             .send(circleInfo)
                             .then((circRes) => {
-                                done()
+
+                                var ddinfo = {
+                                    circleID: circRes.body._id.toString(),
+                                    destination: 'MA 175',
+                                    description: 'CS 408 At 9:00 AM T/TH',
+                                    totalCost: '1'
+                                }
+
+                                chai.request(server)
+                                    .post('/daydream/add')
+                                    .set('content-type', 'application/x-www-form-urlencoded')
+                                    .set('token', res.headers.token)
+                                    .send(ddinfo).then((dd) => {
+                                        done()
+                                    })
                             })
                     })
             })
@@ -49,18 +64,20 @@ describe('Test Get Cirlce info', () => {
     after((done) => {
         User.deleteOne({ username: uname }).then(() => {
             Circle.deleteOne({ circleName: 'RAnDoM CirCLE NamE' }).then(() => {
-                done()
+                DayDream.deleteOne({description: 'CS 408 At 9:00 AM T/TH'}).then(() => {
+                    done()
+                })
             })
         })
     })
 
-    describe('Test get circle info without circle id', () => {
+    describe('Test get all daydreams without circle id', () => {
         it('Should return 400', (done) => {
             User.findOne({ username: uname }).then((user) => {
                 var token = user['tokens'][0]['token'][0]
                 Circle.findOne({ circleName: 'RAnDoM CirCLE NamE' }).then((circ) => {
                     chai.request(server)
-                        .get('/circle/info')
+                        .get('/circle/all-daydreams')
                         .set('content-type', 'application/x-www-form-urlencoded')
                         .set('token', token)
                         .send()
@@ -75,17 +92,15 @@ describe('Test Get Cirlce info', () => {
         })
     })
 
-
-    describe('Test get circle info with bad circle id', () => {
+    describe('Test get all daydreams with bad circle id', () => {
         it('Should return 400', (done) => {
             User.findOne({ username: uname }).then((user) => {
                 var token = user['tokens'][0]['token'][0]
                 Circle.findOne({ circleName: 'RAnDoM CirCLE NamE' }).then((circ) => {
                     chai.request(server)
-                        .get('/circle/info')
+                        .get('/circle/all-daydreams')
                         .set('content-type', 'application/x-www-form-urlencoded')
                         .set('token', token)
-                        .set('circleid', 'bad id')
                         .send()
                         .end((err, res) => {
                             res.should.have.status(400)
@@ -98,13 +113,13 @@ describe('Test Get Cirlce info', () => {
         })
     })
 
-    describe('Test get circle info with invalid auth', () => {
+    describe('Test get all daydreams with invalid auth', () => {
         it('Should return 401', (done) => {
             User.findOne({ username: uname }).then((user) => {
                 var token = user['tokens'][0]['token'][0]
                 Circle.findOne({ circleName: 'RAnDoM CirCLE NamE' }).then((circ) => {
                     chai.request(server)
-                        .get('/circle/info')
+                        .get('/circle/all-daydreams')
                         .set('content-type', 'application/x-www-form-urlencoded')
                         .set('token', 'bad token')
                         .set('circleid', circ._id.toString())
@@ -120,13 +135,13 @@ describe('Test Get Cirlce info', () => {
         })
     })
 
-    describe('Test get circle info with correct info', () => {
+    describe('Test get all daydreams with correct info', () => {
         it('Should return 200', (done) => {
             User.findOne({ username: uname }).then((user) => {
                 var token = user['tokens'][0]['token'][0]
                 Circle.findOne({ circleName: 'RAnDoM CirCLE NamE' }).then((circ) => {
                     chai.request(server)
-                        .get('/circle/info')
+                        .get('/circle/all-daydreams')
                         .set('content-type', 'application/x-www-form-urlencoded')
                         .set('token', token)
                         .set('circleid', circ._id.toString())

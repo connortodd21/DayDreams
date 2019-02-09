@@ -35,7 +35,6 @@ router.post('/add', authenticate, (req, res) => {
         res.status(400).send({ message: "DayDream data is incomplete" });
         return;
     }
-    console.log(req);
     var newDayDream = new DayDream({
         circleID: req.body.circleID,
         destination: req.body.destination,

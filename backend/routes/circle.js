@@ -63,7 +63,7 @@ router.post("/add", authenticate, function (req, res) {
             res.status(200).send(circle)
             return
         }).catch((err) => {
-            console.log(err)
+            // console.log(err)
         })
     })
 
@@ -224,9 +224,6 @@ router.get('/info', authenticate, (req, res) => {
         res.status(200).send(circ) //returns all circle properties
         return
         // console.log("success in returning circle properties");
-    }).catch((err) => {
-        res.status(400).send(err);
-        return;
     })
     //to get circle info of a specific circle
     //use ID 
@@ -275,7 +272,7 @@ router.post('/delete', authenticate, (req, res) => {
     //ensure that requesthas circleID
     //if not, send bad request
     if (!req.body || !req.body.circleID) {
-        console.log(req.body)
+        // console.log(req.body)
         res.status(400).send({ message: "Bad request" });
         return;
     }
@@ -288,10 +285,8 @@ router.post('/delete', authenticate, (req, res) => {
             return;
         }
         res.status(200).send(circ) //returns all circle properties
-        console.log(circ);
-    }).catch((err) => {
-        res.status(400).send(err);
-        return;
+        return
+        // console.log(circ);
     })
 })
 
