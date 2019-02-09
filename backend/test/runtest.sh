@@ -23,3 +23,4 @@ mocha test/circle/test_add_user.js --exit
 mocha test/circle/test_edit_circle_name.js --exit
 mocha test/circle/test_all_members.js --exit
 mocha test/circle/test_get_circle_info.js --exit
+mocha test/circle/test_get_all_daydreams.js --exit
