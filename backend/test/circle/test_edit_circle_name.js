@@ -12,7 +12,7 @@ var uname = process.env.UNIT_TEST_USERNAME
 var pword = process.env.UNIT_TEST_PASSWORD
 var mail = process.env.UNIT_TEST_EMAIL
 
-describe('Test Add Circle', () => {
+describe('Test Edit Circle Name', () => {
 
     before((done) => {
         var info = {

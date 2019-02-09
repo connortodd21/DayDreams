@@ -20,3 +20,5 @@ echo ------------------------------------------------------------------------
 mocha test/circle/test_add_circle.js --exit
 mocha test/circle/test_upload_photo.js --exit
 mocha test/circle/test_add_user.js --exit
+mocha test/circle/test_edit_circle_name.js --exit
+mocha test/circle/test_all_members.js --exit
