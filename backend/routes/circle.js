@@ -208,7 +208,7 @@ router.get('/info', authenticate, (req, res) => {
     //ensure that request has body and has circleID
     //if not, send bad request
     if (!req.headers.circleid) {
-        console.log(req.headers)
+        // console.log(req.headers)
         res.status(400).send({ message: "Bad request" });
         return;
     }
@@ -222,6 +222,7 @@ router.get('/info', authenticate, (req, res) => {
             return;
         }
         res.status(200).send(circ) //returns all circle properties
+        return
         // console.log("success in returning circle properties");
     }).catch((err) => {
         res.status(400).send(err);

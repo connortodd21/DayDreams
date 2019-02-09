@@ -12,7 +12,7 @@ mocha test/user/test_forgot_password.js --exit
 
 sleep 2
 
-#submission tests
+#circle tests
 clear
 echo CIRCLE TESTS
 echo ------------------------------------------------------------------------
@@ -22,3 +22,4 @@ mocha test/circle/test_upload_photo.js --exit
 mocha test/circle/test_add_user.js --exit
 mocha test/circle/test_edit_circle_name.js --exit
 mocha test/circle/test_all_members.js --exit
+mocha test/circle/test_get_circle_info.js --exit
