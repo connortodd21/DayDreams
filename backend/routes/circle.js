@@ -165,8 +165,6 @@ router.post('/add-user', authenticate, (req, res) => {
 */
 router.post("/edit-name", authenticate, (req, res) => {
     if (!req.body.circleName || !req.body.circleID) {
-        console.log("circle name: " + req.body.circleName);
-        console.log("circle id: " + req.body.circleID);
         res.status(400).json({ message: "Circle name change is incomplete" });
         return;
     }
@@ -178,8 +176,8 @@ router.post("/edit-name", authenticate, (req, res) => {
             }
         }).then(() => {
             res.status(200).send({ message: 'Circle name updated!' })
+            return
         }).catch((err) => {
-            res.status(400).send({ message: "Error changing circle name" });
             res.send(err);
         })
 })
