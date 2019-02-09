@@ -34,3 +34,4 @@ echo DAYDREAM TESTS
 echo ------------------------------------------------------------------------
 
 mocha test/daydream/test_add_daydream.js --exit
+mocha test/daydream/test_delete_daydream.js --exit

@@ -129,7 +129,7 @@ router.post('/delete', authenticate, (req, res) => {
             return;
         }
         let temp =[];
-        for (var i = 0; i < cir.dayDreams.length; i++) {
+        for (var i = 0; i < circ.dayDreams.length; i++) {
             if (circ.dayDreams[i] != req.body.daydreamID) {
                 temp.push(circ.dayDreams[i]);
                 // console.log("pushing: " + circ.dayDreams[i]);

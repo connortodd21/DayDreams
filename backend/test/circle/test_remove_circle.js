@@ -77,7 +77,7 @@ describe('Test Delete Circle', () => {
         })
     })
 
-    describe('Add user with invalid circle id', () => {
+    describe('Delete circle with invalid circle id', () => {
         it('Should return 400', (done) => {
             User.findOne({ username: uname }).then((user) => {
                 var token = user['tokens'][0]['token'][0]
