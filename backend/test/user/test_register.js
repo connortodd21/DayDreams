@@ -3,6 +3,7 @@ var chaiHttp = require('chai-http');
 var server = require('../../app');
 var User = require('../../model/user');
 var should = require('chai').should();
+var expect = require('chai').expect();
 
 chai.use(chaiHttp);
 
@@ -131,6 +132,9 @@ describe('Test Register', () => {
                 .send(info)
                 .end((err, res) => {
                     // console.log(res)
+                    res.body.should.have.property('_id')
+                    res.body.should.have.property('username')
+                    res.body.should.have.property('email')
                     res.should.have.status(200);
                     done();
                 });

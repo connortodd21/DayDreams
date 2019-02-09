@@ -101,6 +101,7 @@ describe('Test Forgot Password', () => {
                     .set('content-type', 'application/x-www-form-urlencoded')
                     .send(info)
                     .end((err, res) => {
+                        res.body.should.have.property('message', "Password has successfully been reset.")
                         res.should.have.status(200);
                         done();
                     });

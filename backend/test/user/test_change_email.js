@@ -124,6 +124,7 @@ describe('Test Change Email', () => {
                     .set('token', token)
                     .send(info)
                     .end((err, res) => {
+                        res.body.should.have.property('message', "User email successfully updated")
                         res.should.have.status(200)
                         done()
                     })
