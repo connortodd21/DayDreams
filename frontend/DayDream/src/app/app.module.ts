@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HTTP_INTERCEPTORS, HttpClientModule, FormsModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import {
   MDBBootstrapModule,
   ModalModule,
@@ -10,7 +10,6 @@ import {
   ButtonsModule,
   CarouselModule,
   CardsFreeModule,
-  MdbCardBodyComponent,
   ChartsModule,
   CheckboxModule,
   CollapseModule,
@@ -82,13 +81,7 @@ import { ChangeEmailComponent } from './change-email/change-email.component';
     TooltipModule.forRoot(),
     WavesModule.forRoot(),
   ],
-  exports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule
-  ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
-
 })
 export class AppModule { }
