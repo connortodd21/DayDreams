@@ -10,10 +10,8 @@
         <label for="form7">New Circle Name</label>
       </div>
 
-      <button type="submit" mdbBtn (click) = "sendEdits(myCircle)" class="btn tableColor" mdbWavesEffect block="true">Submit</button>
+      <button *ngIf="myCircle" type="submit" mdbBtn (click) = "sendEdits(myCircle)" class="btn tableColor" mdbWavesEffect block="true">Submit</button>
       <button  mdbBtn (click) = "cancelEdits()"  color="danger" outline="true" mdbWavesEffect block="true">Cancel</button>
   </form>
     </mdb-card-body>
-</mdb-card> 
-
-
+</mdb-card>

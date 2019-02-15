@@ -1,5 +1,28 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { FormsModule, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  MDBBootstrapModule,
+  ModalModule,
+  NavbarModule,
+  BadgeModule,
+  BreadcrumbModule,
+  ButtonsModule,
+  CarouselModule,
+  CardsFreeModule,
+  MdbCardBodyComponent,
+  ChartsModule,
+  CheckboxModule,
+  CollapseModule,
+  DropdownModule,
+  IconsModule,
+  InputsModule,
+  PopoverModule,
+  TooltipModule,
+  WavesModule
+}
+  from 'angular-bootstrap-md';
 import { ChangePasswordComponent } from './change-password.component';
 
 describe('ChangePasswordComponent', () => {
@@ -8,6 +31,14 @@ describe('ChangePasswordComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule,
+        NavbarModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MDBBootstrapModule.forRoot(),
+      ],
       declarations: [ ChangePasswordComponent ]
     })
     .compileComponents();
