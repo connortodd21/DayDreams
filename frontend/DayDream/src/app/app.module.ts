@@ -1,7 +1,27 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'; 
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import {
+  MDBBootstrapModule,
+  ModalModule,
+  NavbarModule,
+  BadgeModule,
+  BreadcrumbModule,
+  ButtonsModule,
+  CarouselModule,
+  CardsFreeModule,
+  MdbCardBodyComponent,
+  ChartsModule,
+  CheckboxModule,
+  CollapseModule,
+  DropdownModule,
+  IconsModule,
+  InputsModule,
+  PopoverModule,
+  TooltipModule,
+  WavesModule
+}
+  from 'angular-bootstrap-md';
 import { RouterModule } from '@angular/router'
 import { HttpModule } from '@angular/http';
 
@@ -34,17 +54,36 @@ import { ChangeEmailComponent } from './change-email/change-email.component';
     EditNameComponent,
     ChangePasswordComponent,
     ChangeEmailComponent
-    ],
+  ],
   imports: [
-  BrowserModule,
+    BrowserModule,
     HttpModule,
     HttpClientModule,
-    FormsModule,                            
+    FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    ModalModule.forRoot(),
+    NavbarModule,
+    BadgeModule,
+    BreadcrumbModule,
+    ButtonsModule,
+    CardsFreeModule,
+    CarouselModule.forRoot(),
+    ChartsModule,
+    CheckboxModule,
+    CollapseModule.forRoot(),
+    DropdownModule.forRoot(),
+    IconsModule,
+    InputsModule.forRoot(),
+    ModalModule.forRoot(),
+    NavbarModule,
+    PopoverModule.forRoot(),
+    TooltipModule.forRoot(),
+    WavesModule.forRoot(),
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi:true}],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
+
 })
 export class AppModule { }

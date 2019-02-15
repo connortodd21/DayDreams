@@ -118,6 +118,7 @@ export class AuthService {
     private setAuthTimer(duration: number) {
         this.tokenTimer = setTimeout(() => {
             this.logout();
+            this.clearLocalStorage()
         }, duration * 1000);
     }
 

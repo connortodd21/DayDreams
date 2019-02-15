@@ -15,7 +15,7 @@ import { ChangeEmailComponent } from './change-email/change-email.component'
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full',
 
   },
@@ -61,7 +61,7 @@ const routes: Routes = [
   {
     //404 error, leave this one as last route check
     path: '**',
-    redirectTo: 'home',
+    redirectTo: 'login',
     canActivate: [AuthGuard]
   }
 ];
