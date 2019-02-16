@@ -43,7 +43,7 @@ router.post("/add", authenticate, function (req, res) {
     if(req.body.description){
         desc = req.body.description
     }
-    if(req.body.imageUrl){
+    if(req.body.imageUrl && validate(req.body.imageUrl)){
         url = req.body.imageUrl
     }
 
