@@ -124,7 +124,7 @@ export class AuthService {
             console.log(duration - i)
             this.logout();
             this.clearLocalStorage()
-        }, 5000);
+        }, duration);
     }
 
     public getAuthData() {
