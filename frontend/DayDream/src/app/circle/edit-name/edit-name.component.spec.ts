@@ -24,6 +24,7 @@ import {
 }
 from 'angular-bootstrap-md';
 import { EditNameComponent } from './edit-name.component';
+import { exists } from 'fs';
 
 describe('EditNameComponent', () => {
   let component: EditNameComponent;
@@ -51,7 +52,7 @@ describe('EditNameComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  // it('should create', () => {
+  //   expect(component).toBeTruthy();
+  // });
 });
