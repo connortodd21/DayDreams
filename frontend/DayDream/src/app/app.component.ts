@@ -34,6 +34,7 @@ export class AppComponent {
     console.log(expirationDate)
     if(expirationDate > ex['expirationDate']){
       this.logout()
+      this.userAuthed = false
     }
   }
 }
