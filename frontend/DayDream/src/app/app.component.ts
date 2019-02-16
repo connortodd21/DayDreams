@@ -11,15 +11,15 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AppComponent {
   title = 'DayDream';
-  userAuthed:boolean;
+  userAuthed: boolean;
   private loggedIn = new BehaviorSubject<boolean>(false); // {1}
 
 
-  constructor(private router:Router, public authService: AuthService ) {}
+  constructor(private router: Router, public authService: AuthService) { }
 
   get auth() { return this.userAuthed }
 
-  logout(){
+  logout() {
     this.authService.logout()
   }
 
@@ -27,5 +27,13 @@ export class AppComponent {
     this.userAuthed = this.authService.getAuthenticationStatus()
     // this.loggedIn = this.authService.getAuthStatObservible()
     console.log("auth is:" + this.userAuthed)
+    const ex = this.authService.getAuthData()
+    console.log(this.authService.getAuthData())
+    const now = new Date();
+    const expirationDate = new Date(now.getTime())
+    console.log(expirationDate)
+    if(expirationDate > ex['expirationDate']){
+      this.logout()
+    }
   }
 }

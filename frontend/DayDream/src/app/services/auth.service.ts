@@ -56,14 +56,14 @@ export class AuthService {
     }
 
     getAuthStatObservible() {
-        return new Observable<boolean>( observer => {
+        return new Observable<boolean>(observer => {
             if (localStorage.getItem('token')) {
                 observer.next(true)
             }
             else {
                 observer.next(false)
             }
-        })        
+        })
     }
 
     login(username: string, password: string) {
@@ -77,7 +77,9 @@ export class AuthService {
                 if (token) {
                     this.setAuthTimer(7200000);
                     const now = new Date();
-                    const expirationDate = new Date(now.getTime() + 7200 * 1000);
+                    const expirationDate = new Date(now.getTime() + 5000);
+                    
+                    // const expirationDate = new Date(now.getTime() + 7200 * 1000);
                     this.isAuthenticated = true;
                     this.response_login = "comlpete"
                     this.addAuthToLocalStorage(token, expirationDate);
@@ -117,19 +119,19 @@ export class AuthService {
     }
 
     private setAuthTimer(duration: number) {
-        var i:number
+        var i: number
         this.tokenTimer = setTimeout(() => {
-            console.log(duration-i)
+            console.log(duration - i)
             this.logout();
             this.clearLocalStorage()
         }, 5000);
     }
 
-    private getAuthData() {
+    public getAuthData() {
         const token = localStorage.getItem("token");
-        const expirationDate = localStorage.getItem("expiration");
+        const expirationDate = localStorage.getItem("expiresIn");
         if (!token || !expirationDate) {
-            return;
+            return "NO";
         }
         return {
             token: token,
