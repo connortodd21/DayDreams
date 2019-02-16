@@ -77,9 +77,9 @@ export class AuthService {
                 if (token) {
                     this.setAuthTimer(7200000);
                     const now = new Date();
-                    const expirationDate = new Date(now.getTime() + 5000);
+                    // const expirationDate = new Date(now.getTime() + 5000);
                     
-                    // const expirationDate = new Date(now.getTime() + 7200 * 1000);
+                    const expirationDate = new Date(now.getTime() + 7200 * 1000);
                     this.isAuthenticated = true;
                     this.response_login = "comlpete"
                     this.addAuthToLocalStorage(token, expirationDate);
