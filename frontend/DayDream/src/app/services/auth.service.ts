@@ -48,6 +48,7 @@ export class AuthService {
     }
 
     getAuthenticationStatus() {
+        console.log(localStorage)
         if (localStorage.getItem('token')) {
             return true;
         }
@@ -74,7 +75,7 @@ export class AuthService {
                 const token = response.headers.get('token');
                 this.token = token
                 if (token) {
-                    this.setAuthTimer(7200);
+                    this.setAuthTimer(7200000);
                     const now = new Date();
                     const expirationDate = new Date(now.getTime() + 7200 * 1000);
                     this.isAuthenticated = true;
@@ -116,10 +117,12 @@ export class AuthService {
     }
 
     private setAuthTimer(duration: number) {
+        var i:number
         this.tokenTimer = setTimeout(() => {
+            console.log(duration-i)
             this.logout();
             this.clearLocalStorage()
-        }, duration * 1000);
+        }, 5000);
     }
 
     private getAuthData() {

@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
       console.log('here')
       return true;
     }
-    console.log('here')
+    // console.log('here')
     console.log(this._authService.getAuthenticationStatus())
     // navigate to login page
     this._router.navigate(['/login']);
