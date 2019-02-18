@@ -50,13 +50,12 @@ export class SignUpComponent implements OnInit {
         this.authService.registerUser(form.value.email, form.value.username, form.value.password).then((res) => {
             this.response = "complete"
         }).catch((err) => {
-            if (err.error.name == "MongoError") {
-                this.response = "User already exists";
+            if (err.error.message == "User already exists") {
+                this.response = "duplicate";
             }
             else {
-                this.response = "RIP";
+                this.response = "fatalError";
             }
-            console.log(err.error)
         })
   }
 }
