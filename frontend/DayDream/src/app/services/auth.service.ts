@@ -91,10 +91,16 @@ export class AuthService {
                     if (error.error.message == "Account has not been verified, please verify your account") {
                         this.response_login = "verify"
                     }
+                    else if (error.error.message == "Error: Password is incorrect") {
+                       this.response_login = "badPass" 
+                    }
+                    else if (error.error.message == "Error: User does not exist, register before logging in") {
+                        this.response_login = "DNE"
+                    }
                     else {
                         this.response_login = "failed";
                     }
-                    console.log(error);
+                    console.log(error.error.message);
                 }
             );
         return this.response_login
