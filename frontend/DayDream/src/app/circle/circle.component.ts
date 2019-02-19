@@ -25,15 +25,15 @@ export class CircleComponent implements OnInit {
   renderComponent: string;
   chosenCircle: Circle;
 
-  constructor(  private route: ActivatedRoute,
-    private circleService:CircleService, private DaydreamService: DaydreamService, private formBuilder: FormBuilder, private _router: Router) {
-      this.dayDreams = [];
-      this.fileForm = this.formBuilder.group({
-        destination: ['', Validators.required],
-        description: ['', Validators.required],
-        totalCost: ['', Validators.required],
-      });
-    }
+  constructor(private route: ActivatedRoute,
+    private circleService: CircleService, private DaydreamService: DaydreamService, private formBuilder: FormBuilder, private _router: Router) {
+    this.dayDreams = [];
+    this.fileForm = this.formBuilder.group({
+      destination: ['', Validators.required],
+      description: ['', Validators.required],
+      totalCost: ['', Validators.required],
+    });
+  }
 
 
   ngOnInit() {
@@ -50,12 +50,12 @@ export class CircleComponent implements OnInit {
     this.circleService.getAllCircleInfo(id).then((data) => {
       this.circleService.getDayDreamsInCircle(id).then((daydreams: []) => {
         this.myCircle = new Circle(data);
-        let i:number;
-        for(i = 0; i < daydreams.length; i+=1) {
+        let i: number;
+        for (i = 0; i < daydreams.length; i += 1) {
           let dd = new DayDream(daydreams[i])
           console.log(dd)
           this.dayDreams[i] = dd;
-       }
+        }
         console.log(this.dayDreams);
       }).catch((err) => {
         console.log(err)
@@ -66,7 +66,7 @@ export class CircleComponent implements OnInit {
   /*
   *   Method that deletes a circle and redirects back to the homepage
   */
-  delCir(circle:Circle) {
+  delCir(circle: Circle) {
 
     // call delete method from service
     var confirm = window.confirm('Are you sure you want to remove this circle. This action cannot be undone')
@@ -77,15 +77,16 @@ export class CircleComponent implements OnInit {
     this.circleService.deleteChosenCircle(id).then((data) => {
       this.myCircle = new Circle(data);
       console.log("Deleting Circle");
+      //navigate back to page
+      this._router.navigate(['/home']);
     })
 
-    //navigate back to page
-    this._router.navigate(['/home']);
+
   }
 
 
-// renderEditCircleName(circle: Circle) {
-   renderEditCircleName() {
+  // renderEditCircleName(circle: Circle) {
+  renderEditCircleName() {
     this._router.navigate(['/edit-name/' + this.myCircle.ID]);
 
     // this.chosenCircle = circle;
