@@ -30,6 +30,15 @@ router.get("/", function (req, res) {
     res.send('This route is for all user related tasks');
 });
 
+function isInt(value) {
+    var x;
+    if (isNaN(value)) {
+      return false;
+    }
+    x = parseFloat(value);
+    return (x | 0) === x;
+  }
+
 router.post('/add', authenticate, (req, res) => {
     if (!req.body || !req.body.circleID || !req.body.destination || !req.body.description || !req.body.totalCost) {
         res.status(400).send({ message: "DayDream data is incomplete" });
@@ -41,6 +50,11 @@ router.post('/add', authenticate, (req, res) => {
         description: req.body.description,
         totalCost: req.body.totalCost,
     })
+
+    if(!isInt(req.body.totalCost)){
+        res.status(400).send({ message: "Error: Make sure that totalCost is an integer" });
+        return;
+    }
 
     Circle.findOneAndUpdate({ _id: req.body.circleID }, {
         $push: {
