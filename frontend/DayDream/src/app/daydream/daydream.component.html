@@ -1,5 +1,7 @@
 <div>
   <div class="grid-container" id="circleObject">
+      <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=returnToCircles()> <i class="fa fa-arrow-left"> </i> Back
+        to Circle </button>
     <div *ngIf="myDayDream">
       <h2 class="center"><b>Description:</b> {{myDayDream.description}}</h2>
       <h2 class="center"><b>Destination:</b> {{myDayDream.destination}}</h2>

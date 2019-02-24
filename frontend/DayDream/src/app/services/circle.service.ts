@@ -15,6 +15,7 @@ export class CircleService{
 
     Circle: Object;
     constructor(private http:HttpClient) {}
+    CircleUrl: string
 
     uploadPhoto(url:string, circleName:string){
         const options = {
@@ -22,6 +23,14 @@ export class CircleService{
             circleName: circleName,
         }
         return this.http.post<Object>("http://localhost:5000/circle/add-photo", options).toPromise()
+    }
+
+    setCircleUrl(url:string){
+        this.CircleUrl=url
+    }
+
+    getCircleUrl(){
+        return this.CircleUrl
     }
 
     getAllCircleInfo(circleID:string) {

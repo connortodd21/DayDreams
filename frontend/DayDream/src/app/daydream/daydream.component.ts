@@ -41,4 +41,9 @@ export class DaydreamComponent implements OnInit {
     })
   }
 
+  returnToCircles(){
+    var route = this.circleService.getCircleUrl()
+    this._router.navigate([route])
+  }
+
 }
