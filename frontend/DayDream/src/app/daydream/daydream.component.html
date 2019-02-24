@@ -1,3 +1,8 @@
-<p>
-  daydream works!
-</p>
+<div>
+  <div class="grid-container" id="circleObject">
+    <div *ngFor="let d of dayDreams">
+      <h2 class="center"><b>Description:</b> {{d.description}}</h2>
+      <h2 class="center"><b>Destination:</b> {{d.destination}}</h2>
+    </div>
+  </div>
+</div>

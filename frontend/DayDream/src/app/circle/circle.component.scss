@@ -54,3 +54,12 @@
   .blueLine{
       color: rgb(0, 176, 255);
   }
+
+#daydreams{
+    transition-duration: 2s ease-in-out;
+}
+
+#daydreams:hover{
+    transform: scale(1.05);
+    cursor: pointer;
+}

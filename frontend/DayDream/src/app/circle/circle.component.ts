@@ -93,6 +93,11 @@ export class CircleComponent implements OnInit {
     // console.log(this.chosenCircle);
   }
 
+  renderDayDream(daydream:DayDream) {
+    console.log(daydream)
+    this._router.navigate(['/daydream/' + daydream.ID])
+  }
+
 
 
   getChildEvent(event: string) {

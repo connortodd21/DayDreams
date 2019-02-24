@@ -33,11 +33,11 @@ router.get("/", function (req, res) {
 function isInt(value) {
     var x;
     if (isNaN(value)) {
-      return false;
+        return false;
     }
     x = parseFloat(value);
     return (x | 0) === x;
-  }
+}
 
 router.post('/add', authenticate, (req, res) => {
     if (!req.body || !req.body.circleID || !req.body.destination || !req.body.description || !req.body.totalCost) {
@@ -51,7 +51,7 @@ router.post('/add', authenticate, (req, res) => {
         totalCost: req.body.totalCost,
     })
 
-    if(!isInt(req.body.totalCost)){
+    if (!isInt(req.body.totalCost)) {
         res.status(400).send({ message: "Error: Make sure that totalCost is an integer" });
         return;
     }
@@ -70,7 +70,7 @@ router.post('/add', authenticate, (req, res) => {
             res.status(200).send(newDayDream)
             return
         }).catch((err) => {
-        //   console.log(req.body);
+            //   console.log(req.body);
             res.status(400).send(err)
             return;
         })
@@ -86,21 +86,19 @@ router.post('/add', authenticate, (req, res) => {
 
 router.get('/info', authenticate, (req, res) => {
 
-    //ensure that request has body and has circleID
     //if not, send bad request
-    if (!req.headers.circleid) {
+    if (!req.headers.daydreamid) {
         // console.log(req.headers)
         res.status(400).send({ message: "Bad request" });
         return;
     }
-    Circle.findById(req.headers.circleid, (err, circ) => {
+    DayDream.findById(req.headers.daydreamid, (err, dd) => {
 
         if (err) {
             res.status(400).send({ message: "Could not find daydream" });
             return;
         }
-        res.status(200).send(circ) //returns all circle properties
-        console.log("success in returning circle properties");
+        res.status(200).send(dd) //returns all circle properties
     }).catch((err) => {
         res.status(400).send(err);
         return;
@@ -142,7 +140,7 @@ router.post('/delete', authenticate, (req, res) => {
             res.status(400).send({ message: "Could not find circle" });
             return;
         }
-        let temp =[];
+        let temp = [];
         for (var i = 0; i < circ.dayDreams.length; i++) {
             if (circ.dayDreams[i] != req.body.daydreamID) {
                 temp.push(circ.dayDreams[i]);
@@ -152,11 +150,11 @@ router.post('/delete', authenticate, (req, res) => {
 
         Circle.findOneAndUpdate({ _id: req.body.circleID }, {
             $set:
-                {
-                    dayDreams: temp,
-                }
+            {
+                dayDreams: temp,
+            }
         }).then(() => {
-            res.status(200).send({message: "Daydream Removed!"})
+            res.status(200).send({ message: "Daydream Removed!" })
             return;
         })
     })

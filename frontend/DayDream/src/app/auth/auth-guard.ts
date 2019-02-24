@@ -7,16 +7,26 @@ import { Observable } from 'rxjs';
 export class AuthGuard implements CanActivate {
 
 
-  constructor(private _authService: AuthService, private _router: Router) {
+  constructor(private authService: AuthService, private _router: Router) {
   }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if (this._authService.getAuthenticationStatus()) {
+    const ex = this.authService.getAuthData()
+    console.log(this.authService.getAuthData())
+    const now = new Date();
+    const expirationDate = new Date(now.getTime())
+    console.log(expirationDate)
+    console.log(ex['expirationDate'])
+    if(expirationDate > ex['expirationDate']){
+      this.authService.logout()
+      return false
+    }
+    if (this.authService.getAuthenticationStatus()) {
       console.log('here')
       return true;
     }
-    // console.log('here')
-    console.log(this._authService.getAuthenticationStatus())
+    console.log('here')
+    console.log(this.authService.getAuthenticationStatus())
     // navigate to login page
     this._router.navigate(['/login']);
     // you can save redirect url so after authing we can move them back to the page they requested
