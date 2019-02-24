@@ -94,6 +94,7 @@ export class CircleComponent implements OnInit {
   }
 
   renderDayDream(daydream:DayDream) {
+    console.log(daydream)
     this._router.navigate(['/daydream/' + daydream.ID])
   }
 

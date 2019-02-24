@@ -9,6 +9,7 @@ import { CircleComponent } from './circle/circle.component'
 import { EditNameComponent } from './circle/edit-name/edit-name.component'
 import { ChangePasswordComponent } from './change-password/change-password.component'
 import { ChangeEmailComponent } from './change-email/change-email.component'
+import {DaydreamComponent} from './daydream/daydream.component'
 
 
 
@@ -36,6 +37,15 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+
+  },
+  {
+    path: 'daydream/:id',
+    component: DaydreamComponent,
+    canActivate: [AuthGuard],
+    data: {
+      type: 'daydream'
+    }
 
   },
   {

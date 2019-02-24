@@ -134,7 +134,7 @@
 
           </html>
           <div class="grid-container-daydreams" >
-            <div *ngFor="let d of dayDreams" id="daydreams" class="topMargin cardProperties grid-item-daydreams">
+            <div *ngFor="let d of dayDreams" id="daydreams" class="topMargin cardProperties grid-item-daydreams" (click)="renderDayDream(d)">
               <h1>{{d.destination}}</h1>
               <div class="circleInfo" >
 
