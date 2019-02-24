@@ -32,12 +32,12 @@ export class DaydreamComponent implements OnInit {
       response.push(data);
       let daydream = new DayDream(response[0])
       this.myDayDream = daydream;
-      if(daydream.lodgingInformation.length < 1){
-        this.lodgingInfo[0] = "No lodging information yet"
-      }
-      else{
-        this.lodgingInfo = daydream.lodgingInformation
-      }
+      // if(daydream.lodgingInformation.length < 1){
+      //   this.lodgingInfo[0] = "No lodging information yet"
+      // }
+      // else{
+      //   this.lodgingInfo = daydream.lodgingInformation
+      // }
     })
   }
 
