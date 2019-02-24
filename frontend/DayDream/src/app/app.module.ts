@@ -38,6 +38,7 @@ import { DaydreamComponent } from './daydream/daydream.component';
 import { EditNameComponent } from './circle/edit-name/edit-name.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ChangeEmailComponent } from './change-email/change-email.component';
+import { AboutComponent } from './about/about.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { ChangeEmailComponent } from './change-email/change-email.component';
     DaydreamComponent,
     EditNameComponent,
     ChangePasswordComponent,
-    ChangeEmailComponent
+    ChangeEmailComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,21 @@
+@media (min-width: 768px) {
+    .media .avatar-2 {
+        width: 130px;
+    }
+}
+
+@media (max-width: 767px) {
+    .media .avatar-2 {
+        width: 160px;
+    }
+}
+
+.card img.rounded-circle {
+    border-radius: 50%;
+}
+
+.divider {
+  flex-grow: 1;
+  border-bottom: 1px solid black;
+  margin: 5px
+}

@@ -9,6 +9,7 @@ import { CircleComponent } from './circle/circle.component'
 import { EditNameComponent } from './circle/edit-name/edit-name.component'
 import { ChangePasswordComponent } from './change-password/change-password.component'
 import { ChangeEmailComponent } from './change-email/change-email.component'
+import { AboutComponent } from './about/about.component';
 
 
 
@@ -53,6 +54,10 @@ const routes: Routes = [
   {
     path: 'change-email',
     component: ChangeEmailComponent
+  },
+  {
+    path: 'about',
+    component: AboutComponent
   },
   {
     path: 'edit-name/:id',
