@@ -1,8 +1,9 @@
 <div>
   <div class="grid-container" id="circleObject">
-    <div *ngFor="let d of dayDreams">
-      <h2 class="center"><b>Description:</b> {{d.description}}</h2>
-      <h2 class="center"><b>Destination:</b> {{d.destination}}</h2>
+    <div *ngIf="myDayDream">
+      <h2 class="center"><b>Description:</b> {{myDayDream.description}}</h2>
+      <h2 class="center"><b>Destination:</b> {{myDayDream.destination}}</h2>
+      <h1 class="blueLine">__________________________________________________________________</h1>
     </div>
   </div>
 </div>
