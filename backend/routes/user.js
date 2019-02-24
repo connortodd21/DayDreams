@@ -148,7 +148,7 @@ router.post("/forgot-password", (req, res) => {
         return;
     }
 
-    if(!validate_email(req.body.email)){
+    if (!validate_email(req.body.email)) {
         res.status(400).send({ message: "Invalid email" });
         return;
     }
@@ -191,7 +191,7 @@ router.post("/change-email", authenticate, (req, res) => {
         return;
     }
 
-    if(!validate_email(req.body.email)){
+    if (!validate_email(req.body.email)) {
         res.status(400).send({ message: "Invalid email" });
         return;
     }
@@ -207,6 +207,12 @@ router.post("/change-email", authenticate, (req, res) => {
             res.status(400).send({ message: "Error changing email" });
             res.send(err);
         })
+
+    var email_subject = "DayDreams Reset Email";
+    var email_body = "Dear " + req.user.username + ", \n\nOur records indicate that you have changed your email. If this was the intention, no further action is needed from your part." +
+        "\n\nSincerely, \n\nThe DayDreams Team";
+
+    mailer(req.body.email, email_subject, email_body);
 })
 
 /*
@@ -226,7 +232,7 @@ router.post("/change-password", authenticate, (req, res) => {
         // console.log("encrypt: " + encryptedPassword)
         User.findOneAndUpdate({ username: username }, { $set: { password: encryptedPassword } }).then(() => {
             // console.log("passwd set")
-            res.status(200).send({message: "Password changed!"})
+            res.status(200).send({ message: "Password changed!" })
         }).catch((err) => {
             res.status(400).send({ message: "New password not set." });
             res.send(err);
@@ -234,6 +240,12 @@ router.post("/change-password", authenticate, (req, res) => {
     }).catch(err => {
         console.log("err: " + err)
     });
+
+    var email_subject = "DayDreams Reset Password";
+    var email_body = "Dear " + username + ", \n\nOur records indicate that you have changed your password. If this was the intention, no further action is needed from your part." +
+        "\n\nSincerely, \n\nThe DayDreams Team";
+
+    mailer(req.user.email, email_subject, email_body);
 })
 
 /**
