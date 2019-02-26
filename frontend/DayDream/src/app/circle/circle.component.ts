@@ -99,7 +99,9 @@ export class CircleComponent implements OnInit {
     this._router.navigate(['/daydream/' + daydream.ID])
   }
 
-
+  addUser(username:string) {
+    console.log('here')
+  }
 
   getChildEvent(event: string) {
     this.returnToParent.emit('reload');
