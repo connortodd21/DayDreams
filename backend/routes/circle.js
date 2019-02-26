@@ -230,6 +230,24 @@ router.get('/all-members', authenticate, (req, res) => {
     })
 })
 
+router.get('/chat', authenticate, (req, res) => {
+    if (!req.headers.circleid) {
+        // console.log(req.headers)
+        res.status(400).send({ message: "Bad request" });
+        return;
+    }
+    Circle.findById(req.headers.circleid, (err, circ) => {
+
+        if (err || circ == null) {
+            res.status(400).send({ message: "Could not find circle" });
+            return;
+        }
+        res.status(200).send(circ.chat) //returns all circle properties
+        return
+        // console.log("success in returning circle properties");
+    })
+})
+
 /*
 *   Get circle info
 */
