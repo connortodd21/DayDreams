@@ -182,6 +182,34 @@ router.post("/edit-name", authenticate, (req, res) => {
         })
 })
 
+router.post('/add-message', authenticate, (req, res) => {
+    if(!req.body || !req.body.message || !req.body.circleID){
+        res.status(400).send({ message: "Bad request" });
+        return;
+    }
+    Circle.findOne({_id: req.body.circleID}).then((circle) => {
+        if(!circle){
+            res.status(400).send({message: "Circle does not exist"})
+            return
+        }
+        Circle.findOneAndUpdate({_id: req.body.circleID}, {
+            $push: {
+                chat: {
+                    message: req.body.message,
+                    user: req.user.username
+                }
+            }
+        }).then((circ) => {
+            res.status(200).send({message: "message added"})
+            return
+        }).catch((err) => {
+            res.send(err);
+        })
+    }).catch((err) => {
+        res.send(err);
+    })
+})
+
 
 /* 
 *   Edit existing circle circle description 
@@ -220,6 +248,24 @@ router.get('/all-members', authenticate, (req, res) => {
     }).catch((err) => {
         res.status(400).send({ message: "Could not find circle" });
         return;
+    })
+})
+
+router.get('/chat', authenticate, (req, res) => {
+    if (!req.headers.circleid) {
+        // console.log(req.headers)
+        res.status(400).send({ message: "Bad request" });
+        return;
+    }
+    Circle.findById(req.headers.circleid, (err, circ) => {
+
+        if (err || circ == null) {
+            res.status(400).send({ message: "Could not find circle" });
+            return;
+        }
+        res.status(200).send(circ.chat) //returns all circle properties
+        return
+        // console.log("success in returning circle properties");
     })
 })
 
