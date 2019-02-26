@@ -23,10 +23,21 @@
 
                 <!-- <button *ngIf="myCircle" type="submit" mdbBtn (click)="sendEdits(myCircle)" class="btn tableColor"
                 mdbWavesEffect block="true">Submit</button> -->
+                <div *ngIf="response_msg === 'fatalError'" class="alert alert-danger" role="alert">
+                    A Fatal Error Has Occoured. PLease Try Again Later.
+                </div>
+                <div *ngIf="response_msg === 'noEdit'" class="alert alert-info" role="alert">
+                    No Changes Applied
+                </div>
+                <div *ngIf="response_msg === 'complete'" class="alert alert-success" role="alert">
+                    Circle Edits Successfully Applied
+                </div>
 
                 <button mdbBtn color="info" block="true" class="my-4" type="submit">Submit</button>
 
                 <button mdbBtn (click)="cancelEdits()" color="danger" outline="true" mdbWavesEffect block="true">Cancel</button>
+
+
             </form>
         </mdb-card-body>
     </mdb-card>
