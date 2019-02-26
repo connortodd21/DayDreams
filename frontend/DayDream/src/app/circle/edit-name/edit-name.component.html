@@ -1,17 +1,25 @@
-<!-- <mdb-card *ngIf="cir != null" class="outerCard"> -->
-<h1> EDIT NAME WORKS </h1>
-<mdb-card class="outerCard">
+<div class="p-2 profile animated fadeInUp">
+    <h1>Edit: {{myCircle.circleName}}</h1>
+    <mdb-card class="outerCard">
+        <mdb-card-body>
+            <form (submit)="sendEdits(f)" #f="ngForm" [formGroup]="editCircleForm">
+                <div class="form-group">
 
-    <mdb-card-body >
-      <mdb-card-title> <h5 class="header">Edit Circle Name for {{myCircle.circleName}}</h5> </mdb-card-title>
-  <form>
-      <div class="md-form">
-        <textarea mdbInputDirective type="text" id="form7" class="md-textarea form-control" rows="3" [(ngModel)]="cirName"[ngModelOptions]="{standalone: true}" ></textarea>
-        <label for="form7">New Circle Name</label>
-      </div>
+                    <h5 class="header">Edit Circle Name</h5>
+                    <input type="text" class="form-control" formControlName="circleName" value={{myCircle.circleName}}
+                        [ngClass]="{ 'is-invalid': submitted && form.circleName.errors }" />
+                    <div *ngIf="submitted && form.circleName.errors" class="invalid-feedback">
+                        <div *ngIf="form.circleName.errors.required">Circle Name is required</div>
+                    </div>
+                </div>
 
-      <button *ngIf="myCircle" type="submit" mdbBtn (click) = "sendEdits(myCircle)" class="btn tableColor" mdbWavesEffect block="true">Submit</button>
-      <button  mdbBtn (click) = "cancelEdits()"  color="danger" outline="true" mdbWavesEffect block="true">Cancel</button>
-  </form>
-    </mdb-card-body>
-</mdb-card>
+                <!-- <button *ngIf="myCircle" type="submit" mdbBtn (click)="sendEdits(myCircle)" class="btn tableColor"
+                mdbWavesEffect block="true">Submit</button> -->
+
+                <button mdbBtn color="info" block="true" class="my-4" type="submit">Submit</button>
+
+                <button mdbBtn (click)="cancelEdits()" color="danger" outline="true" mdbWavesEffect block="true">Cancel</button>
+            </form>
+        </mdb-card-body>
+    </mdb-card>
+</div>
