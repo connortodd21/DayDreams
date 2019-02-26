@@ -16,6 +16,7 @@
       <div class="grid-container">
         <div class="grid-item">
           <img [src]="myCircle.imageUrl" class="imgSize" />
+          <!-- <button></button> -->
         </div>
 
         <div class="grid-item">
@@ -33,37 +34,24 @@
             <h4 class="pageHeader">Members of This Circle <button mdbBtn type="button" color="primary" mdbWavesEffect
                 onclick="document.getElementById('id02').style.display='block'">Add Member <i class="fa fa-user">
                 </i></button></h4>
-            <div id="id01" class="w3-modal">
+            <div id="id02" class="w3-modal">
               <div class="w3-modal-content">
                 <div class="w3-container">
                   <mdb-card>
                     <mdb-card-body>
-                      <form (submit)="submitFile(f)" #f="ngForm" class="text-center border border-light p-5"
+                      <form (submit)="addUser(f)" #f="ngForm" class="text-center border border-light p-5"
                         [formGroup]="fileForm">
 
-                        <h4 class="pageHeader">Create a New Daydream</h4>
+                        <h4 class="pageHeader">Add User</h4>
 
                         <div class="form-group">
-                          <input type="text" id="destination" formControlName="destination" class="form-control"
-                            placeholder="Where are you going?" [(ngModel)]="destination"
-                            [ngClass]="{ 'is-invalid': submitted && form.daydream.errors }">
+                          <input type="text" id="addUser" formControlName="username" class="form-control"
+                            placeholder="Username"
+                            >
                         </div>
 
-                        <div class="form-group">
-                          <input type="text" id="description" formControlName="description" class="form-control"
-                            placeholder="Describe your daydream" [(ngModel)]="description"
-                            [ngClass]="{ 'is-invalid': submitted && form.description.errors }">
-                        </div>
-
-                        <div class="form-group">
-                          <input type="text" id="totalCost" formControlName="totalCost" class="form-control"
-                            placeholder="Please enter the total cost for this excursion" [(ngModel)]="totalCost"
-                            [ngClass]="{ 'is-invalid': submitted && form.imageUrl.errors }">
-                        </div>
-
-
-                        <button mdbBtn color="info" block="true" class="my-4" type="submit" prevent-default>Create
-                          Daydream</button>
+                        <button mdbBtn color="info" block="true" class="my-4" type="submit" prevent-default>Add
+                          User</button>
                         <button onclick="document.getElementById('id02').style.display='none'" mdbBtn color="info"
                           block="true" class="my-4">Cancel</button>
 

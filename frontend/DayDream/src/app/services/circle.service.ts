@@ -53,6 +53,14 @@ export class CircleService{
         return this.http.get<Object>("http://localhost:5000/circle/all-daydreams", info).toPromise()
     }
 
+    addUser(circleID:string, username:string){
+        const info = {
+            circleID: circleID,
+            username: username
+        }
+        return this.http.post("http://localhost:5000/circle/add-user", info).toPromise()
+    }
+
     deleteChosenCircle(circleID:string) {
         const chosen = {
             circleID: circleID

@@ -111,6 +111,8 @@ router.post('/add-user', authenticate, (req, res) => {
         return
     }
 
+    console.log('here')
+
     Circle.findById(req.body.circleID, (err, circ) => {
 
         if (err) {
