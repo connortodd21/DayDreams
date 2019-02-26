@@ -3,7 +3,6 @@ import { CircleService } from '../../services/circle.service';
 import { Circle } from '../../models/circle.model';
 import { Router, ActivatedRoute, Params, Data } from '@angular/router';
 import { NgForm, FormGroup, FormBuilder, Validators, Form } from "@angular/forms";
-import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -71,7 +70,6 @@ export class EditNameComponent implements OnInit {
     if (form.value.circleName != this.myCircle.circleName) {
       this.circleService.editCircleName(form.value.circleName, this.myCircle.ID).subscribe((response) => {
         console.log(response);
-        this._router.navigate(['/circle/' + this.myCircle.ID]);
         this.response = "complete";
       },
         (err) => {
@@ -80,13 +78,12 @@ export class EditNameComponent implements OnInit {
         });
     }
     else {
-      this._router.navigate(['/circle/' + this.myCircle.ID]);
+      this.response = "noEdit";
     }
 
     if (form.value.imageUrl != this.myCircle.imageUrl) {
       this.circleService.uploadPhoto(form.value.imageUrl, this.myCircle.ID).subscribe((response) => {
         console.log(response);
-        this._router.navigate(['/circle/' + this.myCircle.ID]);
         this.response = "complete";
       }),
         (err) => {
@@ -95,8 +92,12 @@ export class EditNameComponent implements OnInit {
         }
     }
     else {
-      this._router.navigate(['/circle/' + this.myCircle.ID]);
+      this.response = "noEdit";
     }
+
+    // this._router.navigate(['/circle/' + this.myCircle.ID]);
+    window.location.replace("/circle/" + this.myCircle.ID)
+
   }
 
   cancelEdits() {
