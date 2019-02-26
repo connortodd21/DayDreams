@@ -11,6 +11,14 @@
                     <div *ngIf="submitted && form.circleName.errors" class="invalid-feedback">
                         <div *ngIf="form.circleName.errors.required">Circle Name is required</div>
                     </div>
+
+                    <h5 class="header">Edit Circle Photo URL</h5>
+                    <input type="text" class="form-control" formControlName="imageUrl" value={{myCircle.imageUrl}}
+                        [ngClass]="{ 'is-invalid': submitted && form.imageUrl.errors }" />
+                    <div *ngIf="submitted && form.imageUrl.errors" class="invalid-feedback">
+                        <div *ngIf="form.imageUrl.errors.required">Circle Image URL is required</div>
+                    </div>
+
                 </div>
 
                 <!-- <button *ngIf="myCircle" type="submit" mdbBtn (click)="sendEdits(myCircle)" class="btn tableColor"
