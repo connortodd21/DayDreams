@@ -18,7 +18,7 @@ export class EditNameComponent implements OnInit {
 
 */
 
-  myCircle: Circle = {founder: null, circleName: null, members: null, dateCreated: null, numberOfPeople: null, dayDreams: null, chat: null, imageUrl: null, ID: null, description: null};
+  myCircle: Circle = { founder: null, circleName: null, members: null, dateCreated: null, numberOfPeople: null, dayDreams: null, chat: null, imageUrl: null, ID: null, description: null };
   constructor(private route: ActivatedRoute, private circleService: CircleService, private _router: Router, private formBuilder: FormBuilder) { }
   editCircleForm: FormGroup;
   submitted = false;
@@ -26,9 +26,7 @@ export class EditNameComponent implements OnInit {
 
 
   ngOnInit() {
-    this.editCircleForm = this.formBuilder.group({
-      circleName: ['', Validators.required]
-    })
+
 
     /* grabs url and finds parameter 'id' */
     var id = this.route.snapshot.params['id'];
@@ -42,11 +40,18 @@ export class EditNameComponent implements OnInit {
     this.circleService.getAllCircleInfo(id).then((data) => {
       this.myCircle = new Circle(data);
       console.log(this.myCircle);
+      this.editCircleForm.controls.circleName.setValue(this.myCircle.circleName);
+      this.editCircleForm.controls.imageUrl.setValue(this.myCircle.imageUrl);
+    });
+
+    this.editCircleForm = this.formBuilder.group({
+      circleName: [this.myCircle.circleName, Validators.required],
+      imageUrl: [this.myCircle.imageUrl, Validators.required]
     });
   }
 
   get form() { return this.editCircleForm.controls }
-  
+
   get response_msg() { return this.response }
 
   get circle() { return this.myCircle }
@@ -59,21 +64,39 @@ export class EditNameComponent implements OnInit {
 
     this.submitted = true;
     if (this.editCircleForm.invalid) {
-      console.log(this.editCircleForm);
+      console.log("edit: " + form.value.imageUrl);
       return;
     }
 
-
-    this.circleService.editCircleName(form.value.circleName, this.myCircle.ID).subscribe((response) => {
-      console.log(response);
+    if (form.value.circleName != this.myCircle.circleName) {
+      this.circleService.editCircleName(form.value.circleName, this.myCircle.ID).subscribe((response) => {
+        console.log(response);
+        this._router.navigate(['/circle/' + this.myCircle.ID]);
+        this.response = "complete";
+      },
+        (err) => {
+          console.log(err);
+          this.response = "fatalError";
+        });
+    }
+    else {
       this._router.navigate(['/circle/' + this.myCircle.ID]);
-      this.response = "complete";
-    },
-      (err) => {
-        console.log(err)
-        this.response = "fatalError";
-      })
+    }
 
+    if (form.value.imageUrl != this.myCircle.imageUrl) {
+      this.circleService.uploadPhoto(form.value.imageUrl, this.myCircle.ID).subscribe((response) => {
+        console.log(response);
+        this._router.navigate(['/circle/' + this.myCircle.ID]);
+        this.response = "complete";
+      }),
+        (err) => {
+          console.log(err);
+          this.response = "fatalError";
+        }
+    }
+    else {
+      this._router.navigate(['/circle/' + this.myCircle.ID]);
+    }
   }
 
   cancelEdits() {
