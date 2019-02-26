@@ -32,6 +32,7 @@ export class CircleComponent implements OnInit {
       destination: ['', Validators.required],
       description: ['', Validators.required],
       totalCost: ['', Validators.required],
+      username: ['', Validators.required],
     });
   }
 
@@ -99,8 +100,12 @@ export class CircleComponent implements OnInit {
     this._router.navigate(['/daydream/' + daydream.ID])
   }
 
-  addUser(username:string) {
-    console.log('here')
+  addUser(event) {
+    this.circleService.addUser(this.myCircle.ID, event.value.username).then(() => {
+      this.circleService.getAllCircleInfo(this.myCircle.ID).then((c) => {
+        console.log(c)
+      })
+    })
   }
 
   getChildEvent(event: string) {
