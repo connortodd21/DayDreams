@@ -111,8 +111,6 @@ router.post('/add-user', authenticate, (req, res) => {
         return
     }
 
-    console.log('here')
-
     Circle.findById(req.body.circleID, (err, circ) => {
 
         if (err) {
@@ -178,6 +176,29 @@ router.post("/edit-name", authenticate, (req, res) => {
             }
         }).then(() => {
             res.status(200).send({ message: 'Circle name updated!' })
+            return
+        }).catch((err) => {
+            res.send(err);
+        })
+})
+
+
+/* 
+*   Edit existing circle circle description 
+*/
+router.post("/edit-circle-description", authenticate, (req, res) => {
+    if (!req.body.circleDescription || !req.body.circleID) {
+        res.status(400).json({ message: "Circle description change is incomplete" });
+        return;
+    }
+
+    Circle.findOneAndUpdate({ _id: req.body.circleID },
+        {
+            $set: {
+                description: req.body.circleDescription,
+            }
+        }).then(() => {
+            res.status(200).send({ message: 'Circle description updated!' })
             return
         }).catch((err) => {
             res.send(err);

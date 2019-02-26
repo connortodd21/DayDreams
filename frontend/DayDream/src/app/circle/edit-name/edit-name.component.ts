@@ -41,11 +41,13 @@ export class EditNameComponent implements OnInit {
       console.log(this.myCircle);
       this.editCircleForm.controls.circleName.setValue(this.myCircle.circleName);
       this.editCircleForm.controls.imageUrl.setValue(this.myCircle.imageUrl);
+      this.editCircleForm.controls.circleDescription.setValue(this.myCircle.description);
     });
 
     this.editCircleForm = this.formBuilder.group({
       circleName: [this.myCircle.circleName, Validators.required],
-      imageUrl: [this.myCircle.imageUrl, Validators.required]
+      imageUrl: [this.myCircle.imageUrl, Validators.required],
+      circleDescription: [this.myCircle.description, Validators.required]
     });
   }
 
@@ -88,6 +90,20 @@ export class EditNameComponent implements OnInit {
       }),
         (err) => {
           console.log(err);
+          this.response = "fatalError";
+        }
+    }
+    else {
+      this.response = "noEdit";
+    }
+
+    if (form.value.circleDescription != this.myCircle.description) {
+      this.circleService.editCircleDescription(form.value.circleDescription, this.myCircle.ID).subscribe((response) => {
+        console.log(response);
+        this.response = "complete";
+      }),
+        (err) => {
+          console.log("err is:" + err);
           this.response = "fatalError";
         }
     }

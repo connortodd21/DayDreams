@@ -25,6 +25,14 @@ export class CircleService{
         return this.http.post("http://localhost:5000/circle/add-photo", options)
     }
 
+    editCircleDescription(circleDescription:string, circleID:string) {
+        const circle:Object = {
+            circleDescription: circleDescription,
+            circleID: circleID,
+        }
+        return this.http.post("http://localhost:5000/circle/edit-circle-description", circle)
+    }
+
     setCircleUrl(url:string){
         this.CircleUrl=url
     }
