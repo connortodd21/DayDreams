@@ -23,6 +23,7 @@ export class CircleComponent implements OnInit {
   dayDreams: DayDream[]
   submitted = false;
   response: string = "NULL";
+  messages: Array<Object>
 
   /* variables used in editing circle name*/
   renderComponent: string;
@@ -31,6 +32,7 @@ export class CircleComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private circleService: CircleService, private DaydreamService: DaydreamService, private formBuilder: FormBuilder, private _router: Router) {
     this.dayDreams = [];
+    this.messages = []
   }
 
 
@@ -68,6 +70,20 @@ export class CircleComponent implements OnInit {
 
     this.addUserForm = this.formBuilder.group({
       username: ['', Validators.required]
+    })
+  }
+
+  getMessages(){
+    this.circleService.getMessages(this.myCircle.ID).then((messages) => {
+      // this.messages = messages;
+      console.log(messages)
+      var i:number = 0
+      messages.forEach(element => {
+        console.log(element)
+        this.messages[i] = element
+        i++;
+      })
+      console.log(this.messages)
     })
   }
 

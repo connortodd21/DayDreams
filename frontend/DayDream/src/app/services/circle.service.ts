@@ -61,6 +61,15 @@ export class CircleService{
         return this.http.get<Object>("http://localhost:5000/circle/all-daydreams", info).toPromise()
     }
 
+    getMessages(circleID:string){
+        const info = {
+            headers: new HttpHeaders({
+                'circleid': circleID
+            })
+        }
+        return this.http.get<Array<Object>>("http://localhost:5000/circle/chat", info).toPromise()
+    }
+
     addUser(circleID:string, username:string){
         const info = {
             circleID: circleID,
