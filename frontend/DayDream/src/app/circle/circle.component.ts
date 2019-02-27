@@ -18,8 +18,11 @@ export class CircleComponent implements OnInit {
 
   /* myCircle object of Circle */
   myCircle: Circle;
-  fileForm: FormGroup;
+  createForm: FormGroup;
+  addUserForm: FormGroup;
   dayDreams: DayDream[]
+  submitted = false;
+  response: string = "NULL";
 
   /* variables used in editing circle name*/
   renderComponent: string;
@@ -28,12 +31,6 @@ export class CircleComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private circleService: CircleService, private DaydreamService: DaydreamService, private formBuilder: FormBuilder, private _router: Router) {
     this.dayDreams = [];
-    this.fileForm = this.formBuilder.group({
-      destination: ['', Validators.required],
-      description: ['', Validators.required],
-      totalCost: ['', Validators.required],
-      username: ['', Validators.required],
-    });
   }
 
 
@@ -62,6 +59,16 @@ export class CircleComponent implements OnInit {
         console.log(err)
       })
     });
+
+    this.createForm = this.formBuilder.group({
+      destination: ['', Validators.required],
+      description: ['', Validators.required],
+      totalCost: ['', [Validators.required, Validators.pattern("[+-]?[0-9][0-9]*")]],
+    });
+
+    this.addUserForm = this.formBuilder.group({
+      username: ['', Validators.required]
+    })
   }
 
   /*
@@ -85,6 +92,11 @@ export class CircleComponent implements OnInit {
 
   }
 
+  get form_create() { return this.createForm.controls }
+
+  get form_add_user() { return this.addUserForm.controls }
+
+  get reponse() { return this.response }
 
   // renderEditCircleName(circle: Circle) {
   renderEditCircleName() {
@@ -94,32 +106,52 @@ export class CircleComponent implements OnInit {
     // console.log(this.chosenCircle);
   }
 
-  renderDayDream(daydream:DayDream) {
+  renderDayDream(daydream: DayDream) {
     console.log(daydream)
     this.circleService.setCircleUrl('/circle/' + this.myCircle.ID)
     this._router.navigate(['/daydream/' + daydream.ID])
   }
 
   addUser(event) {
+    this.submitted = true;
+    if (this.addUserForm.invalid) {
+      console.log(event);
+      return;
+    }
     this.circleService.addUser(this.myCircle.ID, event.value.username).then(() => {
       this.circleService.getAllCircleInfo(this.myCircle.ID).then((c) => {
-        console.log(c)
+        console.log(c);
+
+        window.location.replace("/circle/" + this.myCircle.ID);
       })
+    }).catch(e => {
+      console.log(e.error.message);
+      if (e.error.message == "User is already in circle") {
+        this.response = "Dup";
+      }
+      else if (e.error.message == "Username does not exist") {
+        this.response = "NoUser";
+      }
+      else {
+        this.response = "fatalError";
+      }
     })
   }
 
-  getChildEvent(event: string) {
-    this.returnToParent.emit('reload');
-  }
+  getChildEvent(event: string) { this.returnToParent.emit('reload'); }
 
-  back() {
-    this._router.navigate(['/home']);
-
-  }
+  back() { this._router.navigate(['/home']); }
 
   submitFile(event) {
     console.log(event.value)
     console.log(this.myCircle.ID);
+    this.submitted = true;
+
+    if (this.createForm.invalid) {
+      console.log(this.createForm);
+      return;
+    }
+
     this.DaydreamService.createDaydream(this.myCircle.ID, event.value.destination, event.value.description, event.value.totalCost).then(() => {
       var confirm = window.alert('Daydream ' + event.value.destination + ' Created!')
       console.log(confirm);
@@ -127,7 +159,6 @@ export class CircleComponent implements OnInit {
     }).catch(e => {
       console.log(e);
       console.log(this.myCircle.ID);
-
-    })
+    });
   }
 }

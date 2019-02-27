@@ -39,15 +39,29 @@
                 <div class="w3-container">
                   <mdb-card>
                     <mdb-card-body>
-                      <form (submit)="addUser(f)" #f="ngForm" class="text-center border border-light p-5"
-                        [formGroup]="fileForm">
+                      <form (submit)="addUser(g)" #g="ngForm" class="text-center border border-light p-5" [formGroup]="addUserForm">
 
                         <h4 class="pageHeader">Add User</h4>
 
                         <div class="form-group">
-                          <input type="text" id="addUser" formControlName="username" class="form-control"
-                            placeholder="Username"
-                            >
+                          <input type="text" id="addUser" formControlName="username" class="form-control" placeholder="Username"
+                            [(ngModel)]="username" [ngClass]="{ 'is-invalid': submitted && form_add_user.username.errors }">
+                          <div *ngIf="submitted && form_add_user.username.errors" class="invalid-feedback">
+                            <div *ngIf="form_add_user.username.errors.required">
+                              <p style="font-size:15px;">
+                                Username is required
+                              </p>
+                            </div>
+                          </div>
+                          <div *ngIf="response === 'NoUser'" class="alert alert-danger" role="alert">
+                            Username does not exist in our records.
+                          </div>
+                          <div *ngIf="response === 'Dup'" class="alert alert-danger" role="alert">
+                            User is already in this circle.
+                          </div>
+                          <div *ngIf="response === 'fatalError'" class="alert alert-danger" role="alert">
+                            A Fatal Error has occured. Please try again at another time.
+                          </div>
                         </div>
 
                         <button mdbBtn color="info" block="true" class="my-4" type="submit" prevent-default>Add
@@ -73,8 +87,8 @@
           <body>
             <div class="w3-container">
               <h4 class="pageHeader">This Circle's DayDreams
-                <button onclick="document.getElementById('id01').style.display='block'" mdbBtn type="button"
-                  color="primary" mdbWavesEffect>Add A DayDream <i class="fa fa-cloud"> </i> </button>
+                <button onclick="document.getElementById('id01').style.display='block'" mdbBtn type="button" color="primary"
+                  mdbWavesEffect>Add A DayDream <i class="fa fa-cloud"> </i> </button>
 
                 <div id="id01" class="w3-modal">
                   <div class="w3-modal-content">
@@ -82,26 +96,49 @@
                       <mdb-card>
                         <mdb-card-body>
                           <form (submit)="submitFile(f)" #f="ngForm" class="text-center border border-light p-5"
-                            [formGroup]="fileForm">
+                            [formGroup]="createForm">
 
-                            <h4 class="pageHeader">Create a New Daydream</h4>
 
                             <div class="form-group">
+
+                              <h4 class="pageHeader">Create a New Daydream</h4>
                               <input type="text" id="destination" formControlName="destination" class="form-control"
-                                placeholder="Where are you going?" [(ngModel)]="destination"
-                                [ngClass]="{ 'is-invalid': submitted && form.daydream.errors }">
-                            </div>
+                                placeholder="Where are you going?" [(ngModel)]="destination" [ngClass]="{ 'is-invalid': submitted && form_create.destination.errors }">
+                              <div *ngIf="submitted && form_create.destination.errors" class="invalid-feedback">
+                                <div *ngIf="form_create.destination.errors.required">
+                                  <p style="font-size:15px;">
+                                    DayDream Destination is required
+                                  </p>
+                                </div>
+                              </div>
 
-                            <div class="form-group">
                               <input type="text" id="description" formControlName="description" class="form-control"
-                                placeholder="Describe your daydream" [(ngModel)]="description"
-                                [ngClass]="{ 'is-invalid': submitted && form.description.errors }">
-                            </div>
+                                placeholder="Describe your daydream" [(ngModel)]="description" [ngClass]="{ 'is-invalid': submitted && form_create.description.errors }">
+                              <div *ngIf="submitted && form_create.description.errors" class="invalid-feedback">
+                                <div *ngIf="form_create.description.errors.required">
+                                  <p style="font-size:15px;">
+                                    DayDream Description is required
+                                  </p>
+                                </div>
+                              </div>
 
-                            <div class="form-group">
                               <input type="text" id="totalCost" formControlName="totalCost" class="form-control"
                                 placeholder="Please enter the total cost for this excursion" [(ngModel)]="totalCost"
-                                [ngClass]="{ 'is-invalid': submitted && form.imageUrl.errors }">
+                                [ngClass]="{ 'is-invalid': submitted && form_create.totalCost.errors }">
+                              <div *ngIf="submitted && form_create.totalCost.errors" class="invalid-feedback">
+                                <div *ngIf="form_create.totalCost.errors.required">
+                                  <p style="font-size:15px;">
+                                    DayDream Cost is required
+                                  </p>
+                                </div>
+                                <div *ngIf="form_create.totalCost.errors.pattern">
+                                  <p style="font-size:15px;">
+                                    DayDream Cost must be a number
+                                  </p>
+                                </div>
+
+                              </div>
+
                             </div>
 
 
@@ -121,10 +158,11 @@
           </body>
 
           </html>
-          <div class="grid-container-daydreams" >
-            <div *ngFor="let d of dayDreams" id="daydreams" class="topMargin cardProperties grid-item-daydreams" (click)="renderDayDream(d)">
+          <div class="grid-container-daydreams">
+            <div *ngFor="let d of dayDreams" id="daydreams" class="topMargin cardProperties grid-item-daydreams"
+              (click)="renderDayDream(d)">
               <h1>{{d.destination}}</h1>
-              <div class="circleInfo" >
+              <div class="circleInfo">
 
               </div>
             </div>
