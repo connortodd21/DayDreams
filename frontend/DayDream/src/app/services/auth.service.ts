@@ -48,11 +48,7 @@ export class AuthService {
     }
 
     getAuthenticationStatus() {
-        console.log(localStorage)
-        if (localStorage.getItem('token')) {
-            return true;
-        }
-        return false;
+        return this.isAuthenticated
     }
 
     getAuthStatObservible() {
@@ -83,8 +79,9 @@ export class AuthService {
                     this.isAuthenticated = true;
                     this.response_login = "comlpete"
                     this.addAuthToLocalStorage(token, expirationDate);
-                    window.location.replace("/home");
-                    // this.router.navigate(["/home"]);
+                    console.log(this.isAuthenticated)
+                    // window.location.replace("/home");
+                    this.router.navigate(["/home"]);
                 }
             },
                 error => {
