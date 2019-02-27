@@ -11,24 +11,10 @@ export class AuthGuard implements CanActivate {
   }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    const ex = this.authService.getAuthData()
-    // console.log(this.authService.getAuthData())
-    const now = new Date();
-    const expirationDate = new Date(now.getTime())
-    // console.log(expirationDate)
-    // console.log(ex['expirationDate'])
-    if(expirationDate > ex['expirationDate']){
-      this.authService.logout()
-      return false
-    }
     if (this.authService.getAuthenticationStatus()) {
-      console.log(this.authService.getAuthenticationStatus())
-      // console.log('here')
+      // console.log(this.authService.getAuthenticationStatus())
       return true;
     }
-    // console.log('here')
-    // console.log(this.authService.getAuthenticationStatus())
-    // navigate to login page
     this._router.navigate(['/login']);
     // you can save redirect url so after authing we can move them back to the page they requested
     return false;

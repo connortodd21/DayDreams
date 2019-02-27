@@ -16,6 +16,7 @@ export class AuthService {
     private tokenTimer: any;
     private isAuthenticated = false;
     response_login: string = "NULL";
+    private authStatusListener = new Subject<boolean>();
 
     constructor(private http: HttpClient, private router: Router) { }
 
@@ -67,20 +68,18 @@ export class AuthService {
         console.log(auth)
         this.http.post("http://localhost:5000/user/login", auth, httpOptions)
             .subscribe(response => {
-                console.log(auth)
                 const token = response.headers.get('token');
                 this.token = token
                 if (token) {
-                    this.setAuthTimer(7200000);
-                    const now = new Date();
-                    // const expirationDate = new Date(now.getTime() + 5000);
-                    
-                    const expirationDate = new Date(now.getTime() + 7200 * 1000);
+                    const expiresInDuration = 7200;
+                    this.setAuthTimer(expiresInDuration);
                     this.isAuthenticated = true;
-                    this.response_login = "comlpete"
+                    this.authStatusListener.next(true);
+                    const now = new Date();
+                    const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
+                    this.response_login = "complete";
+                    console.log(expirationDate);
                     this.addAuthToLocalStorage(token, expirationDate);
-                    console.log(this.isAuthenticated)
-                    // window.location.replace("/home");
                     this.router.navigate(["/home"]);
                 }
             },
@@ -134,11 +133,26 @@ export class AuthService {
         const token = localStorage.getItem("token");
         const expirationDate = localStorage.getItem("expiresIn");
         if (!token || !expirationDate) {
-            return "NO";
+            return
         }
         return {
             token: token,
             expirationDate: new Date(expirationDate)
+        }
+    }
+
+    autoAuthUser() {
+        const authInformation = this.getAuthData();
+        if (!authInformation) {
+            return;
+        }
+        const now = new Date();
+        const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
+        if (expiresIn > 0) {
+            this.token = authInformation.token;
+            this.isAuthenticated = true;
+            this.setAuthTimer(expiresIn / 1000);
+            this.authStatusListener.next(true);
         }
     }
 }

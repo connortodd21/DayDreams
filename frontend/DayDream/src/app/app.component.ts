@@ -24,17 +24,6 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.userAuthed = this.authService.getAuthenticationStatus()
-    // this.loggedIn = this.authService.getAuthStatObservible()
-    console.log("auth is:" + this.userAuthed)
-    const ex = this.authService.getAuthData()
-    console.log(this.authService.getAuthData())
-    const now = new Date();
-    const expirationDate = new Date(now.getTime())
-    console.log(expirationDate)
-    if(expirationDate > ex['expirationDate']){
-      this.logout()
-      this.userAuthed = false
-    }
+    this.authService.autoAuthUser();
   }
 }
