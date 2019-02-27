@@ -121,12 +121,10 @@ export class AuthService {
     }
 
     private setAuthTimer(duration: number) {
-        var i: number
         this.tokenTimer = setTimeout(() => {
-            console.log(duration - i)
             this.logout();
             this.clearLocalStorage()
-        }, duration);
+        }, duration * 5000);
     }
 
     public getAuthData() {
@@ -151,7 +149,7 @@ export class AuthService {
         if (expiresIn > 0) {
             this.token = authInformation.token;
             this.isAuthenticated = true;
-            this.setAuthTimer(expiresIn / 1000);
+            this.setAuthTimer(expiresIn / 10);
             this.authStatusListener.next(true);
         }
     }
