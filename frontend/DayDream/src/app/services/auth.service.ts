@@ -42,19 +42,20 @@ export class AuthService {
     }
 
     getAuthToken() {
-        if (localStorage.getItem('token')) {
-            return localStorage.getItem('token');
+        if (localStorage['token']) {
+            return localStorage['token'];
         }
         return false;
     }
 
     getAuthenticationStatus() {
+        // console.log(this.isAuthenticated)
         return this.isAuthenticated
     }
 
     getAuthStatObservible() {
         return new Observable<boolean>(observer => {
-            if (localStorage.getItem('token')) {
+            if (localStorage['token']) {
                 observer.next(true)
             }
             else {
@@ -106,6 +107,7 @@ export class AuthService {
     logout() {
         this.token = null;
         this.isAuthenticated = false;
+        this.authStatusListener.next(false)
         clearTimeout(this.tokenTimer);
         this.clearLocalStorage();
         this.router.navigate(['/login']);
@@ -123,13 +125,12 @@ export class AuthService {
     private setAuthTimer(duration: number) {
         this.tokenTimer = setTimeout(() => {
             this.logout();
-            this.clearLocalStorage()
-        }, duration * 5000);
+        }, duration * 1000);
     }
 
     public getAuthData() {
-        const token = localStorage.getItem("token");
-        const expirationDate = localStorage.getItem("expiresIn");
+        const token = localStorage['token'];
+        const expirationDate = localStorage["expiresIn"];
         if (!token || !expirationDate) {
             return
         }
