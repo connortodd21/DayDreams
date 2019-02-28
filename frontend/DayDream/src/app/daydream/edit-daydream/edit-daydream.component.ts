@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { CircleService } from '../../services/circle.service';
+import { DaydreamService } from '../../services/daydream.service';
 import { Circle } from '../../models/circle.model';
 import { Router, ActivatedRoute, Params, Data } from '@angular/router';
 import { NgForm, FormGroup, FormBuilder, Validators, Form } from "@angular/forms";
@@ -17,7 +17,7 @@ export class EditNameComponent implements OnInit {
 
 */
 
-  myDayDream: daydream = { circleID: null, destination: null, description: null, travelInformation: null, lodgingInformation: null, excursions: null, totalCost: null, individualContribution: null, ID: null, completed: null };
+  myDayDream: dayDream = { daydreamID: null, destination: null, description: null, travelInformation: null, lodgingInformation: null, excursions: null, totalCost: null, individualContribution: null, ID: null, completed: null };
   constructor(private route: ActivatedRoute, private DaydreamService: DaydreamService, private _router: Router, private formBuilder: FormBuilder) { }
   editDaydreamForm: FormGroup;
   submitted = false;
@@ -51,11 +51,11 @@ export class EditNameComponent implements OnInit {
     });
   }
 
-  get form() { return this.editCircleForm.controls }
+  get form() { return this.editDayDreamForm.controls }
 
   get response_msg() { return this.response }
 
-  get circle() { return this.myCircle }
+  get circle() { return this.myDayDream }
 
   sendEdits(form: NgForm) {
     // console.log("cirName: " + this.cirName);
