@@ -53,7 +53,8 @@ export class DaydreamComponent implements OnInit {
       this.myDayDream = new DayDream(data);
       console.log("Deleting DayDream");
       //navigate back to page
-      this._router.navigate(['/home']);
+      //this._router.navigate(['/home']);
+      this.returnToCircles();
     })
 
 

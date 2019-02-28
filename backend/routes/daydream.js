@@ -115,7 +115,7 @@ router.get('/info', authenticate, (req, res) => {
 router.post('/delete', authenticate, (req, res) => {
 
     //ensure that requesthas circleID and daydreamID
-    if (!req.body || !req.body.circleID || !req.body.daydreamID) {
+    if (!req.body || !req.body.daydreamID) {
         // console.log(req.body)
         res.status(400).send({ message: "Bad request" });
         return;
@@ -132,10 +132,12 @@ router.post('/delete', authenticate, (req, res) => {
     }).catch((err) => {
         res.status(400).send(err);
         return;
-    })
+    }).then(() => {
+        res.status(200).send({ message: "Daydream Removed!" })
+        return;
 
 
-    Circle.findOne({ _id: req.body.circleID }).then((circ) => {
+    /*Circle.findOne({ _id: req.body.circleID }).then((circ) => {
         if (circ == null) {
             res.status(400).send({ message: "Could not find circle" });
             return;
@@ -156,7 +158,8 @@ router.post('/delete', authenticate, (req, res) => {
         }).then(() => {
             res.status(200).send({ message: "Daydream Removed!" })
             return;
-        })
+        }
+        */
     })
 
 
