@@ -33,6 +33,14 @@ export class CircleService{
         return this.http.post("http://localhost:5000/circle/edit-circle-description", circle)
     }
 
+    addMessage(message:string, circleID:string){
+        const options = {
+            circleID: circleID,
+            message: message
+        }
+        return this.http.post("http://localhost:5000/circle/add-message", options).toPromise()
+    }
+
     setCircleUrl(url:string){
         this.CircleUrl=url
     }

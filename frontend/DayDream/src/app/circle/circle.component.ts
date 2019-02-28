@@ -87,6 +87,12 @@ export class CircleComponent implements OnInit {
     })
   }
 
+  addMessage(event){
+    this.circleService.addMessage(event, this.myCircle.ID).then(() => {
+      this.getMessages()
+    })
+  }
+
   /*
   *   Method that deletes a circle and redirects back to the homepage
   */

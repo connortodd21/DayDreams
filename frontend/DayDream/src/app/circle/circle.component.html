@@ -194,5 +194,10 @@
   {{m.message}}
 </div>
 
-<input type="text" id="message" placeholder="Message">
-<button type="submit" (click)="addMessage(msg)"></button>
+<br>
+
+<input #box placeholder="Add message" (keyup.enter)="addMessage(box.value)">
+<br>
+Only works right now if you hit enter, idk how to make it work with a button
+<br>
+But you can add and get messages with these buttons, have to do a lot of css 
