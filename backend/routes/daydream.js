@@ -84,6 +84,25 @@ router.post('/add', authenticate, (req, res) => {
 
 })
 
+router.post("/edit-daydream", authenticate, (req, res) => {
+    if (!req.body.destination || !req.body.daydreamID) {
+        res.status(400).json({ message: "Daydream change is incomplete" });
+        return;
+    }
+
+    DayDream.findOneAndUpdate({ _id: req.body.daydreamID },
+        {
+            $set: {
+                destination: req.body.destination,
+            }
+        }).then(() => {
+            res.status(200).send({ message: 'Circle name updated!' })
+            return
+        }).catch((err) => {
+            res.send(err);
+        })
+})
+
 router.get('/info', authenticate, (req, res) => {
 
     //if not, send bad request

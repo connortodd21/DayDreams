@@ -3,6 +3,8 @@
     <h4>
       <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=returnToCircles()> <i class="fa fa-arrow-left"> </i> Back
         to Circle </button>
+        <button mdbBtn type="button" color="primary"
+            mdbWavesEffect (click)=renderEditDayDream()>Edit Daydream <i class="fa fa-edit"> </i></button>
         <button type="button" class="btn btn-danger" (click)=delDaydream()>Delete DayDream <i class="fa fa-trash"> </i></button>
     </h4>
     <div *ngIf="myDayDream">

@@ -1,0 +1,51 @@
+<div class="p-2 profile animated fadeInUp">
+    <h1>Edit: {{myDayDream.destination}}</h1>
+    <mdb-card class="outerCard">
+        <mdb-card-body>
+            <form (submit)="sendEdits(f)" #f="ngForm" [formGroup]="editDayDreamForm">
+                <div class="form-group">
+
+                    <h5 class="header">Edit DayDream Destination</h5>
+                    <input type="text" class="form-control" formControlName="destination" value={{myCircle.circleName}}
+                        [ngClass]="{ 'is-invalid': submitted && form.destination.errors }" />
+                    <div *ngIf="submitted && form.destination.errors" class="invalid-feedback">
+                        <div *ngIf="form.circleName.errors.required">DayDream Destination is required</div>
+                    </div>
+
+                    <h5 class="header">Edit DayDream Description</h5>
+                    <input type="text" class="form-control" formControlName="description" value={{myCircle.imageUrl}}
+                        [ngClass]="{ 'is-invalid': submitted && form.description.errors }" />
+                    <div *ngIf="submitted && form.description.errors" class="invalid-feedback">
+                        <div *ngIf="form.description.errors.required">DayDream Description is required</div>
+                    </div>
+
+                    <h5 class="header">Edit DayDream Cost</h5>
+                    <input type="text" class="form-control" formControlName="totalCost" value={{myCircle.description}}
+                        [ngClass]="{ 'is-invalid': submitted && form.totalCost.errors }" />
+                    <div *ngIf="submitted && form.totalCost.errors" class="invalid-feedback">
+                        <div *ngIf="form.totalCost.errors.required">Total Cost is required</div>
+                    </div>
+
+                </div>
+
+                <!-- <button *ngIf="myCircle" type="submit" mdbBtn (click)="sendEdits(myCircle)" class="btn tableColor"
+                mdbWavesEffect block="true">Submit</button> -->
+                <div *ngIf="response_msg === 'fatalError'" class="alert alert-danger" role="alert">
+                    A Fatal Error Has Occoured. PLease Try Again Later.
+                </div>
+                <div *ngIf="response_msg === 'noEdit'" class="alert alert-info" role="alert">
+                    No Changes Applied
+                </div>
+                <div *ngIf="response_msg === 'complete'" class="alert alert-success" role="alert">
+                    Daydream edits Successfully Applied
+                </div>
+
+                <button mdbBtn color="info" block="true" class="my-4" type="submit">Submit</button>
+
+                <button mdbBtn (click)="cancelEdits()" color="danger" outline="true" mdbWavesEffect block="true">Cancel</button>
+
+
+            </form>
+        </mdb-card-body>
+    </mdb-card>
+</div>
