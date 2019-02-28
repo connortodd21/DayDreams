@@ -93,7 +93,7 @@ export class CircleComponent implements OnInit {
   delCir(circle: Circle) {
 
     // call delete method from service
-    var confirm = window.confirm('Are you sure you want to remove this circle. This action cannot be undone')
+    var confirm = window.confirm('Are you sure you want to remove this circle?s This action cannot be undone')
     if (confirm == false) {
       return
     }

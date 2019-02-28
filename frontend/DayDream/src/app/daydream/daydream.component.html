@@ -1,11 +1,19 @@
 <div>
   <div class="grid-container" id="circleObject">
+    <h4>
       <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=returnToCircles()> <i class="fa fa-arrow-left"> </i> Back
         to Circle </button>
+        <button type="button" class="btn btn-danger" (click)=delDaydream()>Delete DayDream <i class="fa fa-trash"> </i></button>
+    </h4>
     <div *ngIf="myDayDream">
       <h2 class="center"><b>Description:</b> {{myDayDream.description}}</h2>
       <h2 class="center"><b>Destination:</b> {{myDayDream.destination}}</h2>
       <h1 class="blueLine">__________________________________________________________________</h1>
+
+      <h3> Current Lodging options: {{lodgingInfo}}</h3>
+      <h3> Planned activities: {{excursions}}</h3>
+      <h1 class="blueLine">__________________________________________________________________</h1>
+
     </div>
   </div>
 </div>

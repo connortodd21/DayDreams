@@ -41,6 +41,24 @@ export class DaydreamComponent implements OnInit {
     })
   }
 
+  delDaydream(circle: DayDream) {
+
+    // call delete method from service
+    var confirm = window.confirm('Are you sure you want to remove this DayDream? This action cannot be undone')
+    if (confirm == false) {
+      return
+    }
+    var id = this.route.snapshot.params['id'];
+    this.DaydreamService.deleteChosenDaydream(id).then((data) => {
+      this.myDayDream = new DayDream(data);
+      console.log("Deleting DayDream");
+      //navigate back to page
+      this._router.navigate(['/home']);
+    })
+
+
+  }
+
   returnToCircles(){
     var route = this.circleService.getCircleUrl()
     this._router.navigate([route])
