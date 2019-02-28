@@ -65,6 +65,17 @@ export class DaydreamComponent implements OnInit {
 
   }
 
+
+  onFileChanged(event){
+    let file = event.target.files[0]
+    console.log(event.target.files[0])
+    let formdata = new FormData()
+    formdata.append('image', file, file.name)
+    this.DaydreamService.uploadPhoto(formdata, this.myDayDream.ID).then((res) => {
+      console.log(res)
+    })
+  }
+
   returnToCircles(){
     var route = this.circleService.getCircleUrl()
     this._router.navigate([route])

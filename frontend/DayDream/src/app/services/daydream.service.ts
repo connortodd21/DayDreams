@@ -47,4 +47,15 @@ export class DaydreamService{
         }
         return this.http.post("http://localhost:5000/daydream/add", daydream).toPromise()
     }
+
+    uploadPhoto(formdata:FormData, dayDreamID:string){
+        const info = {
+            headers: new HttpHeaders({
+                // 'Content-Type': 'application/form-data',
+                'daydreamID': dayDreamID
+            })
+        }
+        console.log(formdata.getAll('image'))
+        return this.http.post("http://localhost:5000/daydream/upload-photo", formdata, info).toPromise()
+    }
 }
