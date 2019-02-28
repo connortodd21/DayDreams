@@ -160,7 +160,7 @@ router.post('/add-user', authenticate, (req, res) => {
     })
 })
 
-/* 
+/*
 *   Edit existing circle
 */
 router.post("/edit-name", authenticate, (req, res) => {
@@ -211,8 +211,8 @@ router.post('/add-message', authenticate, (req, res) => {
 })
 
 
-/* 
-*   Edit existing circle circle description 
+/*
+*   Edit existing circle circle description
 */
 router.post("/edit-circle-description", authenticate, (req, res) => {
     if (!req.body.circleDescription || !req.body.circleID) {
@@ -295,9 +295,9 @@ router.get('/info', authenticate, (req, res) => {
         // console.log("success in returning circle properties");
     })
     //to get circle info of a specific circle
-    //use ID 
+    //use ID
 
-    // make sure ID 
+    // make sure ID
 })
 
 
