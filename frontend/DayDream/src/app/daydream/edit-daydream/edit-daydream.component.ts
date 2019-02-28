@@ -57,7 +57,7 @@ export class EditNameComponent implements OnInit {
 
   get circle() { return this.myDayDream }
 
-  sendEdits(form: NgForm) {
+/*  sendEdits(form: NgForm) {
     // console.log("cirName: " + this.cirName);
     // myCircle.circleName = this.cirName;
 
@@ -114,7 +114,7 @@ export class EditNameComponent implements OnInit {
     // this._router.navigate(['/circle/' + this.myCircle.ID]);
     window.location.replace("/daydream/" + this.myDayDream.ID)
 
-  }
+  }*/
 
   cancelEdits() {
     var id = this.route.snapshot.params['id'];
