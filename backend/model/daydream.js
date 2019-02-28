@@ -28,6 +28,10 @@ let dayDreamSchema = new mongoose.Schema({
         user: String,
         money: Number
     }],
+    images: [{
+        url: String,
+        id: String
+    }],
     completed: {type: Boolean, default: false}
 })
 

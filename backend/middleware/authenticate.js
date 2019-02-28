@@ -11,7 +11,7 @@ var authenticate = (req, res, next) =>{
         req.token = token;
         next();
     }).catch((err) =>{
-        console.log(token)
+        // console.log(token)
         res.status(401).send({message: '401 ERROR: Access Denied'});
     })
 }

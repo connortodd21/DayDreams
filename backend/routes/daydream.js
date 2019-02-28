@@ -84,6 +84,27 @@ router.post('/add', authenticate, (req, res) => {
 
 })
 
+
+router.post('/upload-photo', authenticate, upload.single("image"), (req, res) => {
+    if(!req.file.url || !req.file.public_id || !req.body.daydreamID){
+        res.status(400).send({ message: "Bad request" });
+        return;
+    }
+    DayDream.findOneAndUpdate({_id: req.body.daydreamID}, {
+        $push: {
+            images: {
+                url: req.file.url,
+                id: req.file.public_id
+            }
+        }
+    }).then(() => {
+        res.status(200).send({message: "Photo successfully uploaded"})
+        return
+    }).catch((err) => {
+        res.send(err);
+    })
+})
+
 router.post("/edit-daydream", authenticate, (req, res) => {
     if (!req.body.destination || !req.body.daydreamID) {
         res.status(400).json({ message: "Daydream change is incomplete" });
