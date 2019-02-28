@@ -17,28 +17,49 @@
                 <form (submit)="submitFile(f)" #f="ngForm" class="text-center border border-light p-5"
                   [formGroup]="fileForm">
 
-                  <h4 class="pageHeader">Create a New Circle</h4>
-
                   <div class="form-group">
+
+                    <h4 class="pageHeader">Create a New Circle</h4>
                     <input type="text" id="circleName" formControlName="circleName" class="form-control"
                       placeholder="What is the name of your circle?" [(ngModel)]="circleName"
-                      [ngClass]="{ 'is-invalid': submitted && form.ID.errors }">
-                  </div>
+                      [ngClass]="{ 'is-invalid': submitted && form.circleName.errors }">
+                    <div *ngIf="submitted && form.circleName.errors" class="invalid-feedback">
+                      <div *ngIf="form.circleName.errors.required">
+                        <p style="font-size:15px;">
+                          Circle Name is required
+                        </p>
+                      </div>
+                    </div>
 
-                  <div class="form-group">
                     <input type="text" id="circleDesc" formControlName="circleDesc" class="form-control"
                       placeholder="Circle Description" [(ngModel)]="circleDesc"
                       [ngClass]="{ 'is-invalid': submitted && form.circleDesc.errors }">
-                  </div>
+                    <div *ngIf="submitted && form.circleDesc.errors" class="invalid-feedback">
+                      <div *ngIf="form.circleDesc.errors.required">
+                        <p style="font-size:15px;">
+                          Circle Description is required
+                        </p>
+                      </div>
+                    </div>
 
-                  <div class="form-group">
-                    <input type="text" id="imageUrl" formControlName="imageUrl" class="form-control"
+                    <!-- <input type="text" id="imageUrl" formControlName="imageUrl" class="form-control"
                       placeholder="Paste the url of the image you would like to upload" [(ngModel)]="imageUrl"
-                      [ngClass]="{ 'is-invalid': submitted && form.imageUrl.errors }">
+                      [ngClass]="{ 'is-invalid': submitted && form.imageUrl.errors }"> -->
+
+                    <input type="text" id="imageUrl" formControlName="imageUrl" class="form-control"
+                      placeholder="Paste the url of the image you would like to upload" [(ngModel)]="imageUrl">
+                    <!-- <div *ngIf="submitted && form.imageUrl.errors" class="invalid-feedback">
+                      <div *ngIf="form.imageUrl.errors.required">
+                        <p style="font-size:15px;">
+                          Image URL is required
+                        </p>
+                      </div>
+                    </div> -->
                   </div>
 
 
-                  <button mdbBtn color="info" block="true" class="my-4" type="submit" prevent-default>Create Circle</button>
+                  <button mdbBtn color="info" block="true" class="my-4" type="submit" prevent-default>Create
+                    Circle</button>
                   <button onclick="document.getElementById('id01').style.display='none'" mdbBtn color="info"
                     block="true" class="my-4">Cancel</button>
 
@@ -57,26 +78,26 @@
 <div>
   <h4 class="pageHeader">Your Circles</h4>
   <div class="grid-container" id="circleObject">
-    <div *ngFor="let c of myCircles"  >
-    <h2 class="center">{{c.circleName}}</h2>
-    <div class="cardProperties grid-item" id="circles" (click)="renderCircle(c)">
+    <div *ngFor="let c of myCircles">
+      <h2 class="center">{{c.circleName}}</h2>
+      <div class="cardProperties grid-item" id="circles" (click)="renderCircle(c)">
 
 
 
 
-      <!-- <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
+        <!-- <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
         aria-hidden="true" [config]="{backdrop: false, ignoreBackdropClick: true}">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header"> -->
-      <!-- <h4 class="modal-title w-100" id="myModalLabel">{{c.circleName}}</h4> -->
-     
+        <!-- <h4 class="modal-title w-100" id="myModalLabel">{{c.circleName}}</h4> -->
 
 
 
-      <img [src]="c.imageUrl" class="imgSize"  />
 
-      <!-- <form (submit)="submitFile(f, c.circleName)" #f="ngForm" class="text-center border border-light p-5"
+        <img [src]="c.imageUrl" class="imgSize" />
+
+        <!-- <form (submit)="submitFile(f, c.circleName)" #f="ngForm" class="text-center border border-light p-5"
                 [formGroup]="fileForm">
                 <div class="form-group">
                   <input type="text" id="url" formControlName="imageUrl" class="form-control" placeholder="Paste the url of the image you would like to upload"
@@ -85,15 +106,15 @@
                 <button type="submit" mdbBtn type="button" color="primary" mdbWavesEffect>Add Image</button>
               </form> -->
 
-      <!-- </div> -->
-      <!-- <div class="modal-footer"> -->
-      <!-- </div>
+        <!-- </div> -->
+        <!-- <div class="modal-footer"> -->
+        <!-- </div>
           </div>
         </div>
       </div> -->
 
 
-    </div>
+      </div>
     </div>
   </div>
 </div>
