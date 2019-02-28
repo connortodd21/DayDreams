@@ -67,7 +67,7 @@
 
                         <button mdbBtn color="info" block="true" class="my-4" type="submit" prevent-default>Add
                           User</button>
-                        <button onclick="document.getElementById('id02').style.display='none'" mdbBtn color="info"
+                        <button (click)="cancelEdits()" onclick="document.getElementById('id02').style.display='none'" mdbBtn color="info"
                           block="true" class="my-4">Cancel</button>
 
                       </form>
@@ -147,7 +147,7 @@
 
                             <button mdbBtn color="info" block="true" class="my-4" type="submit" prevent-default>Create
                               Daydream</button>
-                            <button onclick="document.getElementById('id01').style.display='none'" mdbBtn color="info"
+                            <button onclick="document.getElementById('id01').style.display='none'" (click)="cancelEdits()" mdbBtn color="info"
                               block="true" class="my-4">Cancel</button>
 
                           </form>
