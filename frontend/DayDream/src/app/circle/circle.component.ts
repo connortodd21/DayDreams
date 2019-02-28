@@ -228,4 +228,11 @@ export class CircleComponent implements OnInit {
       console.log(this.myCircle.ID);
     });
   }
+
+  cancel() { 
+    this.createForm.reset();
+    this.addUserForm.reset();
+    this.submitted = false;
+    console.log("reset");
+  }
 }
