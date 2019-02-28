@@ -15,7 +15,7 @@
       </h1>
       <div class="grid-container">
         <div class="grid-item">
-          <img [src]="myCircle.imageUrl" class="imgSize" />
+          <img [src]="myCircle.imageUrl" class="cover" />
         </div>
 
         <div class="grid-item">
@@ -67,7 +67,7 @@
 
                         <button mdbBtn color="info" block="true" class="my-4" type="submit" prevent-default>Add
                           User</button>
-                        <button (click)="cancelEdits()" onclick="document.getElementById('id02').style.display='none'" mdbBtn color="info"
+                        <button type="button" onclick="document.getElementById('id02').style.display='none'" mdbBtn color="info"
                           block="true" class="my-4">Cancel</button>
 
                       </form>
@@ -99,10 +99,10 @@
                           <form (submit)="submitFile(f)" #f="ngForm" class="text-center border border-light p-5"
                             [formGroup]="createForm">
 
-
                             <div class="form-group">
 
                               <h4 class="pageHeader">Create a New Daydream</h4>
+
                               <input type="text" id="destination" formControlName="destination" class="form-control"
                                 placeholder="Where are you going?" [(ngModel)]="destination"
                                 [ngClass]="{ 'is-invalid': submitted && form_create.destination.errors }">
@@ -139,15 +139,13 @@
                                     DayDream Cost must be a number
                                   </p>
                                 </div>
-
                               </div>
 
                             </div>
 
-
                             <button mdbBtn color="info" block="true" class="my-4" type="submit" prevent-default>Create
                               Daydream</button>
-                            <button onclick="document.getElementById('id01').style.display='none'" (click)="cancelEdits()" mdbBtn color="info"
+                            <button type="button" onclick="document.getElementById('id01').style.display='none'" mdbBtn color="info"
                               block="true" class="my-4">Cancel</button>
 
                           </form>

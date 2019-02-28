@@ -1,55 +1,67 @@
-<!--Navbar-->
-<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark tableColor">
+<!-- Main App Contianer -->
+<div class="main-container">
+    <!--Navbar-->
+    <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark tableColor">
 
-    <!-- Navbar brand -->
-    <mdb-navbar-brand><a href="#">
-            <h4 class="dayDreamTitle"><i class="fa fa-cloud"> </i> DayDreams</h4>
-        </a></mdb-navbar-brand>
+        <!-- Navbar brand -->
+        <mdb-navbar-brand><a href="#">
+                <h4 class="dayDreamTitle"><i class="fa fa-cloud"> </i> DayDreams</h4>
+            </a></mdb-navbar-brand>
+        <!-- Collapsible content -->
+        <links>
+            <!-- Links -->
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link waves-light" routerLink='/home' mdbWavesEffect>Home<span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link waves-light" routerLink='/about' mdbWavesEffect>About</a>
+                </li>
 
-    <!-- Collapsible content -->
-    <links>
+                <!-- Dropdown -->
+                <!-- <li *ngIf="auth == true" class="nav-item dropdown" dropdown> -->
+                <li class="nav-item dropdown" dropdown>
+                    <a dropdownToggle mdbWavesEffect type="none "
+                        class="nav-link dropdown-toggle waves-light tableColor" mdbWavesEffect>
+                        User<span class="caret"></span></a>
+                    <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+                        <a class="dropdown-item waves-light" mdbWavesEffect href="#" routerLink="/change-email">Change
+                            Email</a>
+                        <a class="dropdown-item waves-light" mdbWavesEffect href="#"
+                            routerLink="/change-password">Change
+                            Password</a>
+                        <!-- <a class="dropdown-item waves-light" mdbWavesEffect href="#">Something else here</a> -->
+                        <div class="divider dropdown-divider"></div>
+                        <a (click)="logout()" routerlinkactive="active" class="dropdown-item waves-light" mdbWavesEffect
+                            href="#">Logout</a>
+                    </div>
+                </li>
 
-        <!-- Links -->
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-                <a class="nav-link waves-light" routerLink='/home' mdbWavesEffect>Home<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link waves-light" routerLink='/about' mdbWavesEffect>About</a>
-            </li>
-            <!-- <li class="nav-item">
-                <a class="nav-link waves-light" mdbWavesEffect>Pricing</a>
-            </li> -->
+            </ul>
+            <!-- Links -->
+        </links>
+        <!-- Collapsible content -->
 
-            <!-- Dropdown -->
-            <li *ngIf="auth == true" class="nav-item dropdown" dropdown>
-                <a dropdownToggle mdbWavesEffect type="none " class="nav-link dropdown-toggle waves-light tableColor"
-                    mdbWavesEffect>
-                    User<span class="caret"></span></a>
-                <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
-                    <a class="dropdown-item waves-light" mdbWavesEffect href="#" routerLink="/change-email">Change
-                        Email</a>
-                    <a class="dropdown-item waves-light" mdbWavesEffect href="#" routerLink="/change-password">Change
-                        Password</a>
-                    <!-- <a class="dropdown-item waves-light" mdbWavesEffect href="#">Something else here</a> -->
-                    <div class="divider dropdown-divider"></div>
-                    <a (click)="logout()" routerlinkactive="active" class="dropdown-item waves-light" mdbWavesEffect
-                        href="#">Logout</a>
-                </div>
-            </li>
+    </mdb-navbar>
+    <!--/.Navbar-->
 
-        </ul>
-        <!-- Links -->
-    </links>
-    <!-- Collapsible content -->
-
-</mdb-navbar>
-<!--/.Navbar-->
-
-<div class="p-2 no">
-    <div class="d-flex ">
-        <div class="p-2 xd">
-            <router-outlet></router-outlet>
+    <!-- Router Content -->
+    <div class="p-2 no">
+        <div class="d-flex ">
+            <div class="p-2 xd">
+                <router-outlet></router-outlet>
+            </div>
         </div>
     </div>
+    <!-- Router Content -->
+
+    <!-- Footer -->
+    <footer class="page-footer font-small">
+        <div class="footer text-center py-3 tableColor">Built and Engineered by:
+            <a href="https://github.com/connortodd21/DayDreams">Purdue University CS408 Group 24, Spring 2019</a>
+        </div>
+    </footer>
+    <!-- Footer -->
 </div>
+<!-- Main App Contianer -->

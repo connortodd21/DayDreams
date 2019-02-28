@@ -21,6 +21,12 @@
     float: left;
 }
 
+.cover {
+  object-fit: cover;
+  width: 500px;
+  height: 500px;
+}
+
 .grid-container {
     display: grid;
     grid-template-columns: auto auto;
