@@ -86,18 +86,20 @@ router.post('/add', authenticate, (req, res) => {
 
 
 router.post('/upload-photo', authenticate, upload.single("image"), (req, res) => {
-    if(!req.file.url || !req.file.public_id || !req.body.daydreamID){
+    // console.log(req)
+    if(!req.file.url || !req.file.public_id || !req.headers.daydreamid){
         res.status(400).send({ message: "Bad request" });
         return;
     }
-    DayDream.findOneAndUpdate({_id: req.body.daydreamID}, {
+    DayDream.findOneAndUpdate({_id: req.headers.daydreamid}, {
         $push: {
             images: {
                 url: req.file.url,
                 id: req.file.public_id
             }
         }
-    }).then(() => {
+    }).then((dd) => {
+        // console.log(dd)
         res.status(200).send({message: "Photo successfully uploaded"})
         return
     }).catch((err) => {
