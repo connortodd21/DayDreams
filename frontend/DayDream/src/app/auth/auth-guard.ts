@@ -11,7 +11,12 @@ export class AuthGuard implements CanActivate {
   }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    console.log(this.authService.getAuthenticationStatus())
+    // let authInformation = this.authService.getAuthData()
+    // const now = new Date();
+    // const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
+    // if(expiresIn > 0){
+    //   return true;
+    // }
     if (this.authService.getAuthenticationStatus() == true) {
       // console.log(this.authService.getAuthenticationStatus())
       console.log('here')

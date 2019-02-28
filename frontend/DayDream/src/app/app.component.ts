@@ -20,10 +20,12 @@ export class AppComponent {
   get auth() { return this.userAuthed }
 
   logout() {
+    this.userAuthed = false;
     this.authService.logout()
   }
 
   ngOnInit() {
+    this.userAuthed = true
     this.authService.autoAuthUser();
   }
 }
