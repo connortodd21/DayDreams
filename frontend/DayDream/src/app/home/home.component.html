@@ -3,27 +3,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-  <body>
+  <!-- Main Body -->
 
+  <body>
+    <!-- Main Container -->
     <div class="w3-container">
+      <!-- Create New Circle Button -->
       <button onclick="document.getElementById('id01').style.display='block'" mdbBtn type="button" color="primary"
         mdbWavesEffect>Create a New Circle</button>
 
+      <!-- Create New Circle Modal -->
       <div id="id01" class="w3-modal">
         <div class="w3-modal-content">
           <div class="w3-container">
+            <!-- Card Container and Body -->
             <mdb-card>
               <mdb-card-body>
+                <!-- Submission Form -->
                 <form (submit)="submitFile(f)" #f="ngForm" class="text-center border border-light p-5"
                   [formGroup]="fileForm">
-
+                  <!-- Form Group -->
                   <div class="form-group">
-
+                    <!-- Header -->
                     <h4 class="pageHeader">Create a New Circle</h4>
+                    <!-- Header -->
 
+                    <!-- Circle Name Text Input -->
                     <input type="text" id="circleName" formControlName="circleName" class="form-control"
                       placeholder="What is the name of your circle?" [(ngModel)]="circleName"
                       [ngClass]="{ 'is-invalid': submitted && form.circleName.errors }">
+                    <!-- Invalid Feedback -->
                     <div *ngIf="submitted && form.circleName.errors" class="invalid-feedback">
                       <div *ngIf="form.circleName.errors.required">
                         <p style="font-size:15px;">
@@ -32,9 +41,11 @@
                       </div>
                     </div>
 
+                    <!-- Circle Description Text Input -->
                     <input type="text" id="circleDesc" formControlName="circleDesc" class="form-control"
                       placeholder="Circle Description" [(ngModel)]="circleDesc"
                       [ngClass]="{ 'is-invalid': submitted && form.circleDesc.errors }">
+                    <!-- Invalid Feedback -->
                     <div *ngIf="submitted && form.circleDesc.errors" class="invalid-feedback">
                       <div *ngIf="form.circleDesc.errors.required">
                         <p style="font-size:15px;">
@@ -42,28 +53,43 @@
                         </p>
                       </div>
                     </div>
+                    <!-- Circle Description Text Input -->
 
+                    <!-- Circle Image URL -->
                     <input type="text" id="imageUrl" formControlName="imageUrl" class="form-control"
                       placeholder="Paste the url of the image you would like to upload" [(ngModel)]="imageUrl">
+                    <!-- Circle Image URL -->
 
                   </div>
+                  <!-- Form Group -->
 
+                  <!-- Create Circle Button -->
                   <button mdbBtn color="info" block="true" class="my-4">Create
                     Circle</button>
-                   <button type="button" onclick="document.getElementById('id01').style.display='none'" mdbBtn color="info"
-                              block="true" class="my-4">Cancel</button>
+                  <!-- Create Circle Button -->
+
+                  <!-- Cancel Button -->
+                  <button type="button" onclick="document.getElementById('id01').style.display='none'" mdbBtn
+                    color="info" block="true" class="my-4">Cancel</button>
+                  <!-- Cancel Button -->
 
                 </form>
+                <!-- Submission Form -->
               </mdb-card-body>
             </mdb-card>
+            <!-- Card Container and Body -->
           </div>
         </div>
       </div>
+      <!-- Create New Circle Modal -->
     </div>
   </body>
+  <!-- Main Body -->
 
   </html>
 </div>
+
+<!-- Content Div -->
 <div>
   <h4 class="pageHeader">Your Circles</h4>
   <div class="grid-container" id="circleObject">
@@ -71,18 +97,12 @@
       <h2 class="center">{{c.circleName}}</h2>
       <div class="cardProperties grid-item" id="circles" (click)="renderCircle(c)">
 
-
-
-
         <!-- <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
         aria-hidden="true" [config]="{backdrop: false, ignoreBackdropClick: true}">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header"> -->
         <!-- <h4 class="modal-title w-100" id="myModalLabel">{{c.circleName}}</h4> -->
-
-
-
 
         <img [src]="c.imageUrl" class="imgSize" />
 
@@ -101,7 +121,6 @@
           </div>
         </div>
       </div> -->
-
 
       </div>
     </div>
