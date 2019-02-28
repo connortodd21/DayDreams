@@ -24,7 +24,6 @@ export class CircleComponent implements OnInit {
   submitted = false;
   response: string = "NULL";
   messages: Array<Object>
-  canceled = false;
 
   /* variables used in editing circle name*/
   renderComponent: string;
@@ -119,10 +118,6 @@ export class CircleComponent implements OnInit {
 
   get reponse() { return this.response }
 
-  cancelEdits() {
-    this.canceled = true;
-    return;
-  }
 
   // renderEditCircleName(circle: Circle) {
   renderEditCircleName() {
@@ -142,10 +137,6 @@ export class CircleComponent implements OnInit {
     this.submitted = true;
     if (this.addUserForm.invalid) {
       console.log(event);
-      if (this.canceled) {
-        this.submitted = false;
-        this.canceled = false;
-      }
       return;
     }
     this.circleService.addUser(this.myCircle.ID, event.value.username).then(() => {
@@ -179,10 +170,6 @@ export class CircleComponent implements OnInit {
 
     if (this.createForm.invalid) {
       console.log(this.createForm);
-      if (this.canceled) {
-        this.submitted = false;
-        this.canceled = false;
-      }
       return;
     }
 

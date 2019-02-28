@@ -20,6 +20,7 @@
                   <div class="form-group">
 
                     <h4 class="pageHeader">Create a New Circle</h4>
+
                     <input type="text" id="circleName" formControlName="circleName" class="form-control"
                       placeholder="What is the name of your circle?" [(ngModel)]="circleName"
                       [ngClass]="{ 'is-invalid': submitted && form.circleName.errors }">
@@ -42,27 +43,14 @@
                       </div>
                     </div>
 
-                    <!-- <input type="text" id="imageUrl" formControlName="imageUrl" class="form-control"
-                      placeholder="Paste the url of the image you would like to upload" [(ngModel)]="imageUrl"
-                      [ngClass]="{ 'is-invalid': submitted && form.imageUrl.errors }"> -->
-
                     <input type="text" id="imageUrl" formControlName="imageUrl" class="form-control"
                       placeholder="Paste the url of the image you would like to upload" [(ngModel)]="imageUrl">
-                    <!-- <div *ngIf="submitted && form.imageUrl.errors" class="invalid-feedback">
-                      <div *ngIf="form.imageUrl.errors.required">
-                        <p style="font-size:15px;">
-                          Image URL is required
-                        </p>
-                      </div>
-                    </div> -->
                   </div>
 
-
-                  <button mdbBtn color="info" block="true" class="my-4" type="submit" prevent-default>Create
+                  <button mdbBtn color="info" block="true" class="my-4">Create
                     Circle</button>
-                  <button onclick="document.getElementById('id01').style.display='none'" mdbBtn color="info"
-                    block="true" class="my-4">Cancel</button>
-
+                  <button tpye="button" onclick="document.getElementById('id01').style.display='none'" mdbBtn
+                    color="info" class="my-4" block="true">Cancel</button>
                 </form>
               </mdb-card-body>
             </mdb-card>

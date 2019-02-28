@@ -68,15 +68,15 @@ get form() { return this.fileForm.controls; }
     })
   }
 
-  submitFile(event) {
+  submitFile(form: NgForm) {
     this.submitted = true;
     if (this.fileForm.invalid) {
-      console.log(event);
+      console.log(form);
       return;
     }
 
-    this.circleService.createCircle(event.value.circleName, event.value.circleDesc, event.value.imageUrl).then(() => {
-      var confirm = window.alert('Circle ' + event.value.circleName + ' Created!')
+    this.circleService.createCircle(form.value.circleName, form.value.circleDesc, form.value.imageUrl).then(() => {
+      var confirm = window.alert('Circle ' + form.value.circleName + ' Created!')
       window.location.replace("/home")
       console.log(confirm)
       // this._router.navigate(['/edit-name']);
