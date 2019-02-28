@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DaydreamService } from '../../services/daydream.service';
-import { DayDream } from '../../models/daydream.model';
 import { Router, ActivatedRoute, Params, Data } from '@angular/router';
 import { NgForm, FormGroup, FormBuilder, Validators, Form } from "@angular/forms";
+import { DayDream } from 'src/app/models/daydream.model';
+
 
 
 @Component({
