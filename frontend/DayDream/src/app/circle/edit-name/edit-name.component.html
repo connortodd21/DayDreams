@@ -33,6 +33,9 @@
                 <div *ngIf="response_msg === 'fatalError'" class="alert alert-danger" role="alert">
                     A Fatal Error Has Occoured. PLease Try Again Later.
                 </div>
+                <div *ngIf="response_msg === 'invalidURL'" class="alert alert-danger" role="alert">
+                    Invalid IRL. Please check your image link.
+                </div>
                 <div *ngIf="response_msg === 'noEdit'" class="alert alert-info" role="alert">
                     No Changes Applied
                 </div>
@@ -42,7 +45,12 @@
 
                 <button mdbBtn color="info" block="true" class="my-4" type="submit">Submit</button>
 
-                <button mdbBtn (click)="cancelEdits()" color="danger" outline="true" mdbWavesEffect block="true">Cancel</button>
+                <div *ngIf="submitted">
+                    <button mdbBtn (click)="cancelEdits()" color="info" outline="true" mdbWavesEffect block="true">Done</button>
+                </div>
+                <div *ngIf="!submitted">
+                    <button mdbBtn (click)="cancelEdits()" color="danger" outline="true" mdbWavesEffect block="true">Cancel</button>
+                </div>
 
 
             </form>

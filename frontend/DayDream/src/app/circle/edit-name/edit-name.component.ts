@@ -90,8 +90,14 @@ export class EditNameComponent implements OnInit {
         this.response = "complete";
       },
         (err) => {
+
+          if (err.error.message == "Invalid image, url is not validated") {
+            this.response = "invalidURL";
+          }
+          else {
+            this.response = "fatalError";
+          }
           console.log(err);
-          this.response = "fatalError";
         });
     }
     else {
@@ -117,7 +123,7 @@ export class EditNameComponent implements OnInit {
     }
 
     // this._router.navigate(['/circle/' + this.myCircle.ID]);
-    window.location.replace("/circle/" + this.myCircle.ID)
+    // window.location.replace("/circle/" + this.myCircle.ID)
 
   }
 
