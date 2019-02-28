@@ -229,6 +229,9 @@ export class CircleComponent implements OnInit {
     });
   }
 
+  /**
+   * Resets all values for the form when the cancel button is invoked
+   */
   cancel() { 
     this.createForm.reset();
     this.addUserForm.reset();
