@@ -92,6 +92,15 @@ export class HomeComponent implements OnInit {
       window.location.replace("/home")
       console.log(confirm)
       // this._router.navigate(['/edit-name']);
-    })
+    });
   }
+ 
+  /**
+   * Resets all values for the form when the cancel button is invoked
+   */
+  cancel() {
+    this.submitted = false;
+    this.fileForm.reset();
+  }
+
 }
