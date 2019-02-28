@@ -22,10 +22,11 @@ export class EditNameComponent implements OnInit {
   editCircleForm: FormGroup;
   submitted = false;
   response: string = "NULL";
-
+  r1: string = "NULL";
+  r2: string = "NULL";
+  r3: string = "NULL";
 
   ngOnInit() {
-
 
     /* grabs url and finds parameter 'id' */
     var id = this.route.snapshot.params['id'];
@@ -80,21 +81,21 @@ export class EditNameComponent implements OnInit {
         });
     }
     else {
-      this.response = "noEdit";
+      this.r1 = "noEdit";
     }
 
     if (form.value.imageUrl != this.myCircle.imageUrl) {
       this.circleService.uploadPhoto(form.value.imageUrl, this.myCircle.ID).subscribe((response) => {
         console.log(response);
         this.response = "complete";
-      }),
+      },
         (err) => {
           console.log(err);
           this.response = "fatalError";
-        }
+        });
     }
     else {
-      this.response = "noEdit";
+      this.r2 = "noEdit";
     }
 
     if (form.value.circleDescription != this.myCircle.description) {
@@ -108,6 +109,10 @@ export class EditNameComponent implements OnInit {
         }
     }
     else {
+      this.r3 = "noEdit";
+    }
+
+    if (this.r1 == "noEdit" && this.r2 == "noEdit" && this.r3 == "noEdit") {
       this.response = "noEdit";
     }
 
