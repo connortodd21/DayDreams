@@ -58,4 +58,14 @@ export class DaydreamService{
         console.log(formdata.getAll('image'))
         return this.http.post("http://localhost:5000/daydream/upload-photo", formdata, info).toPromise()
     }
+
+    getPhotos(dayDreamID:string){
+        const info = {
+            headers: new HttpHeaders({
+                // 'Content-Type': 'application/form-data',
+                'daydreamID': dayDreamID
+            })
+        }
+        return this.http.get<Array<Object>>("http://localhost:5000/daydream/all-photos", info).toPromise()
+    }
 }
