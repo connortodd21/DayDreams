@@ -157,6 +157,7 @@ export class CircleComponent implements OnInit {
   renderDayDream(daydream: DayDream) {
     console.log(daydream)
     this.circleService.setCircleUrl('/circle/' + this.myCircle.ID)
+    localStorage.setItem('circle', this.myCircle.ID)
     this._router.navigate(['/daydream/' + daydream.ID])
   }
 /**

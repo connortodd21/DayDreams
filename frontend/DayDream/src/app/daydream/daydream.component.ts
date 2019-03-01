@@ -77,7 +77,8 @@ export class DaydreamComponent implements OnInit {
   }
 
   returnToCircles(){
-    var route = this.circleService.getCircleUrl()
+    var route = localStorage.getItem('circle')
+    localStorage.removeItem('circle')
     this._router.navigate([route])
   }
 
