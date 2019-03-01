@@ -14,9 +14,12 @@ export class DaydreamComponent implements OnInit {
 
   myDayDream: DayDream;
   lodgingInfo: {}
+  images: Array<Object>
 
   constructor(private route: ActivatedRoute,
-    private circleService: CircleService, private DaydreamService: DaydreamService, private formBuilder: FormBuilder, private _router: Router) { }
+    private circleService: CircleService, private DaydreamService: DaydreamService, private formBuilder: FormBuilder, private _router: Router) { 
+      this.images = []
+    }
 
   ngOnInit() {
 
@@ -32,12 +35,7 @@ export class DaydreamComponent implements OnInit {
       response.push(data);
       let daydream = new DayDream(response[0])
       this.myDayDream = daydream;
-      // if(daydream.lodgingInformation.length < 1){
-      //   this.lodgingInfo[0] = "No lodging information yet"
-      // }
-      // else{
-      //   this.lodgingInfo = daydream.lodgingInformation
-      // }
+      this.displayImages()
     })
   }
   renderEditDayDream() {
@@ -61,8 +59,6 @@ export class DaydreamComponent implements OnInit {
       //this._router.navigate(['/home']);
       this.returnToCircles();
     })
-
-
   }
 
 
@@ -79,6 +75,18 @@ export class DaydreamComponent implements OnInit {
   returnToCircles(){
     var route = this.circleService.getCircleUrl()
     this._router.navigate([route])
+  }
+
+  displayImages(){
+    var id = this.route.snapshot.params['id'];
+    this.DaydreamService.getPhotos(id).then((res) => {
+      console.log(res)
+      var i: number = 0
+      res.forEach(element => {
+        this.images[i] = element
+        i++
+      });
+    })
   }
 
 }

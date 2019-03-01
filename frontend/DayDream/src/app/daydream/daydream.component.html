@@ -27,3 +27,7 @@
 <button (click)="fileInput.click()">Select File</button>
 <!-- <button (click)="onUpload()">Upload!</button> -->
 
+<div *ngFor="let i of images">
+    <img [src]="i.url" class="imgSize" />
+  </div>
+
