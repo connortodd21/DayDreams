@@ -196,36 +196,7 @@ router.get('/all-photos', authenticate, (req, res) => {
     }).catch((err) => {
         res.status(400).send(err);
         return;
-    }).then(() => {
-        res.status(200).send({ message: "Daydream Removed!" })
-        return;
-
-
-        /*Circle.findOne({ _id: req.body.circleID }).then((circ) => {
-            if (circ == null) {
-                res.status(400).send({ message: "Could not find circle" });
-                return;
-            }
-            let temp = [];
-            for (var i = 0; i < circ.dayDreams.length; i++) {
-                if (circ.dayDreams[i] != req.body.daydreamID) {
-                    temp.push(circ.dayDreams[i]);
-                    // console.log("pushing: " + circ.dayDreams[i]);
-                }
-            }
-    
-            Circle.findOneAndUpdate({ _id: req.body.circleID }, {
-                $set:
-                {
-                    dayDreams: temp,
-                }
-            }).then(() => {
-                res.status(200).send({ message: "Daydream Removed!" })
-                return;
-            }
-            */
     })
-
 })
 
 
