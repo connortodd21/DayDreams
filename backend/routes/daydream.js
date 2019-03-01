@@ -181,7 +181,7 @@ router.get('/info', authenticate, (req, res) => {
 })
 
 router.get('/all-photos', authenticate, (req, res) => {
-    if(!req.headers.daydreamid){
+    if (!req.headers.daydreamid) {
         res.status(400).send({ message: "Bad request" });
         return;
     }
@@ -264,7 +264,6 @@ router.post('/add-lodging', authenticate, (req, res) => {
     })
 
 
-    })
 })
 
 
