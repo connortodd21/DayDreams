@@ -36,6 +36,7 @@ router.post("/register", (req, res) => {
 
     // Create a verification code between 1000 and 9999
     var verificatonCode = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
+    console.log(req.body.password)
     encrypt(req.body.password).then((password) => {
         // User Data
         var newUser = new User({
@@ -51,6 +52,8 @@ router.post("/register", (req, res) => {
             ",\n\nWelcome to DayDreams! We ask you to please verify your account with us. Your verification code is:\n" +
             verificatonCode + "\nWe look forward to having you with us!\n\nSincerely, \nThe DayDreams Team";
         var newMemberEmailSubject = "Welcome to DayDreams!"
+
+        console.log(password)
 
         // Add to database with auth
         newUser.save().then(() => {
@@ -87,7 +90,12 @@ router.post('/login', (req, res) => {
         //     res.status(401).send({ message: "User is not verified" })
         //     return;
         // }
+        console.log(req.body.password)
         bcrypt.compare(req.body.password, user.password, function (err, comp) {
+            encrypt(req.body.password).then((p) => {
+                console.log(p)
+                console.log(user.password)
+            })
             if (comp == false) {
                 res.status(400).send({ message: "Error: Password is incorrect" })
                 return
