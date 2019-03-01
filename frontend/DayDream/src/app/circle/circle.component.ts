@@ -66,7 +66,8 @@ export class CircleComponent implements OnInit {
         }
         console.log(this.dayDreams);
       }).catch((err) => {
-        console.log(err)
+        // console.log(err)
+        this._router.navigate(['/not-found']);
       });
     });
 

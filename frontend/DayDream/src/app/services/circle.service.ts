@@ -14,7 +14,7 @@ const httpOptions = {
 export class CircleService{
 
     Circle: Object;
-    constructor(private http:HttpClient) {}
+    constructor(private http:HttpClient, private _router: Router) {}
     CircleUrl: string
 
     uploadPhoto(url:string, circleID:string){
@@ -57,7 +57,9 @@ export class CircleService{
         }
 
         /* calls /circle/info from the backend*/
-        return this.http.get("http://localhost:5000/circle/info", info).toPromise()
+        return this.http.get("http://localhost:5000/circle/info", info).toPromise().catch((err) => {
+            // this._router.navigate(['/not-found']);
+        })
     }
 
     getDayDreamsInCircle(circleID:string){

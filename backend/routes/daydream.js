@@ -186,9 +186,7 @@ router.get('/info', authenticate, (req, res) => {
             return;
         }
         res.status(200).send(dd) //returns all circle properties
-    }).catch((err) => {
-        res.status(400).send(err);
-        return;
+        return
     })
     //to get circle info of a specific circle
     //use ID
@@ -208,6 +206,7 @@ router.get('/all-photos', authenticate, (req, res) => {
             return;
         }
         res.status(200).send(dd.images) //returns all circle properties
+        return
         // console.log(dd.images)
     }).catch((err) => {
         res.status(400).send(err);

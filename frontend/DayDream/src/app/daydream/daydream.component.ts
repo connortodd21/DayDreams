@@ -36,6 +36,8 @@ export class DaydreamComponent implements OnInit {
       let daydream = new DayDream(response[0])
       this.myDayDream = daydream;
       this.displayImages()
+    }).catch((err) => {
+      this._router.navigate(['/not-found']);
     })
   }
   renderEditDayDream() {
