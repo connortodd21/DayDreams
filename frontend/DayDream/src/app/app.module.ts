@@ -39,6 +39,7 @@ import { EditNameComponent } from './circle/edit-name/edit-name.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ChangeEmailComponent } from './change-email/change-email.component';
 import { AboutComponent } from './about/about.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { AboutComponent } from './about/about.component';
     EditNameComponent,
     ChangePasswordComponent,
     ChangeEmailComponent,
-    AboutComponent
+    AboutComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

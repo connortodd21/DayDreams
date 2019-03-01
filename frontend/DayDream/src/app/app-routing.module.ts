@@ -10,7 +10,8 @@ import { EditNameComponent } from './circle/edit-name/edit-name.component'
 import { ChangePasswordComponent } from './change-password/change-password.component'
 import { ChangeEmailComponent } from './change-email/change-email.component'
 import { AboutComponent } from './about/about.component';
-import {DaydreamComponent} from './daydream/daydream.component'
+import { DaydreamComponent } from './daydream/daydream.component'
+import { NotFoundComponent } from './not-found/not-found.component'
 
 
 
@@ -74,9 +75,13 @@ const routes: Routes = [
     component: EditNameComponent
   },
   {
+    path: 'not-found',
+    component: NotFoundComponent
+  },
+  {
     //404 error, leave this one as last route check
     path: '**',
-    redirectTo: 'login',
+    redirectTo: 'not-found',
     canActivate: [AuthGuard]
   }
 ];
