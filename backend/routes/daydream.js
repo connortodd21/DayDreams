@@ -84,6 +84,35 @@ router.post('/add', authenticate, (req, res) => {
 
 })
 
+/*
+*   Delete chosen DayDream
+*/
+router.post('/delete', authenticate, (req, res) => {
+
+    //ensure that requesthas circleID and daydreamID
+    if (!req.body || !req.body.daydreamID) {
+        // console.log(req.body)
+        res.status(400).send({ message: "Bad request" });
+        return;
+    }
+
+    //find specific DayDream object by ID and delete
+    DayDream.findByIdAndDelete(req.body.daydreamID, (err, dream) => {
+        if (err || dream == null) {
+            res.status(400).send({ message: "Could not find Dream" });
+            return;
+        }
+        // res.status(200).send(dream) //returns all circle properties
+        // console.log(dream);
+    }).catch((err) => {
+        res.status(400).send(err);
+        return;
+    }).then(() => {
+        res.status(200).send({ message: "Daydream Removed!" })
+        return;
+    })
+})
+
 
 router.post('/upload-photo', authenticate, upload.single("image"), (req, res) => {
     // console.log(req)
@@ -151,26 +180,19 @@ router.get('/info', authenticate, (req, res) => {
     // make sure ID
 })
 
-/*
-*   Delete chosen DayDream
-*/
-router.post('/delete', authenticate, (req, res) => {
-
-    //ensure that requesthas circleID and daydreamID
-    if (!req.body || !req.body.daydreamID) {
-        // console.log(req.body)
+router.get('/all-photos', authenticate, (req, res) => {
+    if(!req.headers.daydreamid){
         res.status(400).send({ message: "Bad request" });
         return;
     }
+    DayDream.findById(req.headers.daydreamid, (err, dd) => {
 
-    //find specific DayDream object by ID and delete
-    DayDream.findByIdAndDelete(req.body.daydreamID, (err, dream) => {
-        if (err || dream == null) {
-            res.status(400).send({ message: "Could not find Dream" });
+        if (err) {
+            res.status(400).send({ message: "Could not find daydream" });
             return;
         }
-        // res.status(200).send(dream) //returns all circle properties
-        // console.log(dream);
+        res.status(200).send(dd.images) //returns all circle properties
+        // console.log(dd.images)
     }).catch((err) => {
         res.status(400).send(err);
         return;
@@ -241,6 +263,8 @@ router.post('/add-lodging', authenticate, (req, res) => {
         res.send(err);
     })
 
+
+    })
 })
 
 

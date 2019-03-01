@@ -23,6 +23,10 @@ export class DayDream {
         cost: Number,
         user: String,
     }];
+    images: [{
+        url: String,
+        id: String
+    }]
     destination: {type: String};
     description: {type: String};
     
@@ -36,5 +40,6 @@ export class DayDream {
         this.lodgingInformation = response.lodgingInformation
         this.excursions = response.excursions
         this.individualContribution = response.individualContribution
+        this.images = response.images
     }
 }
