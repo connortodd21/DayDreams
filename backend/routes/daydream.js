@@ -56,32 +56,40 @@ router.post('/add', authenticate, (req, res) => {
         return;
     }
 
-    Circle.findOneAndUpdate({ _id: req.body.circleID }, {
-        $push: {
-            dayDreams: newDayDream._id
-        }
-    }).then((circ) => {
-        if (circ == null) {
-            //no circle found{}
-            res.status(400).send({ message: "Circle doesn't exist" });
+    Circle.findOne({ _id: req.body.circleID }).then((circ) => {
+        if (!circ) {
+            res.status(400).send({ message: "Circle not found" });
             return;
         }
-        newDayDream.save().then(() => {
-            res.status(200).send(newDayDream)
-            return
+        Circle.findOneAndUpdate({ _id: req.body.circleID }, {
+            $push: {
+                dayDreams: newDayDream._id
+            }
+        }).then((circ) => {
+            if (circ == null) {
+                //no circle found{}
+                res.status(400).send({ message: "Circle doesn't exist" });
+                return;
+            }
+            newDayDream.save().then(() => {
+                res.status(200).send(newDayDream)
+                return
+            }).catch((err) => {
+                //   console.log(req.body);
+                res.status(400).send(err)
+                return;
+            })
+            //works
         }).catch((err) => {
-            //   console.log(req.body);
-            res.status(400).send(err)
+            res.send(err);
+            // console.log(req);
             return;
         })
-        //works
     }).catch((err) => {
         res.send(err);
         // console.log(req);
         return;
     })
-
-
 })
 
 /*
@@ -120,17 +128,25 @@ router.post('/upload-photo', authenticate, upload.single("image"), (req, res) =>
         res.status(400).send({ message: "Bad request" });
         return;
     }
-    DayDream.findOneAndUpdate({ _id: req.headers.daydreamid }, {
-        $push: {
-            images: {
-                url: req.file.url,
-                id: req.file.public_id
-            }
+    DayDream.findOne({ _id: req.headers.daydreamid }).then((dd) => {
+        if (!dd) {
+            res.status(400).send({ message: "Daydream does not exist" });
+            return;
         }
-    }).then((dd) => {
-        // console.log(dd)
-        res.status(200).send({ message: "Photo successfully uploaded" })
-        return
+        DayDream.findOneAndUpdate({ _id: req.headers.daydreamid }, {
+            $push: {
+                images: {
+                    url: req.file.url,
+                    id: req.file.public_id
+                }
+            }
+        }).then((dd) => {
+            // console.log(dd)
+            res.status(200).send({ message: "Photo successfully uploaded" })
+            return
+        }).catch((err) => {
+            res.send(err);
+        })
     }).catch((err) => {
         res.send(err);
     })
