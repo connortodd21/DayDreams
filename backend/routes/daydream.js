@@ -110,8 +110,14 @@ router.post('/delete', authenticate, (req, res) => {
             res.status(400).send({ message: "Could not find Dream" });
             return;
         }
-        // res.status(200).send(dream) //returns all circle properties
-        // console.log(dream);
+        Circle.findByIdAndUpdate(dream.circleID, (err, circ), {
+            $pull: {
+                dayDreams: req.body.daydreamID
+            }
+        }).then(() => {
+            res.status(200).send({message: "Daydream removed"}) //returns all circle properties
+            console.log(dream);
+        })
     }).catch((err) => {
         res.status(400).send(err);
         return;
