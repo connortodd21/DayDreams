@@ -345,7 +345,7 @@ router.get('/all-daydreams', authenticate, (req, res) => {
             res.status(400).send({ message: "Could not find circle" });
             return;
         }
-        DayDream.find({ _id: { $in: circ.dayDreams } }).then((dd) => {
+        DayDream.find({ _id: { $in: circ.dayDreams }, completed: false }).then((dd) => {
             if (dd == null) {
                 res.status(400).send({ message: "Could not find any daydreams" });
                 return;
@@ -362,5 +362,33 @@ router.get('/all-daydreams', authenticate, (req, res) => {
     })
 })
 
+router.get('/all-memories', authenticate, (req, res) => {
+
+    if (!req.headers.circleid) {
+        res.status(400).send({ message: "Bad request" });
+        return;
+    }
+
+    Circle.findOne({ _id: req.headers.circleid }).then((circ) => {
+        if (circ == null) {
+            res.status(400).send({ message: "Could not find circle" });
+            return;
+        }
+        DayDream.find({ _id: { $in: circ.dayDreams }, completed: true }).then((dd) => {
+            if (dd == null) {
+                res.status(400).send({ message: "Could not find any daydreams" });
+                return;
+            }
+            res.status(200).send(dd)
+            return
+        }).catch((err) => {
+            res.send(err)
+            return
+        })
+    }).catch((err) => {
+        res.send(err)
+        return
+    })
+})
 
 module.exports = router;
