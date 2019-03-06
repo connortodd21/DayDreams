@@ -15,10 +15,12 @@ export class DaydreamComponent implements OnInit {
   myDayDream: DayDream;
   lodgingInfo: {}
   images: Array<Object>
+  isMemory: Boolean;
 
   constructor(private route: ActivatedRoute,
     private circleService: CircleService, private DaydreamService: DaydreamService, private formBuilder: FormBuilder, private _router: Router) { 
       this.images = []
+      this.isMemory = false;
     }
 
   ngOnInit() {
@@ -35,6 +37,7 @@ export class DaydreamComponent implements OnInit {
       response.push(data);
       let daydream = new DayDream(response[0])
       this.myDayDream = daydream;
+      this.isMemory = daydream.completed
       this.displayImages()
     }).catch((err) => {
       this._router.navigate(['/not-found']);
