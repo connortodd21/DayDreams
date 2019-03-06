@@ -172,6 +172,18 @@ export class CircleComponent implements OnInit {
     localStorage.setItem('circle', this.myCircle.ID)
     this._router.navigate(['/daydream/' + daydream.ID])
   }
+
+  leaveCircle(){
+    let username = localStorage.getItem('username')
+    this.circleService.leaveCircle(this.myCircle.ID, username).then(() => {
+      var confirm = window.confirm('Are you sure you want to leave this circle. To return, you must be added back by someone')
+      if (confirm == false) {
+        return
+      }
+      this._router.navigate(['/home'])
+    })
+  }
+
 /**
  * Adds user to current circle 
  * @param event Event to parse user addition

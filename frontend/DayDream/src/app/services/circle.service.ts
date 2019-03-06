@@ -89,6 +89,14 @@ export class CircleService{
         return this.http.get<Array<Object>>("http://localhost:5000/circle/chat", info).toPromise()
     }
 
+    leaveCircle(circleID:string, username:string){
+        const info = {
+            circleID: circleID,
+            username: username
+        }
+        return this.http.post("http://localhost:5000/circle/leave", info).toPromise()
+    }
+
     addUser(circleID:string, username:string){
         const info = {
             circleID: circleID,

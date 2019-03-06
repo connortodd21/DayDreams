@@ -18,10 +18,10 @@ export class DaydreamComponent implements OnInit {
   isMemory: Boolean;
 
   constructor(private route: ActivatedRoute,
-    private circleService: CircleService, private DaydreamService: DaydreamService, private formBuilder: FormBuilder, private _router: Router) { 
-      this.images = []
-      this.isMemory = false;
-    }
+    private circleService: CircleService, private DaydreamService: DaydreamService, private formBuilder: FormBuilder, private _router: Router) {
+    this.images = []
+    this.isMemory = false;
+  }
 
   ngOnInit() {
 
@@ -67,7 +67,7 @@ export class DaydreamComponent implements OnInit {
   }
 
 
-  onFileChanged(event){
+  onFileChanged(event) {
     let file = event.target.files[0]
     console.log(event.target.files[0])
     let formdata = new FormData()
@@ -78,14 +78,14 @@ export class DaydreamComponent implements OnInit {
     })
   }
 
-  returnToCircles(){
+  returnToCircles() {
     var route = localStorage.getItem('circle')
     var back = '/circle/' + route
     localStorage.removeItem('circle')
     this._router.navigate([back])
   }
 
-  displayImages(){
+  displayImages() {
     var id = this.route.snapshot.params['id'];
     this.DaydreamService.getPhotos(id).then((res) => {
       console.log(res)
@@ -97,12 +97,12 @@ export class DaydreamComponent implements OnInit {
     })
   }
 
-  addDayDreamToMemories(){
+  addDayDreamToMemories() {
     this.DaydreamService.addToMemories(this.myDayDream.ID).then(() => {
       var confirm = window.confirm('Are you sure you want to add this Daydream to Memories? Only do this if this daydream is complete. This action cannot be undone')
-    if (confirm == false) {
-      return
-    }
+      if (confirm == false) {
+        return
+      }
       this.returnToCircles()
     })
   }

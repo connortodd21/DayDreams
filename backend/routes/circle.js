@@ -265,6 +265,32 @@ router.post("/edit-circle-description", authenticate, (req, res) => {
         })
 })
 
+router.post('/leave', authenticate, (req, res) => {
+    if(!req.body.circleID){
+        res.status(400).json({ message: "Circle description change is incomplete" });
+        return;
+    }
+    Circle.findOne({_id: req.body.circleID}).then((circ) => {
+        if(!circ){
+            res.status(400).send({message: "Circle does not exist"})
+            return
+        }
+        Circle.findOneAndUpdate({_id: req.body.circleID}, {
+            $pull: {
+                members: req.user.username
+            }
+        }).then(() => {
+            res.status(200).send({ message: username + " has left circle"})
+            return
+        }).catch((err) => {
+            res.send(err);
+            return
+        })
+    }).catch((err) => {
+        res.send(err);
+        return
+    })
+})
 
 /*
 *   Get all members in a circle
