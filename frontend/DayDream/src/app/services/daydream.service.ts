@@ -48,6 +48,14 @@ export class DaydreamService{
         return this.http.post("http://localhost:5000/daydream/add", daydream).toPromise()
     }
 
+    addToMemories(daydreamID:string){
+        const chosen = {
+            daydreamID: daydreamID
+        }
+
+        return this.http.post("http://localhost:5000/daydream/add-to-memories", chosen).toPromise()
+    }
+
     uploadPhoto(formdata:FormData, dayDreamID:string){
         const info = {
             headers: new HttpHeaders({

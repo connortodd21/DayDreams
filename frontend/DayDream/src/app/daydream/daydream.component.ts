@@ -94,4 +94,14 @@ export class DaydreamComponent implements OnInit {
     })
   }
 
+  addDayDreamToMemories(){
+    this.DaydreamService.addToMemories(this.myDayDream.ID).then(() => {
+      var confirm = window.confirm('Are you sure you want to add this Daydream to Memories? Only do this if this daydream is complete. This action cannot be undone')
+    if (confirm == false) {
+      return
+    }
+      this.returnToCircles()
+    })
+  }
+
 }
