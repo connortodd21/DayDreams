@@ -71,6 +71,15 @@ export class CircleService{
         return this.http.get<Object>("http://localhost:5000/circle/all-daydreams", info).toPromise()
     }
 
+    getMemories(circleID:string){
+        const info = {
+            headers: new HttpHeaders({
+                'circleID': circleID
+            })
+        }
+        return this.http.get<Object>("http://localhost:5000/circle/all-memories", info).toPromise()
+    }
+
     getMessages(circleID:string){
         const info = {
             headers: new HttpHeaders({

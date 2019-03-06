@@ -27,6 +27,7 @@ export class CircleComponent implements OnInit {
   // Add user to circle form
   addUserForm: FormGroup;
   dayDreams: DayDream[]
+  memories: DayDream[]
   submitted = false;
   response: string = "NULL";
   messages: Array<Object>
@@ -39,6 +40,7 @@ export class CircleComponent implements OnInit {
     private circleService: CircleService, private DaydreamService: DaydreamService, private formBuilder: FormBuilder, private _router: Router) {
     this.dayDreams = [];
     this.messages = []
+    this.memories = []
   }
 
   /**
@@ -68,7 +70,16 @@ export class CircleComponent implements OnInit {
       }).catch((err) => {
         // console.log(err)
         this._router.navigate(['/not-found']);
-      });
+      }).then(() => {
+        this.circleService.getMemories(id).then((memories: []) => {
+          let i: number;
+          for (i = 0; i < memories.length; i += 1) {
+            let dd = new DayDream(memories[i])
+            console.log(dd)
+            this.memories[i] = dd;
+          }
+        })
+      })
     });
 
     // Form values and validators for create new DayDream

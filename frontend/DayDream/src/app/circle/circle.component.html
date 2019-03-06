@@ -67,7 +67,8 @@
 
                         <button mdbBtn color="info" block="true" class="my-4" type="submit" prevent-default>Add
                           User</button>
-                        <button (click)="cancel()" type="button" onclick="document.getElementById('id02').style.display='none'" mdbBtn color="info"
+                        <button (click)="cancel()" type="button"
+                          onclick="document.getElementById('id02').style.display='none'" mdbBtn color="info"
                           block="true" class="my-4">Cancel</button>
 
                       </form>
@@ -145,7 +146,8 @@
 
                             <button mdbBtn color="info" block="true" class="my-4" type="submit" prevent-default>Create
                               Daydream</button>
-                            <button (click)="cancel()" type="button" onclick="document.getElementById('id01').style.display='none'" mdbBtn color="info"
+                            <button (click)="cancel()" type="button"
+                              onclick="document.getElementById('id01').style.display='none'" mdbBtn color="info"
                               block="true" class="my-4">Cancel</button>
 
                           </form>
@@ -168,7 +170,16 @@
               </div>
             </div>
           </div>
-
+          <h1 class="blueLine">__________________________________________________________________</h1>
+          <h1 class="pageHeader">This Circle's Memories</h1>
+          <div class="grid-container-daydreams">
+            <div *ngFor="let m of memories" id="daydreams" class="topMargin cardProperties grid-item-daydreams"
+              (click)="renderDayDream(m)">
+              <h1>{{m.destination}}</h1>
+              <div class="circleInfo">
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -198,4 +209,4 @@
 <br>
 Only works right now if you hit enter, idk how to make it work with a button
 <br>
-But you can add and get messages with these buttons, have to do a lot of css 
+But you can add and get messages with these buttons, have to do a lot of css
