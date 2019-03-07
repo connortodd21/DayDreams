@@ -213,7 +213,7 @@ router.post('/upload-photo', authenticate, upload.single("image"), (req, res) =>
     })
 })
 
-router.post("/edit-daydream", authenticate, (req, res) => {
+router.post("/edit-destination", authenticate, (req, res) => {
     if (!req.body.destination || !req.body.daydreamID) {
         res.status(400).json({ message: "Daydream change is incomplete" });
         return;
@@ -228,6 +228,56 @@ router.post("/edit-daydream", authenticate, (req, res) => {
             {
                 $set: {
                     destination: req.body.destination,
+                }
+            }).then(() => {
+                res.status(200).send({ message: 'Circle name updated!' })
+                return
+            }).catch((err) => {
+                res.send(err);
+            })
+    })
+})
+
+router.post("/edit-description", authenticate, (req, res) => {
+    if (!req.body.description || !req.body.daydreamID) {
+        res.status(400).json({ message: "Daydream change is incomplete" });
+        return;
+    }
+
+    DayDream.findOne({ _id: req.body.daydreamID }).then((dd) => {
+        if (!dd) {
+            res.status(400).send({ message: "Daydream does not exist" });
+            return;
+        }
+        DayDream.findOneAndUpdate({ _id: req.body.daydreamID },
+            {
+                $set: {
+                    description: req.body.description,
+                }
+            }).then(() => {
+                res.status(200).send({ message: 'Circle name updated!' })
+                return
+            }).catch((err) => {
+                res.send(err);
+            })
+    })
+})
+
+router.post("/edit-cost", authenticate, (req, res) => {
+    if (!req.body.totalCost || !req.body.daydreamID) {
+        res.status(400).json({ message: "Daydream change is incomplete" });
+        return;
+    }
+
+    DayDream.findOne({ _id: req.body.daydreamID }).then((dd) => {
+        if (!dd) {
+            res.status(400).send({ message: "Daydream does not exist" });
+            return;
+        }
+        DayDream.findOneAndUpdate({ _id: req.body.daydreamID },
+            {
+                $set: {
+                    totalCost: req.body.totalCost,
                 }
             }).then(() => {
                 res.status(200).send({ message: 'Circle name updated!' })
