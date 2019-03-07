@@ -1,6 +1,6 @@
 export class DayDream {
 
-    totalCost: Number;
+    totalCost: number;
     ID: string;
     completed: Boolean;
     individualContribution: [{

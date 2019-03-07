@@ -18,6 +18,10 @@ export class DaydreamComponent implements OnInit {
   excursionInfo: Array<Object>
   images: Array<Object>
   isMemory: Boolean;
+  totalMoney: number
+  moneyPercentage: number;
+  contributions: Array<Object>
+  colors: Array<string>
 
   constructor(private route: ActivatedRoute,
     private circleService: CircleService, private DaydreamService: DaydreamService, private formBuilder: FormBuilder, private _router: Router) {
@@ -25,7 +29,12 @@ export class DaydreamComponent implements OnInit {
     this.isMemory = false;
     this.lodgingInfo = []
     this.travelInfo = []
+
+    this.contributions = []
+    this.colors = []
+
     this.excursionInfo = [];
+
   }
 
   ngOnInit() {
@@ -46,9 +55,26 @@ export class DaydreamComponent implements OnInit {
       this.displayImages()
       this.displayLodging()
       this.displayTravel()
+
+      this.getTotalContributions()
+      this.initializeColors
+
       this.displayExcursion()
+
     }).catch((err) => {
       this._router.navigate(['/not-found']);
+    })
+  }
+
+  getTotalContributions(){
+    this.DaydreamService.getTotalContribution(this.myDayDream.ID).then((total) => {
+      this.totalMoney = total[0].TotalBalance
+      var p = Math.floor(100 * (this.totalMoney / this.myDayDream.totalCost as number))
+      if(p > 100){
+        p = 100;
+      }
+      this.moneyPercentage = p;
+      console.log(this.moneyPercentage)
     })
   }
 
@@ -200,4 +226,28 @@ export class DaydreamComponent implements OnInit {
     })
   }
 
+  addFunds(event){
+    console.log(event.target["0"].value)
+    this.DaydreamService.addContribution(this.myDayDream.ID, event.target["0"].value).then(() => {
+      window.location.replace("/daydream/" + this.myDayDream.ID);
+    })
+  }
+
+  initializeColors(){
+    var i:number =  0
+    for(i = 0; i < 20; i++){
+      this.colors[i] = '#'+Math.floor(Math.random()*16777215).toString(16);
+    }
+  }
+
+  showTopContributors(){
+    this.DaydreamService.getContributionPerPerson(this.myDayDream.ID).then((contributions) => {
+      var conts = contributions[0].total
+      let i:number = 0
+      for(i = 0; i < conts.length; i++){
+        this.contributions[i] = conts
+      }
+      
+    })
+  }
 }

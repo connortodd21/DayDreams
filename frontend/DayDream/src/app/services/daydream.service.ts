@@ -105,6 +105,33 @@ export class DaydreamService{
         return this.http.post("http://localhost:5000/daydream/delete-travel", chosen).toPromise()
     }
 
+    getTotalContribution(daydreamID:string){
+        const info = {
+            headers: new HttpHeaders({
+                // 'Content-Type': 'application/form-data',
+                'daydreamID': daydreamID
+            })
+        }
+        return this.http.get("http://localhost:5000/daydream/sum", info).toPromise()
+    }
+
+    addContribution(daydreamID:string, cost:number){
+        const chosen = {
+            daydreamID: daydreamID,
+            cost: cost
+        }
+        return this.http.post("http://localhost:5000/daydream/add-contribution", chosen).toPromise()
+    }
+
+    getContributionPerPerson(daydreamID:string){
+        const info = {
+            headers: new HttpHeaders({
+                // 'Content-Type': 'application/form-data',
+                'daydreamID': daydreamID
+            })
+        }
+        return this.http.get("http://localhost:5000/daydream/individual-sum", info).toPromise()
+    }
 
     getExcursion(dayDreamID:string){
         const info = {

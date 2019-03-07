@@ -1,65 +1,97 @@
 <div>
   <div>
-    
 
-    
+
+
     <div *ngIf="myDayDream">
-        <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=returnToCircles()> <i class="fa fa-arrow-left"> </i> Back
-          to Circle </button>
+      <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=returnToCircles()> <i
+          class="fa fa-arrow-left"> </i> Back
+        to Circle </button>
       <h1 class="center">{{myDayDream.destination}}</h1>
       <br>
-      <h1 class="status">$5000 / $10000</h1>
-      <div class="progress md-progress">
-          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+      <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showTopContributors()" (click)="showTop=!showTop" > Contributors <i
+        class="fa fa-star"></i></button>
+        <div [hidden]="!showTop" *ngFor="let c of contributions; index as i" [attr.data-index]="i">
+            {{c[i].user}}: ${{c[i].total}}
+          </div>
+      <div *ngIf="!isMemory">
+        <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInput=!showInput">Add Funds <i
+            class="fa fa-plus"> </i></button>
+        <div [hidden]="!showInput">
+          <form (submit)="addFunds($event)">
+            <input type="number" name="quantity" min="0">
+            <input type="submit">
+          </form>
+        </div>
+      </div>
+      <h1 class="status">{{totalMoney}}/ {{myDayDream.totalCost}}</h1>
+      <div class="progress md-progress" id="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+          [ngStyle]="{'width': moneyPercentage + '%'}" aria-valuemin="0" aria-valuemax="100">
+        </div>
       </div>
       <br>
-      <button mdbBtn type="button" color="primary"
-                mdbWavesEffect (click)=renderEditDayDream()>Edit Daydream <i class="fa fa-edit"> </i></button>
-            <button type="button" class="btn btn-danger" (click)=delDaydream()>Delete DayDream <i class="fa fa-trash"> </i></button>
-      <h1 class="blueLine">___________________________________________________________________________________________________________</h1>
+      <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=renderEditDayDream()>Edit Daydream <i
+          class="fa fa-edit"> </i></button>
+      <button type="button" class="btn btn-danger" (click)=delDaydream()>Delete DayDream <i class="fa fa-trash">
+        </i></button>
+      <h1 class="blueLine">
+        ___________________________________________________________________________________________________________</h1>
 
       <h1 class="header">Description:</h1>
       <h2 class="description">{{myDayDream.description}}</h2>
       <h4>
-          
-            
-            
-        </h4>
-        <h1 class="blueLine">___________________________________________________________________________________________________________</h1>
+
+
+
+      </h4>
+      <h1 class="blueLine">
+        ___________________________________________________________________________________________________________</h1>
 
       <h1 class="header">Lodging options:</h1>
       <div class="grid-container">
-      <mdb-card class="cardClean" *ngFor="let l of lodgingInfo">
+        <mdb-card class="cardClean" *ngFor="let l of lodgingInfo">
           <mdb-card-body>
-            <h1> {{l.address}} <div class="cost"> ${{l.cost}}</div></h1>
-            
+            <h1> {{l.address}} <div class="cost"> ${{l.cost}}</div>
+            </h1>
+
             <br>
             <a>{{l.user}}</a>
             <br>
-            <a class="trashIcon" (click)="deleteLodging(l)"><i class="fa fa-trash" style="color:rgb(188, 38, 38)"> </i> </a>
-        </mdb-card-body>
-      </mdb-card>
-    </div>
-      
-    <h1 class="blueLine">___________________________________________________________________________________________________________</h1>
-    <h4 class="header">Transportation options:</h4>
+            <a class="trashIcon" (click)="deleteLodging(l)"><i class="fa fa-trash" style="color:rgb(188, 38, 38)"> </i>
+            </a>
+          </mdb-card-body>
+        </mdb-card>
+      </div>
+
+      <h1 class="blueLine">
+        ___________________________________________________________________________________________________________</h1>
+      <h4 class="header">Transportation options:</h4>
       <div class="grid-container">
-          <mdb-card class="cardClean" *ngFor="let t of travelInfo">
-              <mdb-card-body>
-                <h1> {{t.mode}} <div class="cost"> ${{t.cost}}</div></h1>
-                
-                <br>
-                <a>{{t.user}}</a>
-                <br>
-                <a class="trashIcon" (click)="deleteTravel(t)"><i class="fa fa-trash" style="color:rgb(188, 38, 38)"> </i> </a>
+        <mdb-card class="cardClean" *ngFor="let t of travelInfo">
+          <mdb-card-body>
+            <h1> {{t.mode}} <div class="cost"> ${{t.cost}}</div>
+            </h1>
 
-            </mdb-card-body>
-            
-          </mdb-card>
-        </div>
+            <br>
+            <a>{{t.user}}</a>
+            <br>
+            <a class="trashIcon" (click)="deleteTravel(t)"><i class="fa fa-trash" style="color:rgb(188, 38, 38)"> </i>
+            </a>
+
+          </mdb-card-body>
+
+        </mdb-card>
+      </div>
 
 
-        <h1 class="blueLine">___________________________________________________________________________________________________________</h1>
+      <h1 class="blueLine">
+        ___________________________________________________________________________________________________________</h1>
+
+
+      <h1 class="header"> Planned activities: {{excursions}}</h1>
+      <h1 class="blueLine">
+        ___________________________________________________________________________________________________________</h1>
 
       <h1 class="header"> Planned activities: </h1>
       <div class="grid-container">
@@ -78,22 +110,18 @@
         </div>
       <h1 class="blueLine">___________________________________________________________________________________________________________</h1>
 
+
     </div>
   </div>
 </div>
 <div *ngIf="!isMemory">
-    <button type="button" class="btn btn-success" (click)=addDayDreamToMemories()>Daydream Completed <i class="fa fa-globe"> </i></button>
-  </div>
-<input
-  style="display: none"
-  type="file" (change)="onFileChanged($event)"
-  #fileInput>
+  <button type="button" class="btn btn-success" (click)=addDayDreamToMemories()>Daydream Completed <i
+      class="fa fa-globe"> </i></button>
+</div>
+<input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
 <button (click)="fileInput.click()">Select File</button>
 <!-- <button (click)="onUpload()">Upload!</button> -->
 
 <div *ngFor="let i of images">
-    <img [src]="i.url" class="imgSize" />
-  </div>
-
-  
-
+  <img [src]="i.url" class="imgSize" />
+</div>
