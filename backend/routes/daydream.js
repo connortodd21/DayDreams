@@ -242,6 +242,52 @@ router.post('/add-travel', authenticate, (req, res) => {
     })
 })
 
+
+/*
+*   Edit travel informtion
+*/
+router.post('/edit-travel', authenticate, (req, res) => {
+    if (!req.body || !req.body.daydreamID || !req.body.travelInformationID|| !req.body.mode || !req.body.cost || !req.user.username) {
+        res.status(400).send({ message: "Incomplete" });
+        return;
+    }
+    DayDream.findOne({ _id: req.body.daydreamID }).then((dd) => {
+        if (!dd) {
+            res.status(400).send({ message: "Daydream does not exist" });
+            return;
+        }
+
+        var i = 0;
+        for (i = 0; i < dd.travelInformation.length; i++){
+            if (dd.travelInformation[i]._id == req.body.travelInformationID){
+                dd.travelInformation[i].mode = req.body.mode;
+                dd.travelInformation[i].cost = req.body.cost;
+                dd.travelInformation[i].username = req.body.username;
+                break;
+            }
+            if (dd.travelInformation[i]._id != req.body.travelInformationID){
+                if(i == dd.travelInformation.length-1){
+                    res.status(400).send({ message: "Travel Information does not exist" });
+                    return;
+                }
+            }
+        }
+        console.log(dd.travelInformation);
+        var temp = dd.travelInformation
+        DayDream.findOneAndUpdate({_id: req.body.daydreamID}, {
+            $set:{
+                travelInformation: temp
+            },
+        }).then(() => {
+            res.status(200).send({ message: "Travel Information Updated" })
+        }).catch((err) => {
+            res.status(400).send({ message: "Error Lodging Information" });
+                console.log(err)
+                res.send(err);
+        })
+    })
+})
+
 router.post('/upload-photo', authenticate, upload.single("image"), (req, res) => {
     // console.log(req)
     if (!req.file.url || !req.file.public_id || !req.headers.daydreamid) {
