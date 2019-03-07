@@ -1,21 +1,28 @@
 <div>
   <div>
-    <h4>
-      <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=returnToCircles()> <i class="fa fa-arrow-left"> </i> Back
-        to Circle </button>
-        <button mdbBtn type="button" color="primary"
-            mdbWavesEffect (click)=renderEditDayDream()>Edit Daydream <i class="fa fa-edit"> </i></button>
-        <button type="button" class="btn btn-danger" (click)=delDaydream()>Delete DayDream <i class="fa fa-trash"> </i></button>
-        
-    </h4>
+    
 
     
     <div *ngIf="myDayDream">
-      <h2 class="center"><b>Description:</b> {{myDayDream.description}}</h2>
-      <h2 class="center"><b>Destination:</b> {{myDayDream.destination}}</h2>
-      <h1 class="blueLine">__________________________________________________________________</h1>
+        <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=returnToCircles()> <i class="fa fa-arrow-left"> </i> Back
+          to Circle </button>
+      <h1 class="center">{{myDayDream.destination}}</h1>
 
-      <h1 class="header"> Current Lodging options:</h1>
+      <button mdbBtn type="button" color="primary"
+                mdbWavesEffect (click)=renderEditDayDream()>Edit Daydream <i class="fa fa-edit"> </i></button>
+            <button type="button" class="btn btn-danger" (click)=delDaydream()>Delete DayDream <i class="fa fa-trash"> </i></button>
+      <h1 class="blueLine">___________________________________________________________________________________________________________</h1>
+
+      <h1 class="header">Description:</h1>
+      <h2 class="description">{{myDayDream.description}}</h2>
+      <h4>
+          
+            
+            
+        </h4>
+        <h1 class="blueLine">___________________________________________________________________________________________________________</h1>
+
+      <h1 class="header">Lodging options:</h1>
       <div class="grid-container">
       <mdb-card class="cardClean" *ngFor="let l of lodgingInfo">
           <mdb-card-body>
@@ -23,12 +30,14 @@
             
             <br>
             <a>{{l.user}}</a>
+            <br>
+            <a class="trashIcon" (click)="deleteTravel(t)"><i class="fa fa-trash" style="color:rgb(188, 38, 38)"> </i> </a>
         </mdb-card-body>
       </mdb-card>
     </div>
       
-      <h1 class="blueLine">__________________________________________________________________</h1>
-      <h1 class="header"> Transportation options:</h1>
+    <h1 class="blueLine">___________________________________________________________________________________________________________</h1>
+    <h4 class="header">Transportation options:</h4>
       <div class="grid-container">
           <mdb-card class="cardClean" *ngFor="let t of travelInfo">
               <mdb-card-body>
@@ -45,10 +54,10 @@
         </div>
 
 
-        <h1 class="blueLine">__________________________________________________________________</h1>
+        <h1 class="blueLine">___________________________________________________________________________________________________________</h1>
 
       <h1 class="header"> Planned activities: {{excursions}}</h1>
-      <h1 class="blueLine">__________________________________________________________________</h1>
+      <h1 class="blueLine">___________________________________________________________________________________________________________</h1>
 
     </div>
   </div>
