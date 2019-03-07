@@ -9,6 +9,7 @@ var cloudinary = require("cloudinary");
 var cloudinaryStorage = require("multer-storage-cloudinary");
 var upload = require('../middleware/photo_upload')
 var validate = require('../middleware/validate_url')
+const ObjectId = mongoose.Types.ObjectId;
 
 
 mongoose.connect(process.env.MONGODB_HOST, { useNewUrlParser: true });
@@ -604,6 +605,11 @@ router.get('/sum', authenticate, (req, res) => {
         }
         DayDream.aggregate([
             {
+                $match: {
+                    _id: ObjectId(req.headers.daydreamid.toString())
+                }
+            },
+            {
                 $unwind: "$individualContribution"
             },
             {
@@ -630,12 +636,18 @@ router.get('/individual-sum', authenticate, (req, res) => {
         return;
     }
     DayDream.findById(req.headers.daydreamid, (err, dd) => {
-        console.log(dd)
+        // console.log(dd)
+        // console.log(req.headers)
         if (err || !dd) {
             res.status(400).send({ message: "Could not find daydream" });
             return;
         }
         DayDream.aggregate([
+            {
+                $match: {
+                    _id: ObjectId(req.headers.daydreamid.toString())
+                }
+            },
             {
                 $unwind: '$individualContribution'
             },
@@ -659,6 +671,7 @@ router.get('/individual-sum', authenticate, (req, res) => {
         ]).then((daydream) => {
             console.log(daydream)
             res.status(200).send(daydream)
+            return
         }).catch((err) => {
             res.send(err);
         })

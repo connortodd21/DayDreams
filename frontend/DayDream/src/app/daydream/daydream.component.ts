@@ -198,15 +198,9 @@ export class DaydreamComponent implements OnInit {
   }
 
   getTotalContributionPerPerson(){
-    this.DaydreamService.getContributionPerPerson(this.myDayDream.ID).then((contributions) => {
-      var conts = contributions[0].total
-      let i:number = 0
-      for(i = 0; i < conts.length; i++){
-        var pct = (conts[i].total / this.totalMoney) as number
-        conts[i].total = pct * 100
-        this.contributions[i] = conts
-      }
-      console.log(this.contributions)
+    this.DaydreamService.getContributionPerPerson(this.myDayDream.ID).then((contributions: []) => {
+      console.log(contributions)
+      this.contributions = contributions
     })
   }
 
