@@ -19,6 +19,8 @@ export class DaydreamComponent implements OnInit {
   isMemory: Boolean;
   totalMoney: number
   moneyPercentage: number;
+  contributions: Array<Object>
+  colors: Array<string>
 
   constructor(private route: ActivatedRoute,
     private circleService: CircleService, private DaydreamService: DaydreamService, private formBuilder: FormBuilder, private _router: Router) {
@@ -26,6 +28,8 @@ export class DaydreamComponent implements OnInit {
     this.isMemory = false;
     this.lodgingInfo = []
     this.travelInfo = []
+    this.contributions = []
+    this.colors = []
   }
 
   ngOnInit() {
@@ -47,6 +51,8 @@ export class DaydreamComponent implements OnInit {
       this.displayLodging()
       this.displayTravel()
       this.getTotalContributions()
+      this.getTotalContributionPerPerson()
+      this.initializeColors
     }).catch((err) => {
       this._router.navigate(['/not-found']);
     })
@@ -189,6 +195,26 @@ export class DaydreamComponent implements OnInit {
     this.DaydreamService.addContribution(this.myDayDream.ID, event.target["0"].value).then(() => {
       window.location.replace("/daydream/" + this.myDayDream.ID);
     })
+  }
+
+  getTotalContributionPerPerson(){
+    this.DaydreamService.getContributionPerPerson(this.myDayDream.ID).then((contributions) => {
+      var conts = contributions[0].total
+      let i:number = 0
+      for(i = 0; i < conts.length; i++){
+        var pct = (conts[i].total / this.totalMoney) as number
+        conts[i].total = pct * 100
+        this.contributions[i] = conts
+      }
+      console.log(this.contributions)
+    })
+  }
+
+  initializeColors(){
+    var i:number =  0
+    for(i = 0; i < 20; i++){
+      this.colors[i] = '#'+Math.floor(Math.random()*16777215).toString(16);
+    }
   }
 
 }

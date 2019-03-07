@@ -10,7 +10,7 @@
       <h1 class="center">{{myDayDream.destination}}</h1>
       <br>
       <div *ngIf="!isMemory">
-        <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInput=true">Add funds <i
+        <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInput=true">Add Funds <i
             class="fa fa-plus"> </i></button>
         <div [hidden]="!showInput">
           <form (submit)="addFunds($event)">
@@ -21,9 +21,11 @@
       </div>
       <h1 class="status">{{totalMoney}}/ {{myDayDream.totalCost}}</h1>
       <div class="progress md-progress">
-        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-          [ngStyle]="{'width': moneyPercentage + '%'}" attr.aria-valuenow="moneyPercentage" aria-valuemin="0"
-          aria-valuemax="100"></div>
+        <div *ngFor="let c of contributions; index as i" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+          [ngStyle]="{'width': c[i].total + '%'}" aria-valuemin="0"
+          aria-valuemax="100"> 
+          {{c[i].user}}
+        </div>
       </div>
       <br>
       <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=renderEditDayDream()>Edit Daydream <i
