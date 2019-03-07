@@ -10,7 +10,7 @@
       <br>
       <h1 class="status">{{totalMoney}}/ {{myDayDream.totalCost}}</h1>
       <div class="progress md-progress">
-          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" [ngStyle]="{'width': moneyPercentage + '%'}" attr.aria-valuenow="moneyPercentage" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
       <br>
       <button mdbBtn type="button" color="primary"

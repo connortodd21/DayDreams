@@ -17,7 +17,8 @@ export class DaydreamComponent implements OnInit {
   travelInfo: Array<Object>
   images: Array<Object>
   isMemory: Boolean;
-  totalMoney: Number
+  totalMoney: number
+  moneyPercentage: number;
 
   constructor(private route: ActivatedRoute,
     private circleService: CircleService, private DaydreamService: DaydreamService, private formBuilder: FormBuilder, private _router: Router) {
@@ -53,8 +54,9 @@ export class DaydreamComponent implements OnInit {
 
   getTotalContributions(){
     this.DaydreamService.getTotalContribution(this.myDayDream.ID).then((total) => {
-      console.log(total)
       this.totalMoney = total[0].TotalBalance
+      this.moneyPercentage = Math.floor(100 * (this.totalMoney / this.myDayDream.totalCost as number))
+      console.log(this.moneyPercentage)
     })
   }
 
