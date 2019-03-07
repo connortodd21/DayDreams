@@ -12,6 +12,7 @@ import { ChangeEmailComponent } from './change-email/change-email.component'
 import { AboutComponent } from './about/about.component';
 import { DaydreamComponent } from './daydream/daydream.component'
 import { NotFoundComponent } from './not-found/not-found.component'
+import { EditDayDreamComponent } from './daydream/edit-daydream/edit-daydream.component';
 
 
 
@@ -72,7 +73,13 @@ const routes: Routes = [
   },
   {
     path: 'edit-name/:id',
-    component: EditNameComponent
+    component: EditNameComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'edit-daydream/:id',
+    component: EditDayDreamComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'not-found',

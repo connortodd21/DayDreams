@@ -97,4 +97,28 @@ export class DaydreamService{
         }
         return this.http.get<Array<Object>>("http://localhost:5000/daydream/all-photos", info).toPromise()
     }
+
+    editDayDreamDescription(description:string, daydreamID:string) {
+        const circle:Object = {
+            description: description,
+            daydreamID: daydreamID,
+        }
+        return this.http.post("http://localhost:5000/daydream/edit-description", circle)
+    }
+
+    editDayDreamDestination(destination:string, daydreamID:string) {
+        const circle:Object = {
+            destination: destination,
+            daydreamID: daydreamID,
+        }
+        return this.http.post("http://localhost:5000/daydream/edit-destination", circle)
+    }
+
+    editDayDreamCost(cost:number, daydreamID:string) {
+        const circle:Object = {
+            cost: cost,
+            daydreamID: daydreamID,
+        }
+        return this.http.post("http://localhost:5000/daydream/edit-cost", circle)
+    }
 }

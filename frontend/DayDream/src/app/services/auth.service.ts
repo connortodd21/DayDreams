@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { AuthData } from '../models/auth-data.model'
 import { Subject, Observable } from "rxjs";
 import { Router } from "@angular/router";
+import { HomeComponent } from '../home/home.component';
+import { AppComponent } from '../app.component';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -152,6 +154,7 @@ export class AuthService {
             this.isAuthenticated = true;
             this.setAuthTimer(expiresIn / 10);
             this.authStatusListener.next(true);
+            return true;
         }
     }
 }

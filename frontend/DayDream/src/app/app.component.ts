@@ -11,13 +11,13 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AppComponent {
   title = 'DayDream';
-  userAuthed: boolean;
+  userAuthed: Boolean;
   private loggedIn = new BehaviorSubject<boolean>(false); // {1}
 
 
   constructor(private router: Router, public authService: AuthService) { }
 
-  get auth() { return this.userAuthed }
+  get auth() { return (!localStorage.getItem('token')) }
 
   logout() {
     this.userAuthed = false;
@@ -25,7 +25,9 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.userAuthed = true
-    this.authService.autoAuthUser();
+    if(this.authService.autoAuthUser()){
+      this.userAuthed = true;
+    }
+    
   }
 }
