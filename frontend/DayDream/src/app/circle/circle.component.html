@@ -16,6 +16,16 @@
       <div class="grid-container">
         <div class="grid-item">
           <img [src]="myCircle.imageUrl" class="cover" />
+          <button class="messagesButton" mdbBtn type="button" color="info" mdbWavesEffect (click)="show = !show" (click)="getMessages()"> View Messages </button>
+<div class="overflowTest" *ngIf="show">
+  <div *ngFor="let m of messages">
+  <b>{{m.user}}</b>:
+  {{m.message}}
+</div>
+</div>
+<br>
+
+<div *ngIf="show"><input  #box placeholder="Add message" class="messagesInput" (keyup.enter)="addMessage(box.value)">  <a class="iconSize" (click)="addMessage(box.value)"><i class="fa fa-angle-double-right"> </i> </a>  </div>
         </div>
 
         <div class="grid-item">
@@ -197,16 +207,6 @@
 
 </div>
 
-<button (click)="getMessages()">Messages</button>
-<div *ngFor="let m of messages">
-  <b>{{m.user}}</b>:
-  {{m.message}}
-</div>
 
-<br>
 
-<input #box placeholder="Add message" (keyup.enter)="addMessage(box.value)">
-<br>
-Only works right now if you hit enter, idk how to make it work with a button
-<br>
-But you can add and get messages with these buttons, have to do a lot of css
+

@@ -29,6 +29,7 @@ export class CircleComponent implements OnInit {
   dayDreams: DayDream[]
   memories: DayDream[]
   submitted = false;
+  show = false;
   response: string = "NULL";
   messages: Array<Object>
 
@@ -41,6 +42,7 @@ export class CircleComponent implements OnInit {
     this.dayDreams = [];
     this.messages = []
     this.memories = []
+    
   }
 
   /**
@@ -99,6 +101,7 @@ export class CircleComponent implements OnInit {
    * Get all messages for a circle
    */
   getMessages() {
+    
     this.circleService.getMessages(this.myCircle.ID).then((messages) => {
       // this.messages = messages;
       console.log(messages)
