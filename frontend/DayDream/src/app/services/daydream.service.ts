@@ -77,6 +77,16 @@ export class DaydreamService{
         return this.http.get<Array<Object>>("http://localhost:5000/daydream/get-lodging", info).toPromise()
     }
 
+
+    deleteChosenLodging(daydreamID:string, lodgingInformationID:string) {
+        const chosen = {
+            daydreamID: daydreamID,
+            lodgingInformationID: lodgingInformationID
+        }
+        return this.http.post("http://localhost:5000/daydream/delete-lodging", chosen).toPromise()
+    }
+    
+
     getTravel(dayDreamID:string){
         const info = {
             headers: new HttpHeaders({
