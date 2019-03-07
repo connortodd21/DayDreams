@@ -472,6 +472,53 @@ router.post('/edit-excursion', authenticate, (req, res) => {
 })
 
 
+/*
+*   Delete excursion information
+*/
+router.post('/delete-excursion', authenticate, (req, res) => {
+    if (!req.body.daydreamID || !req.body.excursionID) {
+        res.status(400).send({ message: "Bad request" });
+        return;
+    }
+
+    DayDream.findOne({_id: req.body.daydreamID }).then((dd)=>{
+        if (!dd){
+            res.status(400).send({ message: "Daydream does not exist" });
+            return;
+        }
+        var i = 0;
+        let temp = [];
+        let tf = false;
+        let tempIndex = 0;
+        for (i = 0; i < dd.excursions.length; i++){
+            if (dd.excursions[i]._id != req.body.excursionID){
+                console.log(dd.excursions.length)
+                console.log(i)
+                temp[tempIndex++] = dd.excursions[i];
+            }
+            else{
+                tf = true;
+            }
+        }
+        if(!tf){
+            res.status(400).send({ message: "Excursion Information does not exist" });
+            return;
+        }
+        console.log("Temp: " + temp);
+        DayDream.findOneAndUpdate({_id: req.body.daydreamID}, {
+            $set:{
+                excursions: temp
+            },
+        }).then(() => {
+            res.status(200).send({ message: 'Excursion Information Successfully Deleted' })
+        }).catch((err) => {
+            res.status(400).send({ message: "Error Excursion Information" });
+                console.log(err)
+                res.send(err);
+        })
+    })
+})
+
 router.post('/upload-photo', authenticate, upload.single("image"), (req, res) => {
     // console.log(req)
     if (!req.file.url || !req.file.public_id || !req.headers.daydreamid) {

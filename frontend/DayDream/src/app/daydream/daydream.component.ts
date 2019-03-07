@@ -113,6 +113,25 @@ export class DaydreamComponent implements OnInit {
     })
   }
 
+
+
+  deleteExcursion(e){
+    var confirm = window.confirm('Are you sure you want to remove this excursion? This action cannot be undone')
+    if (confirm == false) {
+      return;
+    }
+    var dd_id = this.route.snapshot.params['id'];
+    var ex_id = e._id;
+    console.log("The ID is: " + e._id);
+    
+    this.DaydreamService.deleteChosenExcursion(dd_id, ex_id).then((data) => {
+      this.myDayDream = new DayDream(data);
+      console.log("Deleting DayDream");
+      window.location.replace("/daydream/" + dd_id);
+    })
+  }
+
+
   renderEditDayDream() {
     this._router.navigate(['/edit-daydream/' + this.myDayDream.ID]);
 
