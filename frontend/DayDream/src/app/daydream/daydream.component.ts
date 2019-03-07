@@ -13,7 +13,7 @@ import { DayDream } from '../models/daydream.model';
 export class DaydreamComponent implements OnInit {
 
   myDayDream: DayDream;
-  lodgingInfo: {}
+  lodgingInfo: Array<Object>
   images: Array<Object>
   isMemory: Boolean;
 
@@ -21,6 +21,7 @@ export class DaydreamComponent implements OnInit {
     private circleService: CircleService, private DaydreamService: DaydreamService, private formBuilder: FormBuilder, private _router: Router) {
     this.images = []
     this.isMemory = false;
+    this.lodgingInfo = []
   }
 
   ngOnInit() {
@@ -39,10 +40,23 @@ export class DaydreamComponent implements OnInit {
       this.myDayDream = daydream;
       this.isMemory = daydream.completed
       this.displayImages()
+      this.displayLodging()
     }).catch((err) => {
       this._router.navigate(['/not-found']);
     })
   }
+
+  displayLodging() {
+    let lodging = this.myDayDream.lodgingInformation
+    let i: number = 0;
+    for (i; i < lodging.length; i++) {
+      // let l = new DayDream(response[0][i]);
+      this.lodgingInfo[i] = lodging[i];
+    }
+    console.log(this.myDayDream)
+  }
+
+
   renderEditDayDream() {
     this._router.navigate(['/edit-daydream/' + this.myDayDream.ID]);
 
@@ -84,6 +98,8 @@ export class DaydreamComponent implements OnInit {
     localStorage.removeItem('circle')
     this._router.navigate([back])
   }
+
+
 
   displayImages() {
     var id = this.route.snapshot.params['id'];
