@@ -129,7 +129,7 @@ router.post('/delete', authenticate, (req, res) => {
 })
 
 /*
-*   Add lodging
+*   Add lodging information
 */
 router.post('/add-lodging', authenticate, (req, res) => {
 
@@ -164,7 +164,7 @@ router.post('/add-lodging', authenticate, (req, res) => {
 })
 
 /*
-*   Edit lodging
+*   Edit lodging information
 */
 router.post('/edit-lodging', authenticate, (req, res) => {
     if (!req.body || !req.body.daydreamID || !req.body.lodgingInformationID|| !req.body.address || !req.body.cost || !req.user.username) {
@@ -209,6 +209,56 @@ router.post('/edit-lodging', authenticate, (req, res) => {
 })
 
 /*
+*   Delete lodging information
+*/
+router.post('/delete-lodging', authenticate, (req, res) => {
+    if (!req.body || !req.body.daydreamID || !req.body.lodgingInformationID) {
+        res.status(400).send({ message: "Bad request" });
+        return;
+    }
+
+    DayDream.findOne({_id: req.body.daydreamID }).then((dd)=>{
+        if (!dd){
+            res.status(400).send({ message: "Daydream does not exist" });
+            return;
+        }
+        console.log("test")
+
+        var i = 0;
+        let temp = [];
+        let tf = false;
+        let tempIndex = 0;
+        for (i = 0; i < dd.lodgingInformation.length; i++){
+            if (dd.lodgingInformation[i]._id != req.body.lodgingInformationID){
+                console.log(dd.lodgingInformation.length)
+                console.log(i)
+                temp[tempIndex++] = dd.lodgingInformation[i];
+            }
+            else{
+                tf = true;
+            }
+        }
+        if(!tf){
+            res.status(400).send({ message: "Lodging does not exist" });
+            return;
+        }
+        console.log("Temp: " + temp);
+        DayDream.findOneAndUpdate({_id: req.body.daydreamID}, {
+            $set:{
+                lodgingInformation: temp
+            },
+        }).then(() => {
+            res.status(200).send({ message: 'Lodging Information Successfully Deleted' })
+        }).catch((err) => {
+            res.status(400).send({ message: "Error Lodging Information" });
+                console.log(err)
+                res.send(err);
+        })
+    })
+
+})
+
+/*
 *   Add travel information
 */
 router.post('/add-travel', authenticate, (req, res) => {
@@ -244,7 +294,7 @@ router.post('/add-travel', authenticate, (req, res) => {
 
 
 /*
-*   Edit travel informtion
+*   Edit travel information
 */
 router.post('/edit-travel', authenticate, (req, res) => {
     if (!req.body || !req.body.daydreamID || !req.body.travelInformationID|| !req.body.mode || !req.body.cost || !req.user.username) {
@@ -282,6 +332,55 @@ router.post('/edit-travel', authenticate, (req, res) => {
             res.status(200).send({ message: "Travel Information Updated" })
         }).catch((err) => {
             res.status(400).send({ message: "Error Lodging Information" });
+                console.log(err)
+                res.send(err);
+        })
+    })
+})
+
+/*
+*   Delete travel information
+*/
+router.post('/delete-travel', authenticate, (req, res) => {
+    if (!req.body || !req.body.daydreamID || !req.body.travelInformationID) {
+        res.status(400).send({ message: "Bad request" });
+        return;
+    }
+
+    DayDream.findOne({_id: req.body.daydreamID }).then((dd)=>{
+        if (!dd){
+            res.status(400).send({ message: "Daydream does not exist" });
+            return;
+        }
+        console.log("test")
+
+        var i = 0;
+        let temp = [];
+        let tf = false;
+        let tempIndex = 0;
+        for (i = 0; i < dd.travelInformation.length; i++){
+            if (dd.travelInformation[i]._id != req.body.travelInformationID){
+                console.log(dd.travelInformation.length)
+                console.log(i)
+                temp[tempIndex++] = dd.travelInformation[i];
+            }
+            else{
+                tf = true;
+            }
+        }
+        if(!tf){
+            res.status(400).send({ message: "Travel Information does not exist" });
+            return;
+        }
+        console.log("Temp: " + temp);
+        DayDream.findOneAndUpdate({_id: req.body.daydreamID}, {
+            $set:{
+                travelInformation: temp
+            },
+        }).then(() => {
+            res.status(200).send({ message: 'Travel Information Successfully Deleted' })
+        }).catch((err) => {
+            res.status(400).send({ message: "Error Travel Information" });
                 console.log(err)
                 res.send(err);
         })

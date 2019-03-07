@@ -27,7 +27,7 @@ export class DayDream {
         url: String,
         id: String
     }]
-    destination: {type: String};
+    destination: String;
     description: {type: String};
     
     constructor(response: any) {
