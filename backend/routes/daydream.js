@@ -212,7 +212,7 @@ router.post('/edit-lodging', authenticate, (req, res) => {
 *   Delete lodging information
 */
 router.post('/delete-lodging', authenticate, (req, res) => {
-    if (!req.body || !req.body.daydreamID || !req.body.lodgingInformationID) {
+    if (!req.body.daydreamID || !req.body.lodgingInformationID) {
         res.status(400).send({ message: "Bad request" });
         return;
     }

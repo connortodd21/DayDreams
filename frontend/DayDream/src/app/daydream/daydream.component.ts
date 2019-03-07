@@ -69,6 +69,22 @@ export class DaydreamComponent implements OnInit {
     console.log(this.myDayDream)
   }
 
+  deleteLodging(l){
+    var confirm = window.confirm('Are you sure you want to remove this Lodging Information? This action cannot be undone')
+    if (confirm == false) {
+      return;
+    }
+    var dd_id = this.route.snapshot.params['id'];
+    var ld_id = l._id;
+    console.log("The ID is: " + l._id);
+
+    this.DaydreamService.deleteChosenLodging(dd_id, ld_id).then((data) => {
+      this.myDayDream = new DayDream(data);
+      console.log("Deleting DayDream");
+      window.location.replace("/daydream/" + dd_id);
+    })
+  }
+
   deleteTravel(t){
     var confirm = window.confirm('Are you sure you want to remove this Travel Information? This action cannot be undone')
     if (confirm == false) {
@@ -91,6 +107,7 @@ export class DaydreamComponent implements OnInit {
     // this.chosenCircle = circle;
     // console.log(this.chosenCircle);
   }
+
   delDaydream(daydream: DayDream) {
 
     // call delete method from service
