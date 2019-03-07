@@ -731,6 +731,31 @@ router.get('/travel', authenticate, (req, res) => {
     })
 })
 
+
+/*
+*   Get excursion info
+*/
+router.get('/excursion', authenticate, (req, res) => {
+
+    //if not, send bad request
+    if (!req.headers.daydreamid) {
+        // console.log(req.headers)
+        res.status(400).send({ message: "Bad request" });
+        return;
+    }
+    DayDream.findById(req.headers.daydreamid, (err, dd) => {
+
+        if (err) {
+            res.status(400).send({ message: "Could not find daydream" });
+            return;
+        }
+        res.status(200).send(dd.excursions)
+        console.log(dd.excursions);
+        return
+    })
+})
+
+
 router.get('/all-photos', authenticate, (req, res) => {
     if (!req.headers.daydreamid) {
         res.status(400).send({ message: "Bad request" });

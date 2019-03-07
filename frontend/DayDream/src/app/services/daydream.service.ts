@@ -106,6 +106,16 @@ export class DaydreamService{
     }
 
 
+    getExcursion(dayDreamID:string){
+        const info = {
+            headers: new HttpHeaders({
+                'daydreamID': dayDreamID
+            })
+        }
+        /* calls /circle/info from the backend*/
+        return this.http.get<Array<Object>>("http://localhost:5000/daydream/excursion", info).toPromise()
+    }
+
     getPhotos(dayDreamID:string){
         const info = {
             headers: new HttpHeaders({
