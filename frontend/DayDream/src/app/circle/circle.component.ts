@@ -42,7 +42,7 @@ export class CircleComponent implements OnInit {
     this.dayDreams = [];
     this.messages = []
     this.memories = []
-    
+
   }
 
   /**
@@ -65,7 +65,10 @@ export class CircleComponent implements OnInit {
         let i: number;
         for (i = 0; i < daydreams.length; i += 1) {
           let dd = new DayDream(daydreams[i])
-          console.log(dd)
+          console.log(dd.destination.toString().length)
+          if (dd.destination.toString().length > 12) {
+            dd.destination = dd.destination.toString().substring(0,12) + "..." as String
+          }
           this.dayDreams[i] = dd;
         }
         console.log(this.dayDreams);
@@ -77,7 +80,10 @@ export class CircleComponent implements OnInit {
           let i: number;
           for (i = 0; i < memories.length; i += 1) {
             let dd = new DayDream(memories[i])
-            console.log(dd)
+            console.log(dd.destination.toString().length)
+            if (dd.destination.toString().length > 12) {
+              dd.destination = dd.destination.toString().substring(0,12) + "..." as String
+            }
             this.memories[i] = dd;
           }
         })
@@ -101,7 +107,7 @@ export class CircleComponent implements OnInit {
    * Get all messages for a circle
    */
   getMessages() {
-    
+
     this.circleService.getMessages(this.myCircle.ID).then((messages) => {
       // this.messages = messages;
       console.log(messages)
@@ -176,7 +182,7 @@ export class CircleComponent implements OnInit {
     this._router.navigate(['/daydream/' + daydream.ID])
   }
 
-  leaveCircle(){
+  leaveCircle() {
     let username = localStorage.getItem('username')
     this.circleService.leaveCircle(this.myCircle.ID, username).then(() => {
       var confirm = window.confirm('Are you sure you want to leave this circle. To return, you must be added back by someone')
@@ -187,10 +193,10 @@ export class CircleComponent implements OnInit {
     })
   }
 
-/**
- * Adds user to current circle 
- * @param event Event to parse user addition
- */
+  /**
+   * Adds user to current circle 
+   * @param event Event to parse user addition
+   */
   addUser(event) {
 
     this.submitted = true;
@@ -260,7 +266,7 @@ export class CircleComponent implements OnInit {
   /**
    * Resets all values for the form when the cancel button is invoked
    */
-  cancel() { 
+  cancel() {
     this.createForm.reset();
     this.addUserForm.reset();
     this.submitted = false;
