@@ -542,6 +542,52 @@ router.post('/remove-from-memories', authenticate, (req, res) => {
     })
 })
 
+router.post('/add-contribution', authenticate, (req ,res) => {
+    if(!req.body.daydreamID || !req.body.cost){
+        res.status(400).send({ message: "Bad request" });
+        return;
+    }
+    DayDream.findById(req.headers.daydreamid, (err, dd) => {
+
+        if (err) {
+            res.status(400).send({ message: "Could not find daydream" });
+            return;
+        }
+        DayDream.findOneAndUpdate({_id: req.body.daydreamID}, {
+            $push:{
+                individualContribution: {
+                    user: req.user.username,
+                    money: req.body.cost
+                }
+            }
+        }).then(() => {
+            res.status(200).send({ message: 'Contribution Added' })
+            return
+        }).catch((err) => {
+            res.send(err);
+        })
+    }).catch((err) => {
+        res.send(err);
+    })
+})
+
+router.get('/all-contributions', authenticate, (req, res) => {
+    if (!req.headers.daydreamid) {
+        // console.log(req.headers)
+        res.status(400).send({ message: "Bad request" });
+        return;
+    }
+    DayDream.findById(req.headers.daydreamid, (err, dd) => {
+
+        if (err) {
+            res.status(400).send({ message: "Could not find daydream" });
+            return;
+        }
+        res.status(200).send(dd.individualContribution)
+        return
+    })
+})
+
 router.get('/info', authenticate, (req, res) => {
 
     //if not, send bad request
