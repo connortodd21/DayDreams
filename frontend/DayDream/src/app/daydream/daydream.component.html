@@ -49,6 +49,19 @@
         ___________________________________________________________________________________________________________</h1>
 
       <h1 class="header">Lodging options:</h1>
+
+      <div>
+        <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInput=!showInput">Add a lodging option <i
+            class="fa fa-plus"> </i></button>
+        <div [hidden]="!showInput">
+          <form (submit)="addLodging($event)">
+            <input name="address">
+            <input type="number" name="cost" min="0">
+            <input type="submit">
+          </form>
+        </div>
+      </div>
+
       <div class="grid-container">
         <mdb-card class="cardClean" *ngFor="let l of lodgingInfo">
           <mdb-card-body>
@@ -67,6 +80,19 @@
       <h1 class="blueLine">
         ___________________________________________________________________________________________________________</h1>
       <h4 class="header">Transportation options:</h4>
+
+      <div>
+          <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInput=!showInput">Add a Transportation Option <i
+              class="fa fa-plus"> </i></button>
+          <div [hidden]="!showInput">
+            <form (submit)="addTravel($event)">
+              <input name="mode">
+              <input type="number" name="cost" min="0">
+              <input type="submit">
+            </form>
+          </div>
+        </div>
+
       <div class="grid-container">
         <mdb-card class="cardClean" *ngFor="let t of travelInfo">
           <mdb-card-body>
@@ -87,12 +113,6 @@
 
       <h1 class="blueLine">
         ___________________________________________________________________________________________________________</h1>
-
-
-      <h1 class="header"> Planned activities: {{excursions}}</h1>
-      <h1 class="blueLine">
-        ___________________________________________________________________________________________________________</h1>
-
       <h1 class="header"> Planned activities: </h1>
       <div class="grid-container">
           <mdb-card class="cardClean" *ngFor="let e of excursionInfo">

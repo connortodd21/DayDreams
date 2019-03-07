@@ -240,6 +240,31 @@ export class DaydreamComponent implements OnInit {
     })
   }
 
+  addLodging(event){
+    console.log(event.target["0"].value)
+    console.log(event.target["1"].value)
+    this.DaydreamService.createLodging(this.myDayDream.ID, event.target["0"].value, event.target["1"].value).then(()=>{
+      window.location.replace("/daydream/" + this.myDayDream.ID);
+    })
+  }
+
+  addTravel(event){
+    console.log(event.target["0"].value)
+    console.log(event.target["1"].value)
+    this.DaydreamService.createTravel(this.myDayDream.ID, event.target["0"].value, event.target["1"].value).then(()=>{
+      window.location.replace("/daydream/" + this.myDayDream.ID);
+    })
+  }
+
+  // addExcursion(event){
+  //   console.log(event.target["0"].value)
+  //   console.log(event.target["1"].value)
+  //   console.log
+  //   this.DaydreamService.createLodging(this.myDayDream.ID, event.target["0"].value, event.target["1"].value).then(()=>{
+  //     window.location.replace("/daydream/" + this.myDayDream.ID);
+  //   })
+  // }
+
   initializeColors() {
     var i: number = 0
     for (i = 0; i < 20; i++) {
