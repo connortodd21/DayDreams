@@ -66,18 +66,18 @@ export class DaydreamComponent implements OnInit {
     })
   }
 
-  getTotalContributions(){
+  getTotalContributions() {
     this.DaydreamService.getTotalContribution(this.myDayDream.ID).then((total) => {
-      if(!total[0]){
-        this.totalMoney =0 
+      if (!total[0]) {
+        this.totalMoney = 0
         this.moneyPercentage = 0
         return
       }
-      else{
+      else {
         this.totalMoney = total[0].TotalBalance
       }
       var p = Math.floor(100 * (this.totalMoney / this.myDayDream.totalCost as number))
-      if(p > 100){
+      if (p > 100) {
         p = 100;
       }
       this.moneyPercentage = p;
@@ -114,7 +114,7 @@ export class DaydreamComponent implements OnInit {
     }
   }
 
-  deleteLodging(l){
+  deleteLodging(l) {
     var confirm = window.confirm('Are you sure you want to remove this Lodging Information? This action cannot be undone')
     if (confirm == false) {
       return;
@@ -130,7 +130,7 @@ export class DaydreamComponent implements OnInit {
     })
   }
 
-  deleteTravel(t){
+  deleteTravel(t) {
     var confirm = window.confirm('Are you sure you want to remove this Travel Information? This action cannot be undone')
     if (confirm == false) {
       return;
@@ -148,7 +148,7 @@ export class DaydreamComponent implements OnInit {
 
 
 
-  deleteExcursion(e){
+  deleteExcursion(e) {
     var confirm = window.confirm('Are you sure you want to remove this excursion? This action cannot be undone')
     if (confirm == false) {
       return;
@@ -156,7 +156,7 @@ export class DaydreamComponent implements OnInit {
     var dd_id = this.route.snapshot.params['id'];
     var ex_id = e._id;
     console.log("The ID is: " + e._id);
-    
+
     this.DaydreamService.deleteChosenExcursion(dd_id, ex_id).then((data) => {
       this.myDayDream = new DayDream(data);
       console.log("Deleting DayDream");
@@ -189,7 +189,7 @@ export class DaydreamComponent implements OnInit {
     })
   }
 
-  
+
 
   onFileChanged(event) {
     let file = event.target.files[0]
@@ -233,28 +233,31 @@ export class DaydreamComponent implements OnInit {
     })
   }
 
-  addFunds(event){
+  addFunds(event) {
     console.log(event.target["0"].value)
     this.DaydreamService.addContribution(this.myDayDream.ID, event.target["0"].value).then(() => {
       window.location.replace("/daydream/" + this.myDayDream.ID);
     })
   }
 
-  initializeColors(){
-    var i:number =  0
-    for(i = 0; i < 20; i++){
-      this.colors[i] = '#'+Math.floor(Math.random()*16777215).toString(16);
+  initializeColors() {
+    var i: number = 0
+    for (i = 0; i < 20; i++) {
+      this.colors[i] = '#' + Math.floor(Math.random() * 16777215).toString(16);
     }
   }
 
-  showTopContributors(){
+  showTopContributors() {
     this.DaydreamService.getContributionPerPerson(this.myDayDream.ID).then((contributions) => {
-      var conts = contributions[0].total
-      let i:number = 0
-      for(i = 0; i < conts.length; i++){
-        this.contributions[i] = conts
+      try {
+        var conts = contributions[0].total
+        let i: number = 0
+        for (i = 0; i < conts.length; i++) {
+          this.contributions[i] = conts
+        }
+      } catch (error) {
+        window.alert("There are no contributors yet");
       }
-      
     })
   }
 }
