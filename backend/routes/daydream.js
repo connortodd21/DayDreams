@@ -160,9 +160,26 @@ router.post('/add-lodging', authenticate, (req, res) => {
     }).catch((err) => {
         res.send(err);
     })
-
-
 })
+
+/*
+*   Edit lodging
+*/
+// router.post('/edit-lodging', authenticate, (req, res) => {
+//     if (!req.body || !req.body.daydreamID) {
+//         res.status(400).send({ message: "Bad request" });
+//         return;
+//     }
+//     DayDream.findOne({ _id: req.body.daydreamID }).then((daydream) => {
+//         if (!daydream) {
+//             res.status(400).send({ message: "Daydream does not exist" });
+//             return;
+//         }else {
+//             console.log(daydream.lodgingInformation._id);
+//         }
+        
+//     })
+// })
 
 
 router.post('/upload-photo', authenticate, upload.single("image"), (req, res) => {
@@ -291,6 +308,30 @@ router.get('/info', authenticate, (req, res) => {
     //use ID
 
     // make sure ID
+})
+
+
+/*
+*   Get lodging info
+*/
+router.get('/get-lodging', authenticate, (req, res) => {
+
+    //if not, send bad request
+    if (!req.headers.daydreamid) {
+        // console.log(req.headers)
+        res.status(400).send({ message: "Bad request" });
+        return;
+    }
+    DayDream.findById(req.headers.daydreamid, (err, dd) => {
+
+        if (err) {
+            res.status(400).send({ message: "Could not find daydream" });
+            return;
+        }
+        res.status(200).send(dd.lodgingInformation) 
+        console.log(dd.lodgingInformation);
+        return
+    })
 })
 
 router.get('/all-photos', authenticate, (req, res) => {

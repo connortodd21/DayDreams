@@ -15,7 +15,18 @@
       <h2 class="center"><b>Destination:</b> {{myDayDream.destination}}</h2>
       <h1 class="blueLine">__________________________________________________________________</h1>
 
-      <h3> Current Lodging options: {{lodgingInfo}}</h3>
+      <h3> Current Lodging options:</h3>
+      <div *ngFor="let l of lodgingInfo"> 
+        <li> {{l.address}}</li>
+        <li> {{l.cost}}</li>
+        <li> {{l.user}}</li>
+        <h1 class="blueLine">__________________________</h1>
+      </div>
+      <!-- <div *ngIf="myDayDream.lodgingInfo < 1"> 
+          <p>There are currently no comments on this submission.</p>
+      </div> -->
+
+
       <h3> Planned activities: {{excursions}}</h3>
       <h1 class="blueLine">__________________________________________________________________</h1>
 
