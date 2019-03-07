@@ -69,6 +69,22 @@ export class DaydreamComponent implements OnInit {
     console.log(this.myDayDream)
   }
 
+  deleteTravel(t){
+    var confirm = window.confirm('Are you sure you want to remove this Travel Information? This action cannot be undone')
+    if (confirm == false) {
+      return;
+    }
+    var dd_id = this.route.snapshot.params['id'];
+    var tr_id = t._id;
+    console.log("The ID is: " + t._id);
+
+    this.DaydreamService.deleteChosenTravel(dd_id, tr_id).then((data) => {
+      this.myDayDream = new DayDream(data);
+      console.log("Deleting DayDream");
+      window.location.replace("/daydream/" + dd_id);
+    })
+  }
+
   renderEditDayDream() {
     this._router.navigate(['/edit-daydream/' + this.myDayDream.ID]);
 
@@ -92,6 +108,7 @@ export class DaydreamComponent implements OnInit {
     })
   }
 
+  
 
   onFileChanged(event) {
     let file = event.target.files[0]
