@@ -588,6 +588,35 @@ router.get('/all-contributions', authenticate, (req, res) => {
     })
 })
 
+router.get('/sum', authenticate, (req, res) => {
+    if (!req.headers.daydreamid) {
+        // console.log(req.headers)
+        res.status(400).send({ message: "Bad request" });
+        return;
+    }
+    DayDream.findById(req.headers.daydreamid, (err, dd) => {
+        console.log(dd)
+        if (err || !dd) {
+            res.status(400).send({ message: "Could not find daydream" });
+            return;
+        }
+        DayDream.aggregate([
+            {
+                $unwind: "$individualContribution"
+            },
+            {
+                $group: {
+                    _id: null,
+                    TotalBalance:{$sum:"$individualContribution.money"}
+                }
+            }
+        ]).then((daydream) => {
+            console.log(daydream)
+            res.status(200).send(daydream)
+        })
+    })
+})
+
 router.get('/info', authenticate, (req, res) => {
 
     //if not, send bad request
