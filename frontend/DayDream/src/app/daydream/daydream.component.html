@@ -51,9 +51,9 @@
       <h1 class="header">Lodging options:</h1>
 
       <div>
-        <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInput=!showInput">Add a lodging option
+        <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInputLod=!showInputLod">Add a lodging option
           <i class="fa fa-plus"> </i></button>
-        <div [hidden]="!showInput">
+        <div [hidden]="!showInputLod">
           <form (submit)="addLodging($event)">
             <input name="address">
             <input type="number" name="cost" min="0">
@@ -82,9 +82,9 @@
       <h4 class="header">Transportation options:</h4>
 
       <div>
-        <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInput=!showInput">Add a Transportation
+        <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInputTr=!showInputTr">Add a Transportation
           Option <i class="fa fa-plus"> </i></button>
-        <div [hidden]="!showInput">
+        <div [hidden]="!showInputTr">
           <form (submit)="addTravel($event)">
             <input name="mode">
             <input type="number" name="cost" min="0">
@@ -115,8 +115,8 @@
         ___________________________________________________________________________________________________________</h1>
       <h1 class="header"> Planned activities: </h1>
       <div>
-          <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInput=!showInput">Add an Excursion <i class="fa fa-plus"> </i></button>
-          <div [hidden]="!showInput">
+          <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInputExc=!showInputExc">Add an Excursion <i class="fa fa-plus"> </i></button>
+          <div [hidden]="!showInputExc">
             <form (submit)="addExcursion($event)">
               <input name="mode">
               <input type="number" name="cost" min="0">
