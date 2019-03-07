@@ -15,6 +15,7 @@ export class DaydreamComponent implements OnInit {
   myDayDream: DayDream;
   lodgingInfo: Array<Object>
   travelInfo: Array<Object>
+  excursionInfo: Array<Object>
   images: Array<Object>
   isMemory: Boolean;
   totalMoney: number
@@ -28,8 +29,12 @@ export class DaydreamComponent implements OnInit {
     this.isMemory = false;
     this.lodgingInfo = []
     this.travelInfo = []
+
     this.contributions = []
     this.colors = []
+
+    this.excursionInfo = [];
+
   }
 
   ngOnInit() {
@@ -50,8 +55,12 @@ export class DaydreamComponent implements OnInit {
       this.displayImages()
       this.displayLodging()
       this.displayTravel()
+
       this.getTotalContributions()
       this.initializeColors
+
+      this.displayExcursion()
+
     }).catch((err) => {
       this._router.navigate(['/not-found']);
     })
@@ -89,6 +98,15 @@ export class DaydreamComponent implements OnInit {
     console.log(this.myDayDream)
   }
 
+  displayExcursion() {
+    let excursion = this.myDayDream.excursions;
+    let i: number = 0;
+    for (i; i < excursion.length; i++) {
+      // let l = new DayDream(response[0][i]);
+      this.excursionInfo[i] = excursion[i];
+    }
+  }
+
   deleteLodging(l){
     var confirm = window.confirm('Are you sure you want to remove this Lodging Information? This action cannot be undone')
     if (confirm == false) {
@@ -120,6 +138,25 @@ export class DaydreamComponent implements OnInit {
       window.location.replace("/daydream/" + dd_id);
     })
   }
+
+
+
+  deleteExcursion(e){
+    var confirm = window.confirm('Are you sure you want to remove this excursion? This action cannot be undone')
+    if (confirm == false) {
+      return;
+    }
+    var dd_id = this.route.snapshot.params['id'];
+    var ex_id = e._id;
+    console.log("The ID is: " + e._id);
+    
+    this.DaydreamService.deleteChosenExcursion(dd_id, ex_id).then((data) => {
+      this.myDayDream = new DayDream(data);
+      console.log("Deleting DayDream");
+      window.location.replace("/daydream/" + dd_id);
+    })
+  }
+
 
   renderEditDayDream() {
     this._router.navigate(['/edit-daydream/' + this.myDayDream.ID]);

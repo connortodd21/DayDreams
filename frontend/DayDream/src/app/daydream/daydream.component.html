@@ -88,9 +88,28 @@
       <h1 class="blueLine">
         ___________________________________________________________________________________________________________</h1>
 
+
       <h1 class="header"> Planned activities: {{excursions}}</h1>
       <h1 class="blueLine">
         ___________________________________________________________________________________________________________</h1>
+
+      <h1 class="header"> Planned activities: </h1>
+      <div class="grid-container">
+          <mdb-card class="cardClean" *ngFor="let e of excursionInfo">
+              <mdb-card-body>
+                <h1> {{e.information}} <div class="cost"> ${{e.cost}}</div></h1>
+                <h1>{{e.category}}</h1>
+                <!-- <p>{{e._id}}</p> -->
+                <br>
+                <a>{{e.user}}</a>
+                <br>
+                <a class="trashIcon" (click)="deleteExcursion(e)"><i class="fa fa-trash" style="color:rgb(188, 38, 38)"> </i> </a>
+            </mdb-card-body>
+            
+          </mdb-card>
+        </div>
+      <h1 class="blueLine">___________________________________________________________________________________________________________</h1>
+
 
     </div>
   </div>
