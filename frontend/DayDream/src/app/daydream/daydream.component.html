@@ -4,19 +4,19 @@
 
 
     <div *ngIf="myDayDream">
-      <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=returnToCircles()> <i
-          class="fa fa-arrow-left"> </i> Back
+      <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=returnToCircles()> <i class="fa fa-arrow-left">
+        </i> Back
         to Circle </button>
       <h1 class="center">{{myDayDream.destination}}</h1>
       <br>
-      <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showTopContributors()" (click)="showTop=!showTop" > Contributors <i
-        class="fa fa-star"></i></button>
-        <div [hidden]="!showTop" *ngFor="let c of contributions; index as i" [attr.data-index]="i">
-            {{c[i].user}}: ${{c[i].total}}
-          </div>
+      <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showTopContributors()" (click)="showTop=!showTop">
+        Contributors <i class="fa fa-star"></i></button>
+      <div [hidden]="!showTop" *ngFor="let c of contributions; index as i" [attr.data-index]="i">
+        {{c[i].user}}: ${{c[i].total}}
+      </div>
       <div *ngIf="!isMemory">
-        <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInput=!showInput">Add Funds <i
-            class="fa fa-plus"> </i></button>
+        <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInput=!showInput">Add Funds <i class="fa fa-plus">
+          </i></button>
         <div [hidden]="!showInput">
           <form (submit)="addFunds($event)">
             <input type="number" name="quantity" min="0">
@@ -26,13 +26,13 @@
       </div>
       <h1 class="status">{{totalMoney}}/ {{myDayDream.totalCost}}</h1>
       <div class="progress md-progress" id="progress">
-        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-          [ngStyle]="{'width': moneyPercentage + '%'}" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" [ngStyle]="{'width': moneyPercentage + '%'}"
+          aria-valuemin="0" aria-valuemax="100">
         </div>
       </div>
       <br>
-      <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=renderEditDayDream()>Edit Daydream <i
-          class="fa fa-edit"> </i></button>
+      <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=renderEditDayDream()>Edit Daydream <i class="fa fa-edit">
+        </i></button>
       <button type="button" class="btn btn-danger" (click)=delDaydream()>Delete DayDream <i class="fa fa-trash">
         </i></button>
       <h1 class="blueLine">
@@ -51,8 +51,8 @@
       <h1 class="header">Lodging options:</h1>
 
       <div>
-        <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInput=!showInput">Add a lodging option <i
-            class="fa fa-plus"> </i></button>
+        <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInput=!showInput">Add a lodging option
+          <i class="fa fa-plus"> </i></button>
         <div [hidden]="!showInput">
           <form (submit)="addLodging($event)">
             <input name="address">
@@ -82,16 +82,16 @@
       <h4 class="header">Transportation options:</h4>
 
       <div>
-          <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInput=!showInput">Add a Transportation Option <i
-              class="fa fa-plus"> </i></button>
-          <div [hidden]="!showInput">
-            <form (submit)="addTravel($event)">
-              <input name="mode">
-              <input type="number" name="cost" min="0">
-              <input type="submit">
-            </form>
-          </div>
+        <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInput=!showInput">Add a Transportation
+          Option <i class="fa fa-plus"> </i></button>
+        <div [hidden]="!showInput">
+          <form (submit)="addTravel($event)">
+            <input name="mode">
+            <input type="number" name="cost" min="0">
+            <input type="submit">
+          </form>
         </div>
+      </div>
 
       <div class="grid-container">
         <mdb-card class="cardClean" *ngFor="let t of travelInfo">
@@ -114,20 +114,41 @@
       <h1 class="blueLine">
         ___________________________________________________________________________________________________________</h1>
       <h1 class="header"> Planned activities: </h1>
-      <div class="grid-container">
-          <mdb-card class="cardClean" *ngFor="let e of excursionInfo">
-              <mdb-card-body>
-                <h1> {{e.information}} <div class="cost"> ${{e.cost}}</div></h1>
-                <h1>{{e.category}}</h1>
-                <!-- <p>{{e._id}}</p> -->
-                <br>
-                <a>{{e.user}}</a>
-                <br>
-                <a class="trashIcon" (click)="deleteExcursion(e)"><i class="fa fa-trash" style="color:rgb(188, 38, 38)"> </i> </a>
-            </mdb-card-body>
-            
-          </mdb-card>
+      <div>
+          <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInput=!showInput">Add an Excursion <i class="fa fa-plus"> </i></button>
+          <div [hidden]="!showInput">
+            <form (submit)="addExcursion($event)">
+              <input name="mode">
+              <input type="number" name="cost" min="0">
+              <select class="browser-default custom-select">
+                  <option selected>Open this select menu</option>
+                  <option value="Indoor Activity">Indoor Activity</option>
+                  <option value="Food">Food</option>
+                  <option value="Outdoor Activity">Outdoor Activity</option>
+                  <option value="Tour">Tour</option>
+                  <option value="Sightseeing">Sightseeing</option>
+                  <option value="Other">Other</option>
+                </select>
+              <input type="submit">
+            </form>
+          </div>
         </div>
+      <div class="grid-container">
+        <mdb-card class="cardClean" *ngFor="let e of excursionInfo">
+          <mdb-card-body>
+            <h1> {{e.information}} <div class="cost"> ${{e.cost}}</div>
+            </h1>
+            <h1>{{e.category}}</h1>
+            <!-- <p>{{e._id}}</p> -->
+            <br>
+            <a>{{e.user}}</a>
+            <br>
+            <a class="trashIcon" (click)="deleteExcursion(e)"><i class="fa fa-trash" style="color:rgb(188, 38, 38)">
+              </i> </a>
+          </mdb-card-body>
+
+        </mdb-card>
+      </div>
       <h1 class="blueLine">___________________________________________________________________________________________________________</h1>
 
 
@@ -135,8 +156,8 @@
   </div>
 </div>
 <div *ngIf="!isMemory">
-  <button type="button" class="btn btn-success" (click)=addDayDreamToMemories()>Daydream Completed <i
-      class="fa fa-globe"> </i></button>
+  <button type="button" class="btn btn-success" (click)=addDayDreamToMemories()>Daydream Completed <i class="fa fa-globe">
+    </i></button>
 </div>
 <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
 <button (click)="fileInput.click()">Select File</button>

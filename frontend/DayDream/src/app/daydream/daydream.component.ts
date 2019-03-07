@@ -256,14 +256,15 @@ export class DaydreamComponent implements OnInit {
     })
   }
 
-  // addExcursion(event){
-  //   console.log(event.target["0"].value)
-  //   console.log(event.target["1"].value)
-  //   console.log
-  //   this.DaydreamService.createLodging(this.myDayDream.ID, event.target["0"].value, event.target["1"].value).then(()=>{
-  //     window.location.replace("/daydream/" + this.myDayDream.ID);
-  //   })
-  // }
+  addExcursion(event){
+    console.log(event.target["0"].value)
+    console.log(event.target["1"].value)
+    console.log(event.target["2"].value)
+    this.DaydreamService.createExcursion(this.myDayDream.ID, event.target["0"].value, event.target["1"].value,
+    event.target["2"].value).then(()=>{
+      window.location.replace("/daydream/" + this.myDayDream.ID);
+    })
+  }
 
   initializeColors() {
     var i: number = 0

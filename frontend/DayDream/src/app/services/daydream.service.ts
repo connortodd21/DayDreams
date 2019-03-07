@@ -192,12 +192,12 @@ export class DaydreamService{
     *   Create excursion
     */
 
-    createExcursion(daydreamID:string, information:string, category:string, cost:Number){
+    createExcursion(daydreamID:string, information:string, cost:Number,category:string,){
         const excursion = {
             daydreamID: daydreamID,
             information: information,
+            cost: cost,
             category: category,
-            cost: cost
         }
         return this.http.post("http://localhost:5000/daydream/add-excursion", excursion).toPromise()
     }
