@@ -68,7 +68,14 @@ export class DaydreamComponent implements OnInit {
 
   getTotalContributions(){
     this.DaydreamService.getTotalContribution(this.myDayDream.ID).then((total) => {
-      this.totalMoney = total[0].TotalBalance
+      if(!total[0]){
+        this.totalMoney =0 
+        this.moneyPercentage = 0
+        return
+      }
+      else{
+        this.totalMoney = total[0].TotalBalance
+      }
       var p = Math.floor(100 * (this.totalMoney / this.myDayDream.totalCost as number))
       if(p > 100){
         p = 100;
