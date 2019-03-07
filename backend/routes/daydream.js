@@ -208,6 +208,54 @@ router.post('/edit-lodging', authenticate, (req, res) => {
     })
 })
 
+
+router.post('/delete-lodging', authenticate, (req, res) => {
+    if (!req.body || !req.body.daydreamID || !req.body.lodgingInformationID) {
+        res.status(400).send({ message: "Bad request" });
+        return;
+    }
+
+    DayDream.findOne({_id: req.body.daydreamID }).then((dd)=>{
+        if (!dd){
+            res.status(400).send({ message: "Daydream does not exist" });
+            return;
+        }
+        console.log("test")
+
+        var i = 0;
+        let temp = [];
+        let tf = false;
+        let tempIndex = 0;
+        for (i = 0; i < dd.lodgingInformation.length; i++){
+            if (dd.lodgingInformation[i]._id != req.body.lodgingInformationID){
+                console.log(dd.lodgingInformation.length)
+                console.log(i)
+                temp[tempIndex++] = dd.lodgingInformation[i];
+            }
+            else{
+                tf = true;
+            }
+        }
+        if(!tf){
+            res.status(400).send({ message: "Lodging does not exist" });
+            return;
+        }
+        console.log("Temp: " + temp);
+        DayDream.findOneAndUpdate({_id: req.body.daydreamID}, {
+            $set:{
+                lodgingInformation: temp
+            },
+        }).then(() => {
+            res.status(200).send({ message: 'Lodging Information Successfully Deleted' })
+        }).catch((err) => {
+            res.status(400).send({ message: "Error Lodging Information" });
+                console.log(err)
+                res.send(err);
+        })
+    })
+
+})
+
 /*
 *   Add travel information
 */
