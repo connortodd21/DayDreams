@@ -55,7 +55,11 @@ export class DaydreamComponent implements OnInit {
   getTotalContributions(){
     this.DaydreamService.getTotalContribution(this.myDayDream.ID).then((total) => {
       this.totalMoney = total[0].TotalBalance
-      this.moneyPercentage = Math.floor(100 * (this.totalMoney / this.myDayDream.totalCost as number))
+      var p = Math.floor(100 * (this.totalMoney / this.myDayDream.totalCost as number))
+      if(p > 100){
+        p = 100;
+      }
+      this.moneyPercentage = p;
       console.log(this.moneyPercentage)
     })
   }
@@ -177,6 +181,13 @@ export class DaydreamComponent implements OnInit {
         return
       }
       this.returnToCircles()
+    })
+  }
+
+  addFunds(event){
+    console.log(event.target["0"].value)
+    this.DaydreamService.addContribution(this.myDayDream.ID, event.target["0"].value).then(() => {
+      window.location.replace("/daydream/" + this.myDayDream.ID);
     })
   }
 

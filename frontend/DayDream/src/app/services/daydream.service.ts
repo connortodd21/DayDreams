@@ -115,6 +115,14 @@ export class DaydreamService{
         return this.http.get("http://localhost:5000/daydream/sum", info).toPromise()
     }
 
+    addContribution(daydreamID:string, cost:number){
+        const chosen = {
+            daydreamID: daydreamID,
+            cost: cost
+        }
+        return this.http.post("http://localhost:5000/daydream/add-contribution", chosen).toPromise()
+    }
+
     getPhotos(dayDreamID:string){
         const info = {
             headers: new HttpHeaders({
