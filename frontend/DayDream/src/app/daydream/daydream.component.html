@@ -15,7 +15,6 @@
       <h2 class="center"><b>Destination:</b> {{myDayDream.destination}}</h2>
       <h1 class="blueLine">__________________________________________________________________</h1>
 
-<<<<<<< HEAD
       <h1 class="header"> Current Lodging options:</h1>
       <div class="grid-container">
       <mdb-card class="cardClean" *ngFor="let l of lodgingInfo">
@@ -29,7 +28,6 @@
     </div>
       
       <h1 class="blueLine">__________________________________________________________________</h1>
-
       <h1 class="header"> Transportation options:</h1>
       <div class="grid-container">
           <mdb-card class="cardClean" *ngFor="let t of travelInfo">
@@ -38,35 +36,18 @@
                 
                 <br>
                 <a>{{t.user}}</a>
+                <br>
+                <button type="button" class="btn btn-danger" (click)=deleteTravel(t)> <i class="fa fa-trash"> </i></button>
+
+
+
             </mdb-card-body>
+            
           </mdb-card>
         </div>
 
 
         <h1 class="blueLine">__________________________________________________________________</h1>
-=======
-      <h3> Current Lodging options:</h3>
-      <div *ngFor="let l of lodgingInfo"> 
-        <li> Address: {{l.address}}</li>
-        <li> Cost: {{l.cost}}</li>
-        <li> User: {{l.user}}</li>
-        <h1 class="blueLine">__________________________</h1>
-      </div>
-      
-      <h1 class="blueLine">__________________________________________________________________</h1>
-
-      <h3> Transportation options:</h3>
-      <div *ngFor="let t of travelInfo"> 
-        
-      <button type="button" class="btn btn-danger" (click)=deleteTravel(t)> <i class="fa fa-trash"> </i></button>       
-
-       <li> id: {{t._id}}</li>
-        <li> Mode: {{t.mode}}</li>  
-        <li> Cost: {{t.cost}}</li>
-        <li> User: {{t.user}}</li>
-        <h1 class="blueLine">__________________________</h1>
-      </div>
->>>>>>> e11e19ff12cc2379aa8f9341641e70d40ffb5366
 
       <h1 class="header"> Planned activities: {{excursions}}</h1>
       <h1 class="blueLine">__________________________________________________________________</h1>
