@@ -51,7 +51,6 @@ export class DaydreamComponent implements OnInit {
       this.displayLodging()
       this.displayTravel()
       this.getTotalContributions()
-      this.getTotalContributionPerPerson()
       this.initializeColors
     }).catch((err) => {
       this._router.navigate(['/not-found']);
@@ -197,13 +196,6 @@ export class DaydreamComponent implements OnInit {
     })
   }
 
-  getTotalContributionPerPerson(){
-    this.DaydreamService.getContributionPerPerson(this.myDayDream.ID).then((contributions: []) => {
-      console.log(contributions)
-      this.contributions = contributions
-    })
-  }
-
   initializeColors(){
     var i:number =  0
     for(i = 0; i < 20; i++){
@@ -211,4 +203,14 @@ export class DaydreamComponent implements OnInit {
     }
   }
 
+  showTopContributors(){
+    this.DaydreamService.getContributionPerPerson(this.myDayDream.ID).then((contributions) => {
+      var conts = contributions[0].total
+      let i:number = 0
+      for(i = 0; i < conts.length; i++){
+        this.contributions[i] = conts
+      }
+      
+    })
+  }
 }

@@ -9,6 +9,11 @@
         to Circle </button>
       <h1 class="center">{{myDayDream.destination}}</h1>
       <br>
+      <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showTopContributors()" (click)="showTop=!showTop" > Contributors <i
+        class="fa fa-star"></i></button>
+        <div [hidden]="!showTop" *ngFor="let c of contributions; index as i" [attr.data-index]="i">
+            {{c[i].user}}: ${{c[i].total}}
+          </div>
       <div *ngIf="!isMemory">
         <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInput=!showInput">Add Funds <i
             class="fa fa-plus"> </i></button>
@@ -21,9 +26,8 @@
       </div>
       <h1 class="status">{{totalMoney}}/ {{myDayDream.totalCost}}</h1>
       <div class="progress md-progress" id="progress">
-        <div  class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-          [ngStyle]="{'width': moneyPercentage + '%'}" aria-valuemin="0"
-          aria-valuemax="100"> 
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+          [ngStyle]="{'width': moneyPercentage + '%'}" aria-valuemin="0" aria-valuemax="100">
         </div>
       </div>
       <br>
