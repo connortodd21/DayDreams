@@ -77,6 +77,16 @@ export class DaydreamService{
         return this.http.get<Array<Object>>("http://localhost:5000/daydream/get-lodging", info).toPromise()
     }
 
+    createLodging(daydreamID:string, address:string, cost:Number){
+        const lodging = {
+            daydreamID: daydreamID,
+            address: address,
+            cost: cost
+    
+        }
+        return this.http.post("http://localhost:5000/daydream/add-lodging", lodging).toPromise()
+    }
+
 
     deleteChosenLodging(daydreamID:string, lodgingInformationID:string) {
         const chosen = {

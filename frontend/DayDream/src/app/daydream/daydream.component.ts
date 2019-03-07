@@ -113,8 +113,6 @@ export class DaydreamComponent implements OnInit {
     })
   }
 
-
-
   deleteExcursion(e){
     var confirm = window.confirm('Are you sure you want to remove this excursion? This action cannot be undone')
     if (confirm == false) {

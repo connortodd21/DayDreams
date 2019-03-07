@@ -134,7 +134,7 @@ router.post('/delete', authenticate, (req, res) => {
 router.post('/add-lodging', authenticate, (req, res) => {
 
 
-    if (!req.body || !req.body.daydreamID || !req.body.address || !req.body.cost || !req.user.username) {
+    if (!req.body || !req.body.daydreamID || !req.body.address || !req.body.cost ) {
         res.status(400).send({ message: "Bad request" });
         return;
     }
