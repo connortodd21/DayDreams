@@ -38,12 +38,13 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['home']);
     }
 
-    onLogin(form: NgForm) {
+    async onLogin(form: NgForm) {
         this.submitted = true;
         if (this.loginForm.invalid) {
             return;
         }
-        this.response = this.authService.login(form.value.username, form.value.password)
+        this.response = await (this.authService.login(form.value.username, form.value.password))
+        console.log(this.response)
     }
 
 }
