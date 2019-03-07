@@ -387,6 +387,44 @@ router.post('/delete-travel', authenticate, (req, res) => {
     })
 })
 
+
+
+/*
+*   Add excursion information
+*/
+router.post('/add-excursion', authenticate, (req, res) => {
+
+    if (!req.body || !req.body.daydreamID || !req.user.username || !req.body.cost || !req.body.information || !req.body.category ) {
+        res.status(400).send({ message: "Bad request" });
+        return;
+    }
+    DayDream.findOne({ _id: req.body.daydreamID }).then((daydream) => {
+        if (!daydream) {
+            res.status(400).send({ message: "Daydream does not exist" });
+            return;
+        }
+        console.log(req.body)
+        DayDream.findOneAndUpdate({ _id: req.body.daydreamID }, {
+            $push: {
+                excursions: {
+                    user: req.user.username,
+                    cost: req.body.cost,
+                    information: req.body.information,
+                    category: req.body.category
+                }
+            }
+        }).then((dd) => {
+            res.status(200).send({ message: "Excursion information added" })
+            return;
+        }).catch((err) => {
+            res.send(err);
+        })
+    }).catch((err) => {
+        res.send(err);
+    })
+})
+
+
 router.post('/upload-photo', authenticate, upload.single("image"), (req, res) => {
     // console.log(req)
     if (!req.file.url || !req.file.public_id || !req.headers.daydreamid) {
