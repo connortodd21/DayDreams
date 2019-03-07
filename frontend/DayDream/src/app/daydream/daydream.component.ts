@@ -17,6 +17,7 @@ export class DaydreamComponent implements OnInit {
   travelInfo: Array<Object>
   images: Array<Object>
   isMemory: Boolean;
+  totalMoney: Number
 
   constructor(private route: ActivatedRoute,
     private circleService: CircleService, private DaydreamService: DaydreamService, private formBuilder: FormBuilder, private _router: Router) {
@@ -44,8 +45,16 @@ export class DaydreamComponent implements OnInit {
       this.displayImages()
       this.displayLodging()
       this.displayTravel()
+      this.getTotalContributions()
     }).catch((err) => {
       this._router.navigate(['/not-found']);
+    })
+  }
+
+  getTotalContributions(){
+    this.DaydreamService.getTotalContribution(this.myDayDream.ID).then((total) => {
+      console.log(total)
+      this.totalMoney = total[0].TotalBalance
     })
   }
 
