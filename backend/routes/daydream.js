@@ -342,7 +342,7 @@ router.post('/edit-travel', authenticate, (req, res) => {
 *   Delete travel information
 */
 router.post('/delete-travel', authenticate, (req, res) => {
-    if (!req.body || !req.body.daydreamID || !req.body.travelInformationID) {
+    if (!req.body.daydreamID || !req.body.travelInformationID) {
         res.status(400).send({ message: "Bad request" });
         return;
     }

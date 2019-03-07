@@ -57,7 +57,11 @@
 
       <h3> Transportation options:</h3>
       <div *ngFor="let t of travelInfo"> 
-        <li> Mode: {{t.mode}}</li>
+        
+      <button type="button" class="btn btn-danger" (click)=deleteTravel(t)> <i class="fa fa-trash"> </i></button>       
+
+       <li> id: {{t._id}}</li>
+        <li> Mode: {{t.mode}}</li>  
         <li> Cost: {{t.cost}}</li>
         <li> User: {{t.user}}</li>
         <h1 class="blueLine">__________________________</h1>
