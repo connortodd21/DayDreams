@@ -263,7 +263,7 @@ router.post('/delete-lodging', authenticate, (req, res) => {
 */
 router.post('/add-travel', authenticate, (req, res) => {
 
-    if (!req.body || !req.body.daydreamID) {
+    if (!req.body || !req.body.daydreamID || !req.body.mode || !req.body.cost || !req.user.username) {
         res.status(400).send({ message: "Bad request" });
         return;
     }
