@@ -113,7 +113,7 @@ export class EditDayDreamComponent implements OnInit {
     }
 
     // this._router.navigate(['/circle/' + this.myCircle.ID]);
-    window.location.replace("/daydream/" + this.myDayDream.ID)
+    // window.location.replace("/daydream/" + this.myDayDream.ID)
   }
 
 
