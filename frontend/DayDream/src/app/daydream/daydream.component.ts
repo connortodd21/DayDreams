@@ -14,6 +14,7 @@ export class DaydreamComponent implements OnInit {
 
   myDayDream: DayDream;
   lodgingInfo: Array<Object>
+  travelInfo: Array<Object>
   images: Array<Object>
   isMemory: Boolean;
 
@@ -22,6 +23,7 @@ export class DaydreamComponent implements OnInit {
     this.images = []
     this.isMemory = false;
     this.lodgingInfo = []
+    this.travelInfo = []
   }
 
   ngOnInit() {
@@ -41,6 +43,7 @@ export class DaydreamComponent implements OnInit {
       this.isMemory = daydream.completed
       this.displayImages()
       this.displayLodging()
+      this.displayTravel()
     }).catch((err) => {
       this._router.navigate(['/not-found']);
     })
@@ -56,6 +59,15 @@ export class DaydreamComponent implements OnInit {
     console.log(this.myDayDream)
   }
 
+  displayTravel() {
+    let travel = this.myDayDream.travelInformation
+    let i: number = 0;
+    for (i; i < travel.length; i++) {
+      // let l = new DayDream(response[0][i]);
+      this.travelInfo[i] = travel[i];
+    }
+    console.log(this.myDayDream)
+  }
 
   renderEditDayDream() {
     this._router.navigate(['/edit-daydream/' + this.myDayDream.ID]);

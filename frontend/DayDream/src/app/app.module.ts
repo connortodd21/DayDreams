@@ -40,6 +40,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { ChangeEmailComponent } from './change-email/change-email.component';
 import { AboutComponent } from './about/about.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { EditDayDreamComponent } from './daydream/edit-daydream/edit-daydream.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     ChangePasswordComponent,
     ChangeEmailComponent,
     AboutComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    EditDayDreamComponent
   ],
   imports: [
     BrowserModule,

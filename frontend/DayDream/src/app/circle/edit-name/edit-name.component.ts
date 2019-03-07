@@ -17,6 +17,7 @@ export class EditNameComponent implements OnInit {
 
 */
 
+
   myCircle: Circle = { founder: null, circleName: null, members: null, dateCreated: null, numberOfPeople: null, dayDreams: null, chat: null, imageUrl: null, ID: null, description: null };
   constructor(private route: ActivatedRoute, private circleService: CircleService, private _router: Router, private formBuilder: FormBuilder) { }
   editCircleForm: FormGroup;

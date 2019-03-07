@@ -2,6 +2,10 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, FormGroup, ReactiveFormsModule } from '@angular/forms';
+
+import { EditDayDreamComponent } from './edit-daydream.component';
+import { exists } from 'fs';
+
 import {
   MDBBootstrapModule,
   ModalModule,
@@ -23,12 +27,10 @@ import {
   WavesModule
 }
 from 'angular-bootstrap-md';
-import { EditNameComponent } from './edit-name.component';
-import { exists } from 'fs';
 
 describe('EditNameComponent', () => {
-  let component: EditNameComponent;
-  let fixture: ComponentFixture<EditNameComponent>;
+  let component: EditDayDreamComponent;
+  let fixture: ComponentFixture<EditDayDreamComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -41,13 +43,13 @@ describe('EditNameComponent', () => {
         MDBBootstrapModule.forRoot(),
         CardsFreeModule
       ],
-      declarations: [ EditNameComponent ]
+      declarations: [ EditDayDreamComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditNameComponent);
+    fixture = TestBed.createComponent(EditDayDreamComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

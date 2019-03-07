@@ -22,10 +22,16 @@
         <li> {{l.user}}</li>
         <h1 class="blueLine">__________________________</h1>
       </div>
-      <!-- <div *ngIf="myDayDream.lodgingInfo < 1"> 
-          <p>There are currently no comments on this submission.</p>
-      </div> -->
+      
+      <h1 class="blueLine">__________________________________________________________________</h1>
 
+      <h3> Transportation options:</h3>
+      <div *ngFor="let t of travelInfo"> 
+        <li> {{t.mode}}</li>
+        <li> {{t.cost}}</li>
+        <li> {{t.user}}</li>
+        <h1 class="blueLine">__________________________</h1>
+      </div>
 
       <h3> Planned activities: {{excursions}}</h3>
       <h1 class="blueLine">__________________________________________________________________</h1>

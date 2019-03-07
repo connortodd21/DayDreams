@@ -118,7 +118,7 @@ router.post('/delete', authenticate, (req, res) => {
                 dayDreams: req.body.daydreamID
             }
         }).then(() => {
-            res.status(200).send({message: "Daydream removed"}) //returns all circle properties
+            res.status(200).send({ message: "Daydream removed" }) //returns all circle properties
             console.log(dream);
             return
         })
@@ -178,10 +178,43 @@ router.post('/add-lodging', authenticate, (req, res) => {
 //         }else {
 //             console.log(daydream.lodgingInformation._id);
 //         }
-        
+
 //     })
 // })
 
+/*
+*   Add travel information
+*/
+router.post('/add-travel', authenticate, (req, res) => {
+
+    if (!req.body || !req.body.daydreamID) {
+        res.status(400).send({ message: "Bad request" });
+        return;
+    }
+    DayDream.findOne({ _id: req.body.daydreamID }).then((daydream) => {
+        if (!daydream) {
+            res.status(400).send({ message: "Daydream does not exist" });
+            return;
+        }
+        console.log(req.body)
+        DayDream.findOneAndUpdate({ _id: req.body.daydreamID }, {
+            $push: {
+                travelInformation: {
+                    mode: req.body.mode,
+                    cost: req.body.cost,
+                    user: req.user.username
+                }
+            }
+        }).then((dd) => {
+            res.status(200).send({ message: "Travel information added" })
+            return;
+        }).catch((err) => {
+            res.send(err);
+        })
+    }).catch((err) => {
+        res.send(err);
+    })
+})
 
 router.post('/upload-photo', authenticate, upload.single("image"), (req, res) => {
     // console.log(req)
@@ -213,7 +246,7 @@ router.post('/upload-photo', authenticate, upload.single("image"), (req, res) =>
     })
 })
 
-router.post("/edit-daydream", authenticate, (req, res) => {
+router.post("/edit-destination", authenticate, (req, res) => {
     if (!req.body.destination || !req.body.daydreamID) {
         res.status(400).json({ message: "Daydream change is incomplete" });
         return;
@@ -238,6 +271,56 @@ router.post("/edit-daydream", authenticate, (req, res) => {
     })
 })
 
+router.post("/edit-description", authenticate, (req, res) => {
+    if (!req.body.description || !req.body.daydreamID) {
+        res.status(400).json({ message: "Daydream change is incomplete" });
+        return;
+    }
+
+    DayDream.findOne({ _id: req.body.daydreamID }).then((dd) => {
+        if (!dd) {
+            res.status(400).send({ message: "Daydream does not exist" });
+            return;
+        }
+        DayDream.findOneAndUpdate({ _id: req.body.daydreamID },
+            {
+                $set: {
+                    description: req.body.description,
+                }
+            }).then(() => {
+                res.status(200).send({ message: 'Circle name updated!' })
+                return
+            }).catch((err) => {
+                res.send(err);
+            })
+    })
+})
+
+router.post("/edit-cost", authenticate, (req, res) => {
+    if (!req.body.totalCost || !req.body.daydreamID) {
+        res.status(400).json({ message: "Daydream change is incomplete" });
+        return;
+    }
+
+    DayDream.findOne({ _id: req.body.daydreamID }).then((dd) => {
+        if (!dd) {
+            res.status(400).send({ message: "Daydream does not exist" });
+            return;
+        }
+        DayDream.findOneAndUpdate({ _id: req.body.daydreamID },
+            {
+                $set: {
+                    totalCost: req.body.totalCost,
+                }
+            }).then(() => {
+                res.status(200).send({ message: 'Circle name updated!' })
+                return
+            }).catch((err) => {
+                res.send(err);
+            })
+    })
+})
+
 router.post('/add-to-memories', authenticate, (req, res) => {
     if (!req.body.daydreamID) {
         res.status(400).json({ message: "Daydream change is incomplete" });
@@ -248,7 +331,7 @@ router.post('/add-to-memories', authenticate, (req, res) => {
             res.status(400).send({ message: "Daydream does not exist" });
             return;
         }
-        DayDream.findOneAndUpdate({_id: req.body.daydreamID}, {
+        DayDream.findOneAndUpdate({ _id: req.body.daydreamID }, {
             $set: {
                 completed: true
             }
@@ -273,7 +356,7 @@ router.post('/remove-from-memories', authenticate, (req, res) => {
             res.status(400).send({ message: "Daydream does not exist" });
             return;
         }
-        DayDream.findOneAndUpdate({_id: req.body.daydreamID}, {
+        DayDream.findOneAndUpdate({ _id: req.body.daydreamID }, {
             $set: {
                 completed: false
             }
@@ -329,8 +412,31 @@ router.get('/get-lodging', authenticate, (req, res) => {
             res.status(400).send({ message: "Could not find daydream" });
             return;
         }
-        res.status(200).send(dd.lodgingInformation) 
+        res.status(200).send(dd.lodgingInformation)
         console.log(dd.lodgingInformation);
+        return
+    })
+})
+
+/*
+*   Get travel info
+*/
+router.get('/travel', authenticate, (req, res) => {
+
+    //if not, send bad request
+    if (!req.headers.daydreamid) {
+        // console.log(req.headers)
+        res.status(400).send({ message: "Bad request" });
+        return;
+    }
+    DayDream.findById(req.headers.daydreamid, (err, dd) => {
+
+        if (err) {
+            res.status(400).send({ message: "Could not find daydream" });
+            return;
+        }
+        res.status(200).send(dd.travelInfortmation)
+        console.log(dd.travelInfortmation);
         return
     })
 })
