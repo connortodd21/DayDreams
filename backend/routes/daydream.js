@@ -585,6 +585,8 @@ router.get('/all-contributions', authenticate, (req, res) => {
         }
         res.status(200).send(dd.individualContribution)
         return
+    }).catch((err) => {
+        res.send(err);
     })
 })
 
@@ -613,7 +615,11 @@ router.get('/sum', authenticate, (req, res) => {
         ]).then((daydream) => {
             console.log(daydream)
             res.status(200).send(daydream)
+        }).catch((err) => {
+            res.send(err);
         })
+    }).catch((err) => {
+        res.send(err);
     })
 })
 
