@@ -106,23 +106,24 @@ router.post('/delete', authenticate, (req, res) => {
 
     //find specific DayDream object by ID and delete
     DayDream.findByIdAndDelete(req.body.daydreamID, (err, dream) => {
-        if (err || dream == null) {
+        console.log(res)
+        if (err || !dream) {
             res.status(400).send({ message: "Could not find Dream" });
             return;
         }
-        Circle.findByIdAndUpdate(dream.circleID, (err, circ), {
+        console.log(dream)
+        // console.log(circ)
+        Circle.findByIdAndUpdate(dream.circleID, (err), {
             $pull: {
                 dayDreams: req.body.daydreamID
             }
         }).then(() => {
             res.status(200).send({message: "Daydream removed"}) //returns all circle properties
             console.log(dream);
+            return
         })
     }).catch((err) => {
         res.status(400).send(err);
-        return;
-    }).then(() => {
-        res.status(200).send({ message: "Daydream Removed!" })
         return;
     })
 })
