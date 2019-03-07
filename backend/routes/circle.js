@@ -201,17 +201,23 @@ router.post("/edit-name", authenticate, (req, res) => {
         return;
     }
 
-    Circle.findOneAndUpdate({ _id: req.body.circleID },
-        {
-            $set: {
-                circleName: req.body.circleName,
-            }
-        }).then(() => {
-            res.status(200).send({ message: 'Circle name updated!' })
-            return
-        }).catch((err) => {
-            res.send(err);
-        })
+    Circle.findOne({ _id: req.body.circleID }).then((circ) => {
+        if (!circ) {
+            res.status(400).json({ message: "Circle does not exist" });
+            return;
+        }
+        Circle.findOneAndUpdate({ _id: req.body.circleID },
+            {
+                $set: {
+                    circleName: req.body.circleName,
+                }
+            }).then(() => {
+                res.status(200).send({ message: 'Circle name updated!' })
+                return
+            }).catch((err) => {
+                res.send(err);
+            })
+    })
 })
 
 router.post('/add-message', authenticate, (req, res) => {
