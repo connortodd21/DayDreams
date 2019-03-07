@@ -424,6 +424,53 @@ router.post('/add-excursion', authenticate, (req, res) => {
     })
 })
 
+/*
+*   Edit excursion information
+*/
+router.post('/edit-excursion', authenticate, (req, res) => {
+    if (!req.body || !req.body.daydreamID || !req.body.excursionID|| 
+        !req.body.information || !req.body.cost || !req.user.username || !req.body.category) {
+        res.status(400).send({ message: "Incomplete" });
+        return;
+    }
+    DayDream.findOne({ _id: req.body.daydreamID }).then((dd) => {
+        if (!dd) {
+            res.status(400).send({ message: "Daydream does not exist" });
+            return;
+        }
+
+        var i = 0;
+        for (i = 0; i < dd.excursions.length; i++){
+            if (dd.excursions[i]._id == req.body.excursionID){
+                dd.excursions[i].cost = req.body.cost;
+                dd.excursions[i].category = req.body.category;
+                dd.excursions[i].information = req.body.information;
+                dd.excursions[i].username = req.user.username;
+                break;
+            }
+            if (dd.excursions[i]._id != req.body.excursionID){
+                if(i == dd.excursions.length-1){
+                    res.status(400).send({ message: "Excursion Information does not exist" });
+                    return;
+                }
+            }
+        }
+        console.log(dd.excursions);
+        var temp = dd.excursions
+        DayDream.findOneAndUpdate({_id: req.body.daydreamID}, {
+            $set:{
+                excursions: temp
+            },
+        }).then(() => {
+            res.status(200).send({ message: "Excursion Information Updated" })
+        }).catch((err) => {
+            res.status(400).send({ message: "Error Lodging Information" });
+                console.log(err)
+                res.send(err);
+        })
+    })
+})
+
 
 router.post('/upload-photo', authenticate, upload.single("image"), (req, res) => {
     // console.log(req)
