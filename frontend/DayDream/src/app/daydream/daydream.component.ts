@@ -320,4 +320,11 @@ export class DaydreamComponent implements OnInit {
       }
     })
   }
+
+  reduceFunds(evenet){
+    console.log(event.target["0"].value)
+    this.DaydreamService.removeFunds(this.myDayDream.ID, event.target["0"].value).then(() => {
+      window.location.replace("/daydream/" + this.myDayDream.ID);
+    })
+  }
 }
