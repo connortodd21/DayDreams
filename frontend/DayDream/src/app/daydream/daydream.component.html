@@ -9,38 +9,84 @@
         to Circle </button>
       <h1 class="center">{{myDayDream.destination}}</h1>
       <br>
-      <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showTopContributors()" (click)="showTop=!showTop">
-        Contributors <i class="fa fa-star"></i></button>
-      <div [hidden]="!showTop" *ngFor="let c of contributions; index as i" [attr.data-index]="i">
-        {{c[i].user}}: ${{c[i].total}}
-      </div>
-      <div *ngIf="!isMemory">
-        <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInput=!showInput">Add Funds <i class="fa fa-plus">
-          </i></button>
-        <div [hidden]="!showInput">
-          <form (submit)="addFunds($event)">
-            <input type="number" name="quantity" min="0">
-            <input type="submit">
-          </form>
-        </div>
-      </div>
-      <div *ngIf="!isMemory">
-          <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="funds=!funds">Reduce Funds <i class="fa fa-minus-sign">
-            </i></button>
-          <div [hidden]="!funds">
-            <form (submit)="reduceFunds($event)">
-              <input type="number" name="quantity" min="0">
-              <input type="submit">
-            </form>
+      <h1 class="status">${{totalMoney}}/${{myDayDream.totalCost}}</h1>
+
+      <div class="progress md-progress" id="progress">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" [ngStyle]="{'width': moneyPercentage + '%'}"
+            aria-valuemin="0" aria-valuemax="100">
           </div>
         </div>
-      <h1 class="status">{{totalMoney}}/ {{myDayDream.totalCost}}</h1>
-      <div class="progress md-progress" id="progress">
-        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" [ngStyle]="{'width': moneyPercentage + '%'}"
-          aria-valuemin="0" aria-valuemax="100">
+        <br>
+      <div>
+        <div>
+      
+    </div>
+     
+      <div class="rightAlign" *ngIf="!isMemory">
+          
+          
+       
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  
+            <body class="rightAlign">
+              <div class="w3-container">
+                  <button mdbBtn type="button" mdbWavesEffect color="success" (click)="showInput=!showInput">Add Funds <i class="fa fa-plus">
+                    </i></button>
+                  <div [hidden]="!showInput">
+                    <form (submit)="addFunds($event)">
+                      <input type="number" name="quantity" min="0">
+                      <input type="submit">
+                    </form>
+                  </div>
+                  <button mdbBtn type="button" mdbWavesEffect color="success" (click)="funds=!funds">Reduce Funds -<i class="fa fa-minus-sign">
+                    </i></button>
+                  <div [hidden]="!funds">
+                    <form (submit)="reduceFunds($event)">
+                      <input type="number" name="quantity" min="0">
+                      <input type="submit">
+                    </form>
+                  </div>
+                  <button onclick="document.getElementById('id01').style.display='block'" mdbBtn type="button"
+                    color="success" mdbWavesEffect>Contributors <i class="fa fa-cloud"> </i> </button>
+  
+                  <div id="id01" class="w3-modal">
+                    <div class="w3-modal-content">
+                      <div class="w3-container">
+                        <mdb-card>
+                          <mdb-card-body>
+                          
+  
+                              
+                                <h4 class="center">Contributors</h4>
+  
+                                <div class="centerText" *ngFor="let c of contributions; index as i" [attr.data-index]="i">
+                                    {{c[i].user}}: ${{c[i].total}}
+                                  </div>
+                                <button mdbBtn type="button" mdbWavesEffect color="info" (click)="showTopContributors()"  block="true" (click)="showTop=!showTop" class="my-4">
+                                    Show Contributors </button>
+                                
+  
+                        
+  
+                          
+                              <button (click)="cancel()" type="button"
+                                onclick="document.getElementById('id01').style.display='none'" mdbBtn color="info"
+                                block="true" class="my-4">Close</button>
+  
+                          </mdb-card-body>
+                        </mdb-card>
+                      </div>
+                    </div>
+                  </div>
+                
+              </div>
+            </body>
+  
+        
         </div>
       </div>
-      <br>
+      
       <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=renderEditDayDream()>Edit Daydream <i class="fa fa-edit">
         </i></button>
       <button type="button" class="btn btn-danger" (click)=delDaydream()>Delete DayDream <i class="fa fa-trash">
@@ -84,20 +130,22 @@
             <br>
             <a class="trashIcon" (click)="deleteLodging(l)"><i class="fa fa-trash" style="color:rgb(188, 38, 38)"> </i>
             </a>
+            <br>
+            <div class="editIcon">
+                <a (click)="showInputEditLod=!showInputEditLod"> <i class="far fa-edit"></i></a>
+                <!-- <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInputEditLod=!showInputEditLod">
+                    <i class="far fa-edit"></i></button> -->
+                <div [hidden]="!showInputEditLod">
+                  <form (submit)="editLodging(l,$event)">
+                    <input name="address">
+                    <input type="number" name="cost" min="0">
+                    <input type="submit">
+                  </form>
+                </div>
+              </div>
           </mdb-card-body>
 
-          <div>
-            <a (click)="showInputEditLod=!showInputEditLod"> <i class="far fa-edit"></i></a>
-            <!-- <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInputEditLod=!showInputEditLod">
-                <i class="far fa-edit"></i></button> -->
-            <div [hidden]="!showInputEditLod">
-              <form (submit)="editLodging(l,$event)">
-                <input name="address">
-                <input type="number" name="cost" min="0">
-                <input type="submit">
-              </form>
-            </div>
-          </div>
+    
 
         </mdb-card>
       </div>
@@ -130,21 +178,23 @@
             <br>
             <a class="trashIcon" (click)="deleteTravel(t)"><i class="fa fa-trash" style="color:rgb(188, 38, 38)"> </i>
             </a>
+            <br>
+            <div class="editIcon">
+                <a (click)="showInputEditTr=!showInputEditTr"> <i class="far fa-edit"></i></a>
+    
+                <!-- <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInputEditTr=!showInputEditTr">
+                  <i class="far fa-edit"></i></button> -->
+                <div [hidden]="!showInputEditTr">
+                  <form (submit)="editTravel(t,$event)">
+                    <input name="mode">
+                    <input type="number" name="cost" min="0">
+                    <input type="submit">
+                  </form>
+                </div>
+              </div>
 
           </mdb-card-body>
-          <div>
-            <a (click)="showInputEditTr=!showInputEditTr"> <i class="far fa-edit"></i></a>
-
-            <!-- <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInputEditTr=!showInputEditTr">
-              <i class="far fa-edit"></i></button> -->
-            <div [hidden]="!showInputEditTr">
-              <form (submit)="editTravel(t,$event)">
-                <input name="mode">
-                <input type="number" name="cost" min="0">
-                <input type="submit">
-              </form>
-            </div>
-          </div>
+         
 
 
         </mdb-card>
