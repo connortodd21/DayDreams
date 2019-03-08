@@ -1,33 +1,296 @@
 <div>
-  <div class="grid-container" id="circleObject">
-    <h4>
-      <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=returnToCircles()> <i class="fa fa-arrow-left"> </i> Back
-        to Circle </button>
-        <button mdbBtn type="button" color="primary"
-            mdbWavesEffect (click)=renderEditDayDream()>Edit Daydream <i class="fa fa-edit"> </i></button>
-        <button type="button" class="btn btn-danger" (click)=delDaydream()>Delete DayDream <i class="fa fa-trash"> </i></button>
-    </h4>
-    <div *ngIf="myDayDream">
-      <h2 class="center"><b>Description:</b> {{myDayDream.description}}</h2>
-      <h2 class="center"><b>Destination:</b> {{myDayDream.destination}}</h2>
-      <h1 class="blueLine">__________________________________________________________________</h1>
+  <div>
 
-      <h3> Current Lodging options: {{lodgingInfo}}</h3>
-      <h3> Planned activities: {{excursions}}</h3>
-      <h1 class="blueLine">__________________________________________________________________</h1>
+
+
+    <div *ngIf="myDayDream">
+      <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=returnToCircles()> <i class="fa fa-arrow-left">
+        </i> Back
+        to Circle </button>
+      <h1 class="center">{{myDayDream.destination}}</h1>
+      <br>
+      <h1 class="status">${{totalMoney}}/${{myDayDream.totalCost}}</h1>
+
+      <div class="progress md-progress" id="progress">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" [ngStyle]="{'width': moneyPercentage + '%'}"
+            aria-valuemin="0" aria-valuemax="100">
+          </div>
+        </div>
+        <br>
+      <div>
+        <div>
+      
+    </div>
+     
+      <div class="rightAlign" *ngIf="!isMemory">
+          
+          
+       
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  
+            <body class="rightAlign">
+              <div class="w3-container">
+                  <button mdbBtn type="button" mdbWavesEffect color="success" (click)="showInput=!showInput">Add Funds <i class="fa fa-plus">
+                    </i></button>
+                  <div [hidden]="!showInput">
+                    <form (submit)="addFunds($event)">
+                      <input type="number" name="quantity" min="0">
+                      <input type="submit">
+                    </form>
+                  </div>
+                  <button mdbBtn type="button" mdbWavesEffect color="success" (click)="funds=!funds">Reduce Funds -<i class="fa fa-minus-sign">
+                    </i></button>
+                  <div [hidden]="!funds">
+                    <form (submit)="reduceFunds($event)">
+                      <input type="number" name="quantity" min="0">
+                      <input type="submit">
+                    </form>
+                  </div>
+                  <button onclick="document.getElementById('id01').style.display='block'" mdbBtn type="button"
+                    color="success" mdbWavesEffect>Contributors <i class="fa fa-user"> </i> </button>
+  
+                  <div id="id01" class="w3-modal">
+                    <div class="w3-modal-content">
+                      <div class="w3-container">
+                        <mdb-card>
+                          <mdb-card-body>
+                          
+  
+                              
+                                <h4 class="center">Contributors</h4>
+  
+                                <div class="centerText" *ngFor="let c of contributions; index as i" [attr.data-index]="i">
+                                    {{c.user}}: ${{c.total}}
+                                  </div>
+                                <button mdbBtn type="button" mdbWavesEffect color="info" (click)="showTopContributors()"  block="true" (click)="showTop=!showTop" class="my-4">
+                                    Show Contributors </button>
+                                
+  
+                        
+  
+                          
+                              <button data-dismiss="modal" type="button"
+                                onclick="document.getElementById('id01').style.display='none'" mdbBtn color="info"
+                                block="true" class="my-4">Close</button>
+  
+                          </mdb-card-body>
+                        </mdb-card>
+                      </div>
+                    </div>
+                  </div>
+                
+              </div>
+            </body>
+  
+        
+        </div>
+      </div>
+      
+      <button mdbBtn type="button" color="primary" mdbWavesEffect (click)=renderEditDayDream()>Edit Daydream <i class="fa fa-edit">
+        </i></button>
+      <button type="button" class="btn btn-danger" (click)=delDaydream()>Delete DayDream <i class="fa fa-trash">
+        </i></button>
+      <h1 class="blueLine">
+        ___________________________________________________________________________________________________________</h1>
+
+      <h1 class="header">Description:</h1>
+      <h2 class="description">{{myDayDream.description}}</h2>
+      <h4>
+
+
+
+      </h4>
+      <h1 class="blueLine">
+        ___________________________________________________________________________________________________________</h1>
+
+      <h1 class="header">Lodging options</h1>
+      <h1 class="costHeader">Total Cost: ${{lodgingCost}}</h1>
+
+      <div>
+        <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInputLod=!showInputLod">Add a lodging
+          option
+          <i class="fa fa-plus"> </i></button>
+        <div [hidden]="!showInputLod">
+          <form (submit)="addLodging($event)">
+            <input name="address">
+            <input type="number" name="cost" min="0">
+            <input type="submit">
+          </form>
+        </div>
+      </div>
+
+      <div class="grid-container">
+        <mdb-card class="cardClean" *ngFor="let l of lodgingInfo">
+          <mdb-card-body>
+            <h1> {{l.address}} <div class="cost"> ${{l.cost}}</div>
+            </h1>
+
+            <br>
+            <a>{{l.user}}</a>
+            <br>
+            <a class="trashIcon" (click)="deleteLodging(l)"><i class="fa fa-trash" style="color:rgb(188, 38, 38)"> </i>
+            </a>
+            <br>
+            <div class="editIcon">
+                <a (click)="showInputEditLod=!showInputEditLod"> <i class="far fa-edit"></i></a>
+                <!-- <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInputEditLod=!showInputEditLod">
+                    <i class="far fa-edit"></i></button> -->
+                <div [hidden]="!showInputEditLod">
+                  <form (submit)="editLodging(l,$event)">
+                    <input name="address">
+                    <input type="number" name="cost" min="0">
+                    <input type="submit">
+                  </form>
+                </div>
+              </div>
+          </mdb-card-body>
+
+    
+
+        </mdb-card>
+      </div>
+
+      <h1 class="blueLine">
+        ___________________________________________________________________________________________________________</h1>
+      <h4 class="header">Transportation options</h4>
+      <h4 class="costHeader">Total Cost: ${{transportationCost}} </h4>
+
+      <div>
+        <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInputTr=!showInputTr">Add a
+          Transportation
+          Option <i class="fa fa-plus"> </i></button>
+        <div [hidden]="!showInputTr">
+          <form (submit)="addTravel($event)">
+            <input name="mode">
+            <input type="number" name="cost" min="0">
+            <input type="submit">
+          </form>
+        </div>
+      </div>
+
+      <div class="grid-container">
+        <mdb-card class="cardClean" *ngFor="let t of travelInfo">
+          <mdb-card-body>
+            <h1> {{t.mode}} <div class="cost"> ${{t.cost}}</div>
+            </h1>
+
+            <br>
+            <a>{{t.user}}</a>
+            <br>
+            <a class="trashIcon" (click)="deleteTravel(t)"><i class="fa fa-trash" style="color:rgb(188, 38, 38)"> </i>
+            </a>
+            <br>
+            <div class="editIcon">
+                <a (click)="showInputEditTr=!showInputEditTr"> <i class="far fa-edit"></i></a>
+    
+                <!-- <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInputEditTr=!showInputEditTr">
+                  <i class="far fa-edit"></i></button> -->
+                <div [hidden]="!showInputEditTr">
+                  <form (submit)="editTravel(t,$event)">
+                    <input name="mode">
+                    <input type="number" name="cost" min="0">
+                    <input type="submit">
+                  </form>
+                </div>
+              </div>
+
+          </mdb-card-body>
+         
+
+
+        </mdb-card>
+      </div>
+
+
+      <h1 class="blueLine">
+        ___________________________________________________________________________________________________________</h1>
+      <h1 class="header"> Planned activities</h1>
+      <h1 class="costHeader">Total Cost: ${{excursionCost}}</h1> 
+      <div>
+        <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInputExc=!showInputExc">Add an
+          Excursion <i class="fa fa-plus"> </i></button>
+        <div [hidden]="!showInputExc">
+          <form (submit)="addExcursion($event)">
+            <input name="information">
+            <input type="number" name="cost" min="0">
+            <select class="browser-default custom-select">
+              <option selected>Open this select menu</option>
+              <option value="Indoor Activity">Indoor Activity</option>
+              <option value="Food">Food</option>
+              <option value="Outdoor Activity">Outdoor Activity</option>
+              <option value="Tour">Tour</option>
+              <option value="Sightseeing">Sightseeing</option>
+              <option value="Other">Other</option>
+            </select>
+            <input type="submit">
+          </form>
+        </div>
+      </div>
+      <div class="grid-container">
+        <mdb-card class="cardClean" *ngFor="let e of excursionInfo">
+          <mdb-card-body>
+            <h1> {{e.information}} <div class="cost"> ${{e.cost}}</div>
+            </h1>
+            <h1>{{e.category}}</h1>
+            <!-- <p>{{e._id}}</p> -->
+            <br>
+            <a>{{e.user}}</a>
+            <br>
+            <a class="trashIcon" (click)="deleteExcursion(e)"><i class="fa fa-trash" style="color:rgb(188, 38, 38)">
+              </i> </a>
+          </mdb-card-body>
+          <div>
+              <a (click)="showInputEditExc=!showInputEditExc"> <i class="far fa-edit"></i></a>
+
+            <div [hidden]="!showInputEditExc">
+              <form (submit)="editExcursion(e,$event)">
+                <input name="information">
+                <input type="number" name="cost" min="0">
+                <select class="browser-default custom-select">
+                  <option selected>Open this select menu</option>
+                  <option value="Indoor Activity">Indoor Activity</option>
+                  <option value="Food">Food</option>
+                  <option value="Outdoor Activity">Outdoor Activity</option>
+                  <option value="Tour">Tour</option>
+                  <option value="Sightseeing">Sightseeing</option>
+                  <option value="Other">Other</option>
+                </select>
+                <input type="submit">
+              </form>
+            </div>
+          </div>
+
+
+
+
+
+
+        </mdb-card>
+      </div>
+      <h1 class="blueLine">___________________________________________________________________________________________________________</h1>
+
 
     </div>
   </div>
 </div>
 
-<input
-  style="display: none"
-  type="file" (change)="onFileChanged($event)"
-  #fileInput>
-<button (click)="fileInput.click()">Select File</button>
+
 <!-- <button (click)="onUpload()">Upload!</button> -->
 
-<div *ngFor="let i of images">
-    <img [src]="i.url" class="imgSize" />
-  </div>
+<h1 class="header"> Pictures </h1>
+<input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
+<button type="button" class="btn btn-info" (click)="fileInput.click()">Upload picture <i class="fa fa-camera">
+  </i> </button>
+<div class="grid-container2">
+  <div *ngFor="let i of images">
+  <img [src]="i.url" class="imgSize" />
+</div>
+</div>
+<h1 class="blueLine">___________________________________________________________________________________________________________</h1>
 
+<br> 
+<div *ngIf="!isMemory">
+    <button type="button" class="btn btn-success" (click)=addDayDreamToMemories()>Daydream Completed <i class="fa fa-globe">
+      </i></button>
+  </div>

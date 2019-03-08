@@ -42,26 +42,18 @@
                 <a routerLink="/register">Register</a>
               </p>
       
-              <div *ngIf="response_msg === 'badPass' " class="alert alert-danger" role="alert">
+              <div *ngIf="response === 'badPass' " class="alert alert-danger" role="alert">
                 Username or Password is Incorrect
               </div>
-              <div *ngIf="response_msg === 'failed' " class="alert alert-danger" role="alert">
+              <div *ngIf="response === 'failed' " class="alert alert-danger" role="alert">
                 A Fatal Error Has Occcoured. Please Try Again Later
               </div>
-              <div *ngIf="response_msg === 'DNE' " class="alert alert-danger" role="alert">
+              <div *ngIf="response === 'DNE' " class="alert alert-danger" role="alert">
                 Username or Password is Incorrect
               </div>
               <!-- <div *ngIf="response_msg === 'verify' " class="alert alert-info" role="alert">
                 User Account Still Needs to Be Verified. Please Check your Email for your Verification Code.
               </div> -->
-      
-      
-              <div *ngIf="response_msg === 'verify'" #alert class="alert alert-info alert-dismissible fade show" role="alert">
-                <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                User Account Still Needs to Be Verified. Please Check your Email for your Verification Code.
-              </div>
             </form>
           </mdb-card-body>
         </mdb-card>

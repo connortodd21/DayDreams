@@ -2,25 +2,25 @@
     <h1>Edit: {{myDayDream.destination}}</h1>
     <mdb-card class="outerCard">
         <mdb-card-body>
-            <form (submit)="sendEdits(f)" #f="ngForm" [formGroup]="editDayDreamForm">
+            <form (submit)="sendEdits(f)" [formGroup]="editDaydreamForm" #f="ngForm" >
                 <div class="form-group">
 
                     <h5 class="header">Edit DayDream Destination</h5>
-                    <input type="text" class="form-control" formControlName="destination" value={{myCircle.circleName}}
+                    <input type="text" class="form-control" formControlName="destination" value={{myDayDream.destination}}
                         [ngClass]="{ 'is-invalid': submitted && form.destination.errors }" />
                     <div *ngIf="submitted && form.destination.errors" class="invalid-feedback">
-                        <div *ngIf="form.circleName.errors.required">DayDream Destination is required</div>
+                        <div *ngIf="form.destination.errors.required">DayDream Destination is required</div>
                     </div>
 
                     <h5 class="header">Edit DayDream Description</h5>
-                    <input type="text" class="form-control" formControlName="description" value={{myCircle.imageUrl}}
+                    <input type="text" class="form-control" formControlName="description" value={{myDayDream.description}}
                         [ngClass]="{ 'is-invalid': submitted && form.description.errors }" />
                     <div *ngIf="submitted && form.description.errors" class="invalid-feedback">
                         <div *ngIf="form.description.errors.required">DayDream Description is required</div>
                     </div>
 
                     <h5 class="header">Edit DayDream Cost</h5>
-                    <input type="text" class="form-control" formControlName="totalCost" value={{myCircle.description}}
+                    <input type="text" class="form-control" formControlName="totalCost" value={{myDayDream.totalCost}}
                         [ngClass]="{ 'is-invalid': submitted && form.totalCost.errors }" />
                     <div *ngIf="submitted && form.totalCost.errors" class="invalid-feedback">
                         <div *ngIf="form.totalCost.errors.required">Total Cost is required</div>
@@ -42,7 +42,12 @@
 
                 <button mdbBtn color="info" block="true" class="my-4" type="submit">Submit</button>
 
-                <button mdbBtn (click)="cancelEdits()" color="danger" outline="true" mdbWavesEffect block="true">Cancel</button>
+                <div *ngIf="submitted">
+                    <button mdbBtn (click)="cancelEdits()" color="info" outline="true" mdbWavesEffect block="true">Done</button>
+                </div>
+                <div *ngIf="!submitted">
+                    <button mdbBtn (click)="cancelEdits()" color="danger" outline="true" mdbWavesEffect block="true">Cancel</button>
+                </div>
 
 
             </form>

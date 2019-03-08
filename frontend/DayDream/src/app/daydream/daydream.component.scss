@@ -1,3 +1,71 @@
 .blueLine{
     color: rgb(0, 176, 255);
 }
+
+.rightAlign{
+  text-align: right;
+}
+
+.centerText{
+  text-align: center;
+  font-size: 20px;
+}
+.cost{
+    color: rgb(45, 173, 45);
+    font-size: 20px;
+}
+
+.cardClean{
+    padding:20px;
+    width: 300px;
+    margin-top: 20px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    padding: 10px;
+  }
+
+  .grid-container2{
+    display: grid;
+    grid-template-columns: auto auto auto;
+  }
+
+  .header{
+      font-size: 50px;
+      font-weight: thick;
+      font-weight: 400;
+  }
+
+  .trashIcon{
+    color: red;
+    margin-left: 200px;
+  }
+
+  .editIcon{
+    margin-left: 200px;
+
+
+  }
+  .center{
+    text-align: center;
+    font-size: 80px;
+    font-weight: 400;
+  }
+  
+  .description{
+    font-size: 25px;
+    
+  }
+
+  .status{
+    color: green;
+    font-size: 40px;
+    text-align: center;
+  }
+
+  .costHeader{
+    color: rgb(45, 173, 45);
+    font-size: 40px;
+  }

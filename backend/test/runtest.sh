@@ -25,6 +25,8 @@ mocha test/circle/test_all_members.js --exit
 mocha test/circle/test_get_circle_info.js --exit
 mocha test/circle/test_get_all_daydreams.js --exit
 mocha test/circle/test_remove_circle.js --exit
+mocha test/circle/test_add_message.js --exit
+mocha test/circle/test_edit_circle_description.js --exit
 
 sleep 2
 

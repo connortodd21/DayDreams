@@ -3,6 +3,9 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { AuthData } from '../models/auth-data.model'
 import { Subject, Observable } from "rxjs";
 import { Router } from "@angular/router";
+import { HomeComponent } from '../home/home.component';
+import { AppComponent } from '../app.component';
+import { map } from 'rxjs/operators';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -64,11 +67,11 @@ export class AuthService {
         })
     }
 
-    login(username: string, password: string) {
+    async login(username: string, password: string) {
         const auth: AuthData = { username: username, password: password, email: "" }
         console.log(auth)
-        this.http.post("http://localhost:5000/user/login", auth, httpOptions)
-            .subscribe(response => {
+        await this.http.post("http://localhost:5000/user/login", auth, httpOptions).pipe(
+            map(response => {
                 const token = response.headers.get('token');
                 this.token = token
                 if (token) {
@@ -81,28 +84,33 @@ export class AuthService {
                     this.response_login = "complete";
                     console.log(expirationDate);
                     this.addAuthToLocalStorage(token, expirationDate);
-                    this.router.navigate(["/home"]);
+                    window.location.replace("/home");
                 }
-            },
-                error => {
-                    if (error.error.message == "Account has not been verified, please verify your account") {
-                        this.response_login = "verify"
-                    }
-                    else if (error.error.message == "Error: Password is incorrect") {
-                       this.response_login = "badPass" 
-                    }
-                    else if (error.error.message == "Error: User does not exist, register before logging in") {
-                        this.response_login = "DNE"
-                    }
-                    else {
-                        this.response_login = "failed";
-                    }
-                    console.log(error.error.message);
+            }
+            )).toPromise().catch((error) => {
+                if (error.error.message == "Account has not been verified, please verify your account") {
+                    this.response_login = "verify"
                 }
-            );
+                else if (error.error.message == "Error: Password is incorrect") {
+                   this.response_login = "badPass" 
+                   return "basPass"
+                }
+                else if (error.error.message == "Error: User does not exist, register before logging in") {
+                    this.response_login = "DNE"
+                    return "DNE"
+                }
+                else {
+                    this.response_login = "failed";
+                    return "FAILED"
+                }
+                console.log(error.error.message);
+            })
         return this.response_login
     }
 
+    getResponseLogin(){
+        return this.response_login
+    }
 
     logout() {
         this.token = null;
@@ -152,6 +160,7 @@ export class AuthService {
             this.isAuthenticated = true;
             this.setAuthTimer(expiresIn / 10);
             this.authStatusListener.next(true);
+            return true;
         }
     }
 }

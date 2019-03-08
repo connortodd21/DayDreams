@@ -25,6 +25,7 @@
   object-fit: cover;
   width: 500px;
   height: 500px;
+  margin-left: 7px;
 }
 
 .grid-container {
@@ -53,6 +54,16 @@
       font-size: 50px;
   }
 
+  .cloudPic2{
+    color: rgb(159, 208, 230);
+    font-size: 200px;
+  }
+
+  .cloudPic{
+    color: rgb(0, 176, 255);
+    font-size: 200px;
+  }
+
   .adjustLeftMargin{
       margin-left: 20px;
   }
@@ -68,4 +79,36 @@
 #daydreams:hover{
     transform: scale(1.05);
     cursor: pointer;
+}
+
+.overflowTest {
+    background: rgb(219, 238, 244);
+    color: black;
+    padding: 15px;
+    width: 72%;
+    height: 200px;
+    overflow: scroll;
+    border: 1px solid #ccc;
+    margin-left: 7px;
+    border-radius: 18px;
+
+  }
+
+.messagesButton{
+    width: 72%;
+    border-radius: 10px;
+}
+
+.messagesInput{
+    width: 66%;
+    margin-left:7px;
+    margin-bottom: 7px;
+    border-radius: 10px;
+    height: 38px;
+}
+
+.iconSize{
+    font-size: 35px;
+    color: rgb(0, 176, 255);
+    margin-left: 10px;
 }

@@ -161,6 +161,38 @@ router.post('/add-user', authenticate, (req, res) => {
 })
 
 /*
+*   Delete chosen circle
+*/
+router.post('/delete', authenticate, (req, res) => {
+
+    //ensure that requesthas circleID
+    //if not, send bad request
+    if (!req.body || !req.body.circleID) {
+        // console.log(req.body)
+        res.status(400).send({ message: "Bad request" });
+        return;
+    }
+
+    //find specific Circle object by ID
+    //requires circleid to be passed in as a header
+    Circle.findByIdAndDelete(req.body.circleID, (err, circ) => {
+        if (err || circ == null) {
+            res.status(400).send({ message: "Could not find circle" });
+            return;
+        }
+        DayDream.findOneAndDelete({_id: {$in: circ.dayDreams}}).then(() => {
+            res.status(200).send(circ) //returns all circle properties
+            return
+        }).catch((err) => {
+            res.send(err);
+        })
+        // console.log(circ);
+    }).catch((err) => {
+        res.send(err);
+    })
+})
+
+/*
 *   Edit existing circle
 */
 router.post("/edit-name", authenticate, (req, res) => {
@@ -169,17 +201,23 @@ router.post("/edit-name", authenticate, (req, res) => {
         return;
     }
 
-    Circle.findOneAndUpdate({ _id: req.body.circleID },
-        {
-            $set: {
-                circleName: req.body.circleName,
-            }
-        }).then(() => {
-            res.status(200).send({ message: 'Circle name updated!' })
-            return
-        }).catch((err) => {
-            res.send(err);
-        })
+    Circle.findOne({ _id: req.body.circleID }).then((circ) => {
+        if (!circ) {
+            res.status(400).json({ message: "Circle does not exist" });
+            return;
+        }
+        Circle.findOneAndUpdate({ _id: req.body.circleID },
+            {
+                $set: {
+                    circleName: req.body.circleName,
+                }
+            }).then(() => {
+                res.status(200).send({ message: 'Circle name updated!' })
+                return
+            }).catch((err) => {
+                res.send(err);
+            })
+    })
 })
 
 router.post('/add-message', authenticate, (req, res) => {
@@ -233,6 +271,32 @@ router.post("/edit-circle-description", authenticate, (req, res) => {
         })
 })
 
+router.post('/leave', authenticate, (req, res) => {
+    if(!req.body.circleID){
+        res.status(400).json({ message: "Circle description change is incomplete" });
+        return;
+    }
+    Circle.findOne({_id: req.body.circleID}).then((circ) => {
+        if(!circ){
+            res.status(400).send({message: "Circle does not exist"})
+            return
+        }
+        Circle.findOneAndUpdate({_id: req.body.circleID}, {
+            $pull: {
+                members: req.user.username
+            }
+        }).then(() => {
+            res.status(200).send({ message: username + " has left circle"})
+            return
+        }).catch((err) => {
+            res.send(err);
+            return
+        })
+    }).catch((err) => {
+        res.send(err);
+        return
+    })
+})
 
 /*
 *   Get all members in a circle
@@ -313,7 +377,7 @@ router.get('/all-daydreams', authenticate, (req, res) => {
             res.status(400).send({ message: "Could not find circle" });
             return;
         }
-        DayDream.find({ _id: { $in: circ.dayDreams } }).then((dd) => {
+        DayDream.find({ _id: { $in: circ.dayDreams }, completed: false }).then((dd) => {
             if (dd == null) {
                 res.status(400).send({ message: "Could not find any daydreams" });
                 return;
@@ -330,32 +394,32 @@ router.get('/all-daydreams', authenticate, (req, res) => {
     })
 })
 
+router.get('/all-memories', authenticate, (req, res) => {
 
-
-
-/*
-*   Delete chosen circle
-*/
-router.post('/delete', authenticate, (req, res) => {
-
-    //ensure that requesthas circleID
-    //if not, send bad request
-    if (!req.body || !req.body.circleID) {
-        // console.log(req.body)
+    if (!req.headers.circleid) {
         res.status(400).send({ message: "Bad request" });
         return;
     }
 
-    //find specific Circle object by ID
-    //requires circleid to be passed in as a header
-    Circle.findByIdAndDelete(req.body.circleID, (err, circ) => {
-        if (err || circ == null) {
+    Circle.findOne({ _id: req.headers.circleid }).then((circ) => {
+        if (circ == null) {
             res.status(400).send({ message: "Could not find circle" });
             return;
         }
-        res.status(200).send(circ) //returns all circle properties
+        DayDream.find({ _id: { $in: circ.dayDreams }, completed: true }).then((dd) => {
+            if (dd == null) {
+                res.status(400).send({ message: "Could not find any daydreams" });
+                return;
+            }
+            res.status(200).send(dd)
+            return
+        }).catch((err) => {
+            res.send(err)
+            return
+        })
+    }).catch((err) => {
+        res.send(err)
         return
-        // console.log(circ);
     })
 })
 

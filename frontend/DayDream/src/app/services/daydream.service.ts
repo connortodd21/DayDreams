@@ -11,15 +11,15 @@ const httpOptions = {
 
 @Injectable({ providedIn: "root" })
 
-export class DaydreamService{
+export class DaydreamService {
 
     Daydream: Object;
 
-    constructor(private http:HttpClient) {
+    constructor(private http: HttpClient) {
 
     }
 
-    getAllDaydreamInfo(daydreamID:string) {
+    getAllDaydreamInfo(daydreamID: string) {
         const info = {
             headers: new HttpHeaders({
                 'daydreamID': daydreamID
@@ -30,7 +30,7 @@ export class DaydreamService{
         return this.http.get("http://localhost:5000/daydream/info", info).toPromise()
     }
 
-    deleteChosenDaydream(daydreamID:string) {
+    deleteChosenDaydream(daydreamID: string) {
         const chosen = {
             daydreamID: daydreamID
         }
@@ -38,7 +38,7 @@ export class DaydreamService{
         return this.http.post("http://localhost:5000/daydream/delete", chosen).toPromise()
     }
 
-    createDaydream(circleID:string, destination:string, description:string, totalCost:Number){
+    createDaydream(circleID: string, destination: string, description: string, totalCost: Number) {
         const daydream = {
             circleID: circleID,
             destination: destination,
@@ -48,7 +48,15 @@ export class DaydreamService{
         return this.http.post("http://localhost:5000/daydream/add", daydream).toPromise()
     }
 
-    uploadPhoto(formdata:FormData, dayDreamID:string){
+    addToMemories(daydreamID: string) {
+        const chosen = {
+            daydreamID: daydreamID
+        }
+
+        return this.http.post("http://localhost:5000/daydream/add-to-memories", chosen).toPromise()
+    }
+
+    uploadPhoto(formdata: FormData, dayDreamID: string) {
         const info = {
             headers: new HttpHeaders({
                 // 'Content-Type': 'application/form-data',
@@ -59,7 +67,226 @@ export class DaydreamService{
         return this.http.post("http://localhost:5000/daydream/upload-photo", formdata, info).toPromise()
     }
 
-    getPhotos(dayDreamID:string){
+
+    /*
+    *   get lodging
+    */
+    getLodging(dayDreamID: string) {
+        const info = {
+            headers: new HttpHeaders({
+                'daydreamID': dayDreamID
+            })
+        }
+        /* calls /circle/info from the backend*/
+        return this.http.get<Array<Object>>("http://localhost:5000/daydream/get-lodging", info).toPromise()
+    }
+
+    /*
+    *   create lodging
+    */
+    createLodging(daydreamID: string, address: string, cost: Number) {
+        const lodging = {
+            daydreamID: daydreamID,
+            address: address,
+            cost: cost
+        }
+        return this.http.post("http://localhost:5000/daydream/add-lodging", lodging).toPromise()
+    }
+
+    /*
+    *   edit lodging
+    */
+   editLodging(daydreamID: string, lodgingInformationID: string, address:string, cost:Number ) {
+    const lodging = {
+        daydreamID: daydreamID,
+        lodgingInformationID: lodgingInformationID,
+        address: address,
+        cost: cost
+    }
+    return this.http.post("http://localhost:5000/daydream/edit-lodging", lodging).toPromise()
+   }
+    /*
+    *   Delete lodging
+    */
+
+    deleteChosenLodging(daydreamID: string, lodgingInformationID: string) {
+        const chosen = {
+            daydreamID: daydreamID,
+            lodgingInformationID: lodgingInformationID
+        }
+        return this.http.post("http://localhost:5000/daydream/delete-lodging", chosen).toPromise()
+    }
+
+    /*
+    *   get travel
+    */
+
+    getTravel(dayDreamID: string) {
+        const info = {
+            headers: new HttpHeaders({
+                'daydreamID': dayDreamID
+            })
+        }
+        /* calls /circle/info from the backend*/
+        return this.http.get<Array<Object>>("http://localhost:5000/daydream/travel", info).toPromise()
+    }
+
+
+    /*
+    *   Create travel
+    */
+
+    createTravel(daydreamID: string, mode: string, cost: Number) {
+        const travel = {
+            daydreamID: daydreamID,
+            mode: mode,
+            cost: cost
+        }
+        return this.http.post("http://localhost:5000/daydream/add-travel", travel).toPromise()
+    }
+
+    /*
+    *   edit travel 
+    */
+   editTravel(daydreamID: string, travelInformationID: string, mode:string, cost:Number ) {
+    const travel = {
+        daydreamID: daydreamID,
+        travelInformationID: travelInformationID,
+        mode: mode,
+        cost: cost
+    }
+    return this.http.post("http://localhost:5000/daydream/edit-travel", travel).toPromise()
+}
+    
+
+    /*
+    *   Delete travel
+    */
+
+
+    deleteChosenTravel(daydreamID: string, travelInformationID: string) {
+        const chosen = {
+            daydreamID: daydreamID,
+            travelInformationID: travelInformationID
+        }
+        return this.http.post("http://localhost:5000/daydream/delete-travel", chosen).toPromise()
+    }
+
+    getTotalContribution(daydreamID: string) {
+        const info = {
+            headers: new HttpHeaders({
+                // 'Content-Type': 'application/form-data',
+                'daydreamID': daydreamID
+            })
+        }
+        return this.http.get("http://localhost:5000/daydream/contribution-sum", info).toPromise()
+    }
+
+    getExcursionSum(daydreamID:string){
+        const info = {
+            headers: new HttpHeaders({
+                // 'Content-Type': 'application/form-data',
+                'daydreamID': daydreamID
+            })
+        }
+        return this.http.get("http://localhost:5000/daydream/excursion-sum", info).toPromise()
+    }
+
+    getTransportationSum(daydreamID:string){
+        const info = {
+            headers: new HttpHeaders({
+                // 'Content-Type': 'application/form-data',
+                'daydreamID': daydreamID
+            })
+        }
+        return this.http.get("http://localhost:5000/daydream/transportation-sum", info).toPromise()
+    }
+
+    getLodgingSum(daydreamID:string){
+        const info = {
+            headers: new HttpHeaders({
+                // 'Content-Type': 'application/form-data',
+                'daydreamID': daydreamID
+            })
+        }
+        return this.http.get("http://localhost:5000/daydream/lodging-sum", info).toPromise()
+    }
+
+    addContribution(daydreamID: string, cost: number) {
+        const chosen = {
+            daydreamID: daydreamID,
+            cost: cost
+        }
+        return this.http.post("http://localhost:5000/daydream/add-contribution", chosen).toPromise()
+    }
+
+    getContributionPerPerson(daydreamID: string) {
+        const info = {
+            headers: new HttpHeaders({
+                // 'Content-Type': 'application/form-data',
+                'daydreamID': daydreamID
+            })
+        }
+        return this.http.get("http://localhost:5000/daydream/individual-sum", info).toPromise()
+    }
+
+
+    /*
+    *   Get excursion
+    */
+
+    getExcursion(dayDreamID: string) {
+        const info = {
+            headers: new HttpHeaders({
+                'daydreamID': dayDreamID
+            })
+        }
+        /* calls /circle/info from the backend*/
+        return this.http.get<Array<Object>>("http://localhost:5000/daydream/excursion", info).toPromise()
+    }
+
+    /*
+    *   Create excursion
+    */
+
+    createExcursion(daydreamID: string, information: string, cost: Number, category: string ) {
+        const excursion = {
+            daydreamID: daydreamID,
+            information: information,
+            cost: cost,
+            category: category,
+        }
+        return this.http.post("http://localhost:5000/daydream/add-excursion", excursion).toPromise()
+    }
+
+    /*
+    *   edit excursion
+    */
+   editExcursion(daydreamID: string, excursionID: string, information:string, cost:Number, category: string ) {
+    const excursion = {
+        daydreamID: daydreamID,
+        excursionID: excursionID,
+        information: information,
+        cost: cost,
+        category: category
+    }
+    return this.http.post("http://localhost:5000/daydream/edit-excursion", excursion).toPromise()
+   }
+
+
+    /*
+    *   Delete excursion
+    */
+
+    deleteChosenExcursion(daydreamID: string, excursionID: string) {
+        const chosen = {
+            daydreamID: daydreamID,
+            excursionID: excursionID
+        }
+        return this.http.post("http://localhost:5000/daydream/delete-excursion", chosen).toPromise()
+    }
+
+    getPhotos(dayDreamID: string) {
         const info = {
             headers: new HttpHeaders({
                 // 'Content-Type': 'application/form-data',
@@ -67,5 +294,37 @@ export class DaydreamService{
             })
         }
         return this.http.get<Array<Object>>("http://localhost:5000/daydream/all-photos", info).toPromise()
+    }
+
+    removeFunds(dayDreamID:string, amount:number){
+        const options:Object = {
+            cost: -1 * amount,
+            daydreamID: dayDreamID,
+        }
+        return this.http.post("http://localhost:5000/daydream/add-contribution", options).toPromise()
+    }
+
+    editDayDreamDescription(description: string, daydreamID: string) {
+        const circle: Object = {
+            description: description,
+            daydreamID: daydreamID,
+        }
+        return this.http.post("http://localhost:5000/daydream/edit-description", circle)
+    }
+
+    editDayDreamDestination(destination: string, daydreamID: string) {
+        const circle: Object = {
+            destination: destination,
+            daydreamID: daydreamID,
+        }
+        return this.http.post("http://localhost:5000/daydream/edit-destination", circle)
+    }
+
+    editDayDreamCost(cost: number, daydreamID: string) {
+        const circle: Object = {
+            cost: cost,
+            daydreamID: daydreamID,
+        }
+        return this.http.post("http://localhost:5000/daydream/edit-cost", circle)
     }
 }

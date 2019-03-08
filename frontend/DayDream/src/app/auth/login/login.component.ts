@@ -41,11 +41,12 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['home']);
     }
 
-    onLogin(form: NgForm) {
+    async onLogin(form: NgForm) {
         this.submitted = true;
         if (this.loginForm.invalid) {
             return;
         }
+
         var password = this.encryptData(form.value.password)
         console.log(password)
         this.response = this.authService.login(form.value.username, password)
@@ -59,6 +60,10 @@ export class LoginComponent implements OnInit {
         } catch (e) {
             console.log(e);
         }
+
+        this.response = await (this.authService.login(form.value.username, form.value.password))
+        console.log(this.response)
+
     }
 
 }
