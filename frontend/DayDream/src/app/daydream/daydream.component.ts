@@ -354,9 +354,15 @@ export class DaydreamComponent implements OnInit {
       try {
         var conts = contributions[0].total
         let i: number = 0
+        console.log(conts)
+        let j:number = 0
         for (i = 0; i < conts.length; i++) {
-          this.contributions[i] = conts
+          if(conts[i].total <= 0){
+            continue
+          }
+          this.contributions[j++] = conts[i]
         }
+        console.log(this.contributions)
       } catch (error) {
         window.alert("There are no contributors yet");
       }

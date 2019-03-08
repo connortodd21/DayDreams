@@ -298,10 +298,10 @@ export class DaydreamService {
 
     removeFunds(dayDreamID:string, amount:number){
         const options:Object = {
-            amount: amount,
+            cost: -1 * amount,
             daydreamID: dayDreamID,
         }
-        return this.http.post("http://localhost:5000/daydream/decrease-funds", options).toPromise()
+        return this.http.post("http://localhost:5000/daydream/add-contribution", options).toPromise()
     }
 
     editDayDreamDescription(description: string, daydreamID: string) {

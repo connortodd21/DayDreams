@@ -61,7 +61,7 @@
                                 <h4 class="center">Contributors</h4>
   
                                 <div class="centerText" *ngFor="let c of contributions; index as i" [attr.data-index]="i">
-                                    {{c[i].user}}: ${{c[i].total}}
+                                    {{c.user}}: ${{c.total}}
                                   </div>
                                 <button mdbBtn type="button" mdbWavesEffect color="info" (click)="showTopContributors()"  block="true" (click)="showTop=!showTop" class="my-4">
                                     Show Contributors </button>
@@ -70,7 +70,7 @@
                         
   
                           
-                              <button (click)="cancel()" type="button"
+                              <button data-dismiss="modal" type="button"
                                 onclick="document.getElementById('id01').style.display='none'" mdbBtn color="info"
                                 block="true" class="my-4">Close</button>
   
