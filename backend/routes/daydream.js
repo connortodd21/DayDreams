@@ -625,6 +625,31 @@ router.post("/edit-cost", authenticate, (req, res) => {
     })
 })
 
+router.post('/decrease-funds', authenticate, (req, res) => {
+    if (!req.body.daydreamID || !req.body.amount) {
+        res.status(400).json({ message: "Daydream change is incomplete" });
+        return;
+    }
+    DayDream.findOne({_id: req.body.daydreamID}).then((dd) => {
+        if(!dd){
+            res.status(400).send({ message: "Daydream does not exist" });
+            return;
+        }
+        DayDream.findOneAndUpdate({ _id: req.body.daydreamID}, {
+            $inc: {
+                totalCost: (amount * -1)
+            }
+        }).then(() => {
+            res.status(200).send({ message: 'Funds added!' })
+            return
+        }).catch((err) => {
+            res.send(err);
+        })
+    }).catch((err) => {
+        res.send(err);
+    })
+})
+
 router.post('/add-to-memories', authenticate, (req, res) => {
     if (!req.body.daydreamID) {
         res.status(400).json({ message: "Daydream change is incomplete" });
