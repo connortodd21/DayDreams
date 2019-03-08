@@ -9,6 +9,7 @@ var cloudinary = require("cloudinary");
 var cloudinaryStorage = require("multer-storage-cloudinary");
 var upload = require('../middleware/photo_upload')
 var validate = require('../middleware/validate_url')
+var mailer = require('../middleware/mailer')
 
 
 mongoose.connect(process.env.MONGODB_HOST, { useNewUrlParser: true });
@@ -142,7 +143,18 @@ router.post('/add-user', authenticate, (req, res) => {
                         numberOfPeople: 1
                     }
                 }).then(() => {
-                    res.status(200).send({ message: req.body.username + " added to Circle" })
+
+                    User.findEmailByUsername(req.body.username).then((email) => {
+                        var emailSubject = "DayDreams: You\'ve Been Added to \"" + circ.circleName + "\"!"
+                        var addedToCircleBody = "Dear " + req.body.username + 
+                        ",\n\nOne of your friends has added you to " + circ.founder + "\'s circle \"" + circ.circleName + "\". View your profile for more details.\n\n" +
+                        "Sincerely, \n\nThe DayDreams Team";
+
+                        mailer(email, emailSubject, addedToCircleBody);
+
+                        res.status(200).send({ message: req.body.username + " added to Circle" })
+                    })
+
                     return
                 }).catch((err) => {
                     res.status(400).send(err);

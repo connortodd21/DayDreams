@@ -86,6 +86,23 @@ userSchema.statics.findByEmail = function(email) {
   });
 };
 
+userSchema.statics.findEmailByUsername = function(username) {
+  var User = this;
+
+  return User.findOne({username}).then((user) => {
+    // console.log(user)
+    //console.log("email is: " + user.email)
+    if (user == null || !user.email) {
+      return Promise.reject();
+    }
+    else {
+      return Promise.resolve(user.email);
+    }
+  });
+};
+
+
+
 
 /* Function to prevent too much information from being returned on request when the response is the object */
 userSchema.methods.toJSON = function () {
