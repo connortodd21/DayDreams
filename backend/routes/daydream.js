@@ -799,6 +799,44 @@ router.get('/transportation-sum', authenticate, (req, res) => {
     })
 })
 
+outer.get('/lodging-sum', authenticate, (req, res) => {
+    if (!req.headers.daydreamid) {
+        // console.log(req.headers)
+        res.status(400).send({ message: "Bad request" });
+        return;
+    }
+    DayDream.findById(req.headers.daydreamid, (err, dd) => {
+        console.log(dd)
+        if (err || !dd) {
+            res.status(400).send({ message: "Could not find daydream" });
+            return;
+        }
+        DayDream.aggregate([
+            {
+                $match: {
+                    _id: ObjectId(req.headers.daydreamid.toString())
+                }
+            },
+            {
+                $unwind: "$lodgingInformation"
+            },
+            {
+                $group: {
+                    _id: null,
+                    TotalBalance: { $sum: "$lodgingInformation.cost" }
+                }
+            }
+        ]).then((daydream) => {
+            console.log(daydream)
+            res.status(200).send(daydream)
+        }).catch((err) => {
+            res.send(err);
+        })
+    }).catch((err) => {
+        res.send(err);
+    })
+})
+
 router.get('/excursion-sum', authenticate, (req, res) => {
     if (!req.headers.daydreamid) {
         // console.log(req.headers)
