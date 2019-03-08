@@ -175,6 +175,16 @@ export class DaydreamService{
         return this.http.get("http://localhost:5000/daydream/transportation-sum", info).toPromise()
     }
 
+    getLodgingSum(daydreamID:string){
+        const info = {
+            headers: new HttpHeaders({
+                // 'Content-Type': 'application/form-data',
+                'daydreamID': daydreamID
+            })
+        }
+        return this.http.get("http://localhost:5000/daydream/lodging-sum", info).toPromise()
+    }
+
     addContribution(daydreamID:string, cost:number){
         const chosen = {
             daydreamID: daydreamID,
