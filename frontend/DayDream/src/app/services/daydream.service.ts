@@ -296,6 +296,14 @@ export class DaydreamService {
         return this.http.get<Array<Object>>("http://localhost:5000/daydream/all-photos", info).toPromise()
     }
 
+    removeFunds(dayDreamID:string, amount:number){
+        const options:Object = {
+            amount: amount,
+            daydreamID: dayDreamID,
+        }
+        return this.http.post("http://localhost:5000/daydream/decrease-funds", options).toPromise()
+    }
+
     editDayDreamDescription(description: string, daydreamID: string) {
         const circle: Object = {
             description: description,
