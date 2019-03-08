@@ -24,6 +24,7 @@ export class DaydreamComponent implements OnInit {
   colors: Array<string>
   transportationCost: number
   excursionCost: number
+  lodgingCost: number
 
   constructor(private route: ActivatedRoute,
     private circleService: CircleService, private DaydreamService: DaydreamService, private formBuilder: FormBuilder, private _router: Router) {
@@ -61,6 +62,7 @@ export class DaydreamComponent implements OnInit {
       this.getTotalContributions()
       this.getTransportationCost()
       this.getExcursionCost()
+      this.getLodgingCost()
 
       this.displayExcursion()
 
@@ -96,6 +98,18 @@ export class DaydreamComponent implements OnInit {
       }
       else {
         this.transportationCost = Math.floor(total[0].TotalBalance)
+      }
+    })
+  }
+
+  getLodgingCost() {
+    this.DaydreamService.getLodgingSum(this.myDayDream.ID).then((total) => {
+      if (!total[0]) {
+        this.lodgingCost = 0
+        return
+      }
+      else {
+        this.lodgingCost = Math.floor(total[0].TotalBalance)
       }
     })
   }

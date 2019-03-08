@@ -799,7 +799,7 @@ router.get('/transportation-sum', authenticate, (req, res) => {
     })
 })
 
-outer.get('/lodging-sum', authenticate, (req, res) => {
+router.get('/lodging-sum', authenticate, (req, res) => {
     if (!req.headers.daydreamid) {
         // console.log(req.headers)
         res.status(400).send({ message: "Bad request" });
