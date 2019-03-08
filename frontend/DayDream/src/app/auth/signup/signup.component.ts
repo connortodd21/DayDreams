@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { NgForm, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AuthService } from "../../services/auth.service";
+import * as CryptoJS from 'crypto-js';
+import { environment } from '../../../environments/environment';
 
 
 @Component({
@@ -47,7 +49,9 @@ export class SignUpComponent implements OnInit {
             console.log(this.signUpForm);
             return;
         }
-        this.authService.registerUser(form.value.email, form.value.username, form.value.password).then((res) => {
+        var password = this.encryptData(form.value.password)
+        console.log(password)
+        this.authService.registerUser(form.value.email, form.value.username, password).then((res) => {
             this.response = "complete";
         }).catch((err) => {
             if (err.error.message == "User already exists") {
@@ -57,5 +61,15 @@ export class SignUpComponent implements OnInit {
                 this.response = "fatalError";
             }
         })
+    }
+
+    encryptData(data) {
+        try {
+            var key = CryptoJS.enc.Base64.parse(environment.KEY);
+            var iv = CryptoJS.enc.Base64.parse(environment.IV);
+            return CryptoJS.AES.encrypt(data, key, {iv: iv}).toString();
+        } catch (e) {
+            console.log(e);
+        }
     }
 }
