@@ -174,7 +174,8 @@
           <div class="grid-container-daydreams">
             <div *ngFor="let d of dayDreams" id="daydreams" class="topMargin cardProperties grid-item-daydreams"
               (click)="renderDayDream(d)">
-              <h1>{{d.destination}}</h1>
+              
+              <h1 class="cloudPic"><i class="fa fa-cloud"><h1>{{d.destination}}</h1> </i></h1>
               <div class="circleInfo">
 
               </div>
@@ -185,7 +186,7 @@
           <div class="grid-container-daydreams">
             <div *ngFor="let m of memories" id="daydreams" class="topMargin cardProperties grid-item-daydreams"
               (click)="renderDayDream(m)">
-              <h1>{{m.destination}}</h1>
+              <h1 class="cloudPic2"><i class="fa fa-cloud"><h1>{{m.destination}}</h1> </i></h1>
               <div class="circleInfo">
               </div>
             </div>
