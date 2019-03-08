@@ -248,10 +248,28 @@ export class DaydreamComponent implements OnInit {
     })
   }
 
+  editLodging(l,event){
+    console.log(event.target["0"].value)
+    console.log(event.target["1"].value)
+    var id = l._id;
+    this.DaydreamService.editLodging(this.myDayDream.ID, id, event.target["0"].value, event.target["1"].value).then(()=>{
+      window.location.replace("/daydream/" + this.myDayDream.ID);
+    })
+  }
+
   addTravel(event){
     console.log(event.target["0"].value)
     console.log(event.target["1"].value)
     this.DaydreamService.createTravel(this.myDayDream.ID, event.target["0"].value, event.target["1"].value).then(()=>{
+      window.location.replace("/daydream/" + this.myDayDream.ID);
+    })
+  }
+
+  editTravel(t,event){
+    console.log(event.target["0"].value)
+    console.log(event.target["1"].value)
+    var id = t._id;
+    this.DaydreamService.editTravel(this.myDayDream.ID, id, event.target["0"].value, event.target["1"].value).then(()=>{
       window.location.replace("/daydream/" + this.myDayDream.ID);
     })
   }
@@ -265,6 +283,19 @@ export class DaydreamComponent implements OnInit {
       window.location.replace("/daydream/" + this.myDayDream.ID);
     })
   }
+
+  editExcursion(e,event){
+    console.log(event.target["0"].value)
+    console.log(event.target["1"].value)
+    console.log(event.target["2"].value)
+    var id = e._id;
+    this.DaydreamService.editExcursion(this.myDayDream.ID, id, event.target["0"].value, event.target["1"].value,
+    event.target["2"].value).then(()=>{
+      window.location.replace("/daydream/" + this.myDayDream.ID);
+    })
+  }
+
+ 
 
   initializeColors() {
     var i: number = 0
