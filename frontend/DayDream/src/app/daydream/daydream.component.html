@@ -51,7 +51,8 @@
       <h1 class="header">Lodging options:<p></p>Total Cost: ${{lodgingCost}}</h1>
 
       <div>
-        <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInputLod=!showInputLod">Add a lodging option
+        <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInputLod=!showInputLod">Add a lodging
+          option
           <i class="fa fa-plus"> </i></button>
         <div [hidden]="!showInputLod">
           <form (submit)="addLodging($event)">
@@ -74,6 +75,20 @@
             <a class="trashIcon" (click)="deleteLodging(l)"><i class="fa fa-trash" style="color:rgb(188, 38, 38)"> </i>
             </a>
           </mdb-card-body>
+
+          <div>
+            <a (click)="showInputEditLod=!showInputEditLod"> <i class="far fa-edit"></i></a>
+            <!-- <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInputEditLod=!showInputEditLod">
+                <i class="far fa-edit"></i></button> -->
+            <div [hidden]="!showInputEditLod">
+              <form (submit)="editLodging(l,$event)">
+                <input name="address">
+                <input type="number" name="cost" min="0">
+                <input type="submit">
+              </form>
+            </div>
+          </div>
+
         </mdb-card>
       </div>
 
@@ -82,7 +97,8 @@
       <h4 class="header">Transportation options: <p></p>Total Cost: ${{transportationCost}}</h4>
 
       <div>
-        <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInputTr=!showInputTr">Add a Transportation
+        <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInputTr=!showInputTr">Add a
+          Transportation
           Option <i class="fa fa-plus"> </i></button>
         <div [hidden]="!showInputTr">
           <form (submit)="addTravel($event)">
@@ -106,6 +122,20 @@
             </a>
 
           </mdb-card-body>
+          <div>
+            <a (click)="showInputEditTr=!showInputEditTr"> <i class="far fa-edit"></i></a>
+
+            <!-- <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInputEditTr=!showInputEditTr">
+              <i class="far fa-edit"></i></button> -->
+            <div [hidden]="!showInputEditTr">
+              <form (submit)="editTravel(t,$event)">
+                <input name="mode">
+                <input type="number" name="cost" min="0">
+                <input type="submit">
+              </form>
+            </div>
+          </div>
+
 
         </mdb-card>
       </div>
@@ -115,24 +145,25 @@
         ___________________________________________________________________________________________________________</h1>
       <h1 class="header"> Planned activities:<p></p>Total Cost: ${{excursionCost}}</h1>
       <div>
-          <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInputExc=!showInputExc">Add an Excursion <i class="fa fa-plus"> </i></button>
-          <div [hidden]="!showInputExc">
-            <form (submit)="addExcursion($event)">
-              <input name="mode">
-              <input type="number" name="cost" min="0">
-              <select class="browser-default custom-select">
-                  <option selected>Open this select menu</option>
-                  <option value="Indoor Activity">Indoor Activity</option>
-                  <option value="Food">Food</option>
-                  <option value="Outdoor Activity">Outdoor Activity</option>
-                  <option value="Tour">Tour</option>
-                  <option value="Sightseeing">Sightseeing</option>
-                  <option value="Other">Other</option>
-                </select>
-              <input type="submit">
-            </form>
-          </div>
+        <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInputExc=!showInputExc">Add an
+          Excursion <i class="fa fa-plus"> </i></button>
+        <div [hidden]="!showInputExc">
+          <form (submit)="addExcursion($event)">
+            <input name="information">
+            <input type="number" name="cost" min="0">
+            <select class="browser-default custom-select">
+              <option selected>Open this select menu</option>
+              <option value="Indoor Activity">Indoor Activity</option>
+              <option value="Food">Food</option>
+              <option value="Outdoor Activity">Outdoor Activity</option>
+              <option value="Tour">Tour</option>
+              <option value="Sightseeing">Sightseeing</option>
+              <option value="Other">Other</option>
+            </select>
+            <input type="submit">
+          </form>
         </div>
+      </div>
       <div class="grid-container">
         <mdb-card class="cardClean" *ngFor="let e of excursionInfo">
           <mdb-card-body>
@@ -146,6 +177,31 @@
             <a class="trashIcon" (click)="deleteExcursion(e)"><i class="fa fa-trash" style="color:rgb(188, 38, 38)">
               </i> </a>
           </mdb-card-body>
+          <div>
+              <a (click)="showInputEditExc=!showInputEditExc"> <i class="far fa-edit"></i></a>
+
+            <div [hidden]="!showInputEditExc">
+              <form (submit)="editExcursion(e,$event)">
+                <input name="information">
+                <input type="number" name="cost" min="0">
+                <select class="browser-default custom-select">
+                  <option selected>Open this select menu</option>
+                  <option value="Indoor Activity">Indoor Activity</option>
+                  <option value="Food">Food</option>
+                  <option value="Outdoor Activity">Outdoor Activity</option>
+                  <option value="Tour">Tour</option>
+                  <option value="Sightseeing">Sightseeing</option>
+                  <option value="Other">Other</option>
+                </select>
+                <input type="submit">
+              </form>
+            </div>
+          </div>
+
+
+
+
+
 
         </mdb-card>
       </div>

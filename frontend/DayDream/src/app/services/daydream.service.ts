@@ -11,15 +11,15 @@ const httpOptions = {
 
 @Injectable({ providedIn: "root" })
 
-export class DaydreamService{
+export class DaydreamService {
 
     Daydream: Object;
 
-    constructor(private http:HttpClient) {
+    constructor(private http: HttpClient) {
 
     }
 
-    getAllDaydreamInfo(daydreamID:string) {
+    getAllDaydreamInfo(daydreamID: string) {
         const info = {
             headers: new HttpHeaders({
                 'daydreamID': daydreamID
@@ -30,7 +30,7 @@ export class DaydreamService{
         return this.http.get("http://localhost:5000/daydream/info", info).toPromise()
     }
 
-    deleteChosenDaydream(daydreamID:string) {
+    deleteChosenDaydream(daydreamID: string) {
         const chosen = {
             daydreamID: daydreamID
         }
@@ -38,7 +38,7 @@ export class DaydreamService{
         return this.http.post("http://localhost:5000/daydream/delete", chosen).toPromise()
     }
 
-    createDaydream(circleID:string, destination:string, description:string, totalCost:Number){
+    createDaydream(circleID: string, destination: string, description: string, totalCost: Number) {
         const daydream = {
             circleID: circleID,
             destination: destination,
@@ -48,7 +48,7 @@ export class DaydreamService{
         return this.http.post("http://localhost:5000/daydream/add", daydream).toPromise()
     }
 
-    addToMemories(daydreamID:string){
+    addToMemories(daydreamID: string) {
         const chosen = {
             daydreamID: daydreamID
         }
@@ -56,7 +56,7 @@ export class DaydreamService{
         return this.http.post("http://localhost:5000/daydream/add-to-memories", chosen).toPromise()
     }
 
-    uploadPhoto(formdata:FormData, dayDreamID:string){
+    uploadPhoto(formdata: FormData, dayDreamID: string) {
         const info = {
             headers: new HttpHeaders({
                 // 'Content-Type': 'application/form-data',
@@ -71,7 +71,7 @@ export class DaydreamService{
     /*
     *   get lodging
     */
-    getLodging(dayDreamID:string){
+    getLodging(dayDreamID: string) {
         const info = {
             headers: new HttpHeaders({
                 'daydreamID': dayDreamID
@@ -84,7 +84,7 @@ export class DaydreamService{
     /*
     *   create lodging
     */
-    createLodging(daydreamID:string, address:string, cost:Number){
+    createLodging(daydreamID: string, address: string, cost: Number) {
         const lodging = {
             daydreamID: daydreamID,
             address: address,
@@ -94,22 +94,34 @@ export class DaydreamService{
     }
 
     /*
+    *   edit lodging
+    */
+   editLodging(daydreamID: string, lodgingInformationID: string, address:string, cost:Number ) {
+    const lodging = {
+        daydreamID: daydreamID,
+        lodgingInformationID: lodgingInformationID,
+        address: address,
+        cost: cost
+    }
+    return this.http.post("http://localhost:5000/daydream/edit-lodging", lodging).toPromise()
+   }
+    /*
     *   Delete lodging
     */
 
-    deleteChosenLodging(daydreamID:string, lodgingInformationID:string) {
+    deleteChosenLodging(daydreamID: string, lodgingInformationID: string) {
         const chosen = {
             daydreamID: daydreamID,
             lodgingInformationID: lodgingInformationID
         }
         return this.http.post("http://localhost:5000/daydream/delete-lodging", chosen).toPromise()
     }
-    
+
     /*
     *   get travel
     */
 
-    getTravel(dayDreamID:string){
+    getTravel(dayDreamID: string) {
         const info = {
             headers: new HttpHeaders({
                 'daydreamID': dayDreamID
@@ -119,11 +131,12 @@ export class DaydreamService{
         return this.http.get<Array<Object>>("http://localhost:5000/daydream/travel", info).toPromise()
     }
 
+
     /*
     *   Create travel
     */
-   
-    createTravel(daydreamID:string, mode:string, cost:Number){
+
+    createTravel(daydreamID: string, mode: string, cost: Number) {
         const travel = {
             daydreamID: daydreamID,
             mode: mode,
@@ -133,11 +146,25 @@ export class DaydreamService{
     }
 
     /*
+    *   edit travel 
+    */
+   editTravel(daydreamID: string, travelInformationID: string, mode:string, cost:Number ) {
+    const travel = {
+        daydreamID: daydreamID,
+        travelInformationID: travelInformationID,
+        mode: mode,
+        cost: cost
+    }
+    return this.http.post("http://localhost:5000/daydream/edit-travel", travel).toPromise()
+}
+    
+
+    /*
     *   Delete travel
     */
 
 
-    deleteChosenTravel(daydreamID:string, travelInformationID:string) {
+    deleteChosenTravel(daydreamID: string, travelInformationID: string) {
         const chosen = {
             daydreamID: daydreamID,
             travelInformationID: travelInformationID
@@ -145,7 +172,7 @@ export class DaydreamService{
         return this.http.post("http://localhost:5000/daydream/delete-travel", chosen).toPromise()
     }
 
-    getTotalContribution(daydreamID:string){
+    getTotalContribution(daydreamID: string) {
         const info = {
             headers: new HttpHeaders({
                 // 'Content-Type': 'application/form-data',
@@ -185,7 +212,7 @@ export class DaydreamService{
         return this.http.get("http://localhost:5000/daydream/lodging-sum", info).toPromise()
     }
 
-    addContribution(daydreamID:string, cost:number){
+    addContribution(daydreamID: string, cost: number) {
         const chosen = {
             daydreamID: daydreamID,
             cost: cost
@@ -193,7 +220,7 @@ export class DaydreamService{
         return this.http.post("http://localhost:5000/daydream/add-contribution", chosen).toPromise()
     }
 
-    getContributionPerPerson(daydreamID:string){
+    getContributionPerPerson(daydreamID: string) {
         const info = {
             headers: new HttpHeaders({
                 // 'Content-Type': 'application/form-data',
@@ -208,7 +235,7 @@ export class DaydreamService{
     *   Get excursion
     */
 
-    getExcursion(dayDreamID:string){
+    getExcursion(dayDreamID: string) {
         const info = {
             headers: new HttpHeaders({
                 'daydreamID': dayDreamID
@@ -222,7 +249,7 @@ export class DaydreamService{
     *   Create excursion
     */
 
-    createExcursion(daydreamID:string, information:string, cost:Number,category:string,){
+    createExcursion(daydreamID: string, information: string, cost: Number, category: string ) {
         const excursion = {
             daydreamID: daydreamID,
             information: information,
@@ -233,10 +260,25 @@ export class DaydreamService{
     }
 
     /*
+    *   edit excursion
+    */
+   editExcursion(daydreamID: string, excursionID: string, information:string, cost:Number, category: string ) {
+    const excursion = {
+        daydreamID: daydreamID,
+        excursionID: excursionID,
+        information: information,
+        cost: cost,
+        category: category
+    }
+    return this.http.post("http://localhost:5000/daydream/edit-excursion", excursion).toPromise()
+   }
+
+
+    /*
     *   Delete excursion
     */
 
-    deleteChosenExcursion(daydreamID:string, excursionID:string) {
+    deleteChosenExcursion(daydreamID: string, excursionID: string) {
         const chosen = {
             daydreamID: daydreamID,
             excursionID: excursionID
@@ -244,7 +286,7 @@ export class DaydreamService{
         return this.http.post("http://localhost:5000/daydream/delete-excursion", chosen).toPromise()
     }
 
-    getPhotos(dayDreamID:string){
+    getPhotos(dayDreamID: string) {
         const info = {
             headers: new HttpHeaders({
                 // 'Content-Type': 'application/form-data',
@@ -254,24 +296,24 @@ export class DaydreamService{
         return this.http.get<Array<Object>>("http://localhost:5000/daydream/all-photos", info).toPromise()
     }
 
-    editDayDreamDescription(description:string, daydreamID:string) {
-        const circle:Object = {
+    editDayDreamDescription(description: string, daydreamID: string) {
+        const circle: Object = {
             description: description,
             daydreamID: daydreamID,
         }
         return this.http.post("http://localhost:5000/daydream/edit-description", circle)
     }
 
-    editDayDreamDestination(destination:string, daydreamID:string) {
-        const circle:Object = {
+    editDayDreamDestination(destination: string, daydreamID: string) {
+        const circle: Object = {
             destination: destination,
             daydreamID: daydreamID,
         }
         return this.http.post("http://localhost:5000/daydream/edit-destination", circle)
     }
 
-    editDayDreamCost(cost:number, daydreamID:string) {
-        const circle:Object = {
+    editDayDreamCost(cost: number, daydreamID: string) {
+        const circle: Object = {
             cost: cost,
             daydreamID: daydreamID,
         }
