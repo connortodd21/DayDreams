@@ -271,14 +271,23 @@
     </div>
   </div>
 </div>
-<div *ngIf="!isMemory">
-  <button type="button" class="btn btn-success" (click)=addDayDreamToMemories()>Daydream Completed <i class="fa fa-globe">
-    </i></button>
-</div>
-<input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
-<button (click)="fileInput.click()">Select File</button>
+
+
 <!-- <button (click)="onUpload()">Upload!</button> -->
 
-<div *ngFor="let i of images">
+<h1 class="header"> Pictures </h1>
+<input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
+<button type="button" class="btn btn-info" (click)="fileInput.click()">Upload picture <i class="fa fa-camera">
+  </i> </button>
+<div class="grid-container2">
+  <div *ngFor="let i of images">
   <img [src]="i.url" class="imgSize" />
 </div>
+</div>
+<h1 class="blueLine">___________________________________________________________________________________________________________</h1>
+
+<br> 
+<div *ngIf="!isMemory">
+    <button type="button" class="btn btn-success" (click)=addDayDreamToMemories()>Daydream Completed <i class="fa fa-globe">
+      </i></button>
+  </div>
