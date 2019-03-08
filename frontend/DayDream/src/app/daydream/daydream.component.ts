@@ -22,6 +22,9 @@ export class DaydreamComponent implements OnInit {
   moneyPercentage: number;
   contributions: Array<Object>
   colors: Array<string>
+  transportationCost: number
+  excursionCost: number
+  lodgingCost: number
 
   constructor(private route: ActivatedRoute,
     private circleService: CircleService, private DaydreamService: DaydreamService, private formBuilder: FormBuilder, private _router: Router) {
@@ -57,7 +60,9 @@ export class DaydreamComponent implements OnInit {
       this.displayTravel()
 
       this.getTotalContributions()
-      this.initializeColors
+      this.getTransportationCost()
+      this.getExcursionCost()
+      this.getLodgingCost()
 
       this.displayExcursion()
 
@@ -82,6 +87,42 @@ export class DaydreamComponent implements OnInit {
       }
       this.moneyPercentage = p;
       console.log(this.moneyPercentage)
+    })
+  }
+
+  getTransportationCost() {
+    this.DaydreamService.getTransportationSum(this.myDayDream.ID).then((total) => {
+      if (!total[0]) {
+        this.transportationCost = 0
+        return
+      }
+      else {
+        this.transportationCost = Math.floor(total[0].TotalBalance)
+      }
+    })
+  }
+
+  getLodgingCost() {
+    this.DaydreamService.getLodgingSum(this.myDayDream.ID).then((total) => {
+      if (!total[0]) {
+        this.lodgingCost = 0
+        return
+      }
+      else {
+        this.lodgingCost = Math.floor(total[0].TotalBalance)
+      }
+    })
+  }
+
+  getExcursionCost() {
+    this.DaydreamService.getExcursionSum(this.myDayDream.ID).then((total) => {
+      if (!total[0]) {
+        this.excursionCost = 0
+        return
+      }
+      else {
+        this.excursionCost = Math.floor(total[0].TotalBalance)
+      }
     })
   }
 
@@ -240,37 +281,30 @@ export class DaydreamComponent implements OnInit {
     })
   }
 
-  addLodging(event){
+  addLodging(event) {
     console.log(event.target["0"].value)
     console.log(event.target["1"].value)
-    this.DaydreamService.createLodging(this.myDayDream.ID, event.target["0"].value, event.target["1"].value).then(()=>{
+    this.DaydreamService.createLodging(this.myDayDream.ID, event.target["0"].value, event.target["1"].value).then(() => {
       window.location.replace("/daydream/" + this.myDayDream.ID);
     })
   }
 
-  addTravel(event){
+  addTravel(event) {
     console.log(event.target["0"].value)
     console.log(event.target["1"].value)
-    this.DaydreamService.createTravel(this.myDayDream.ID, event.target["0"].value, event.target["1"].value).then(()=>{
+    this.DaydreamService.createTravel(this.myDayDream.ID, event.target["0"].value, event.target["1"].value).then(() => {
       window.location.replace("/daydream/" + this.myDayDream.ID);
     })
   }
 
-  addExcursion(event){
+  addExcursion(event) {
     console.log(event.target["0"].value)
     console.log(event.target["1"].value)
     console.log(event.target["2"].value)
     this.DaydreamService.createExcursion(this.myDayDream.ID, event.target["0"].value, event.target["1"].value,
-    event.target["2"].value).then(()=>{
-      window.location.replace("/daydream/" + this.myDayDream.ID);
-    })
-  }
-
-  initializeColors() {
-    var i: number = 0
-    for (i = 0; i < 20; i++) {
-      this.colors[i] = '#' + Math.floor(Math.random() * 16777215).toString(16);
-    }
+      event.target["2"].value).then(() => {
+        window.location.replace("/daydream/" + this.myDayDream.ID);
+      })
   }
 
   showTopContributors() {

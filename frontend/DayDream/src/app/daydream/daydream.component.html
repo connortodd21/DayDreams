@@ -48,7 +48,7 @@
       <h1 class="blueLine">
         ___________________________________________________________________________________________________________</h1>
 
-      <h1 class="header">Lodging options:</h1>
+      <h1 class="header">Lodging options:<p></p>Total Cost: ${{lodgingCost}}</h1>
 
       <div>
         <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInputLod=!showInputLod">Add a lodging option
@@ -79,7 +79,7 @@
 
       <h1 class="blueLine">
         ___________________________________________________________________________________________________________</h1>
-      <h4 class="header">Transportation options:</h4>
+      <h4 class="header">Transportation options: <p></p>Total Cost: ${{transportationCost}}</h4>
 
       <div>
         <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInputTr=!showInputTr">Add a Transportation
@@ -113,7 +113,7 @@
 
       <h1 class="blueLine">
         ___________________________________________________________________________________________________________</h1>
-      <h1 class="header"> Planned activities: </h1>
+      <h1 class="header"> Planned activities:<p></p>Total Cost: ${{excursionCost}}</h1>
       <div>
           <button mdbBtn type="button" mdbWavesEffect color="primary" (click)="showInputExc=!showInputExc">Add an Excursion <i class="fa fa-plus"> </i></button>
           <div [hidden]="!showInputExc">
