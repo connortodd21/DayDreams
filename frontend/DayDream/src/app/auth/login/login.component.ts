@@ -47,9 +47,9 @@ export class LoginComponent implements OnInit {
             return;
         }
 
-        var password = this.encryptData(form.value.password)
+        var password = form.value.password
         console.log(password)
-        this.authService.login(form.value.username, password).then((res) => {
+        this.authService.login(form.value.username, form.value.password).then((res) => {
             this.response = res
         })
     }

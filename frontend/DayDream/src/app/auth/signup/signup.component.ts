@@ -49,9 +49,9 @@ export class SignUpComponent implements OnInit {
             console.log(this.signUpForm);
             return;
         }
-        var password = this.encryptData(form.value.password)
+        var password = form.value.password
         console.log(password)
-        this.authService.registerUser(form.value.email, form.value.username, password).then((res) => {
+        this.authService.registerUser(form.value.email, form.value.username, form.value.password).then((res) => {
             this.response = "complete";
         }).catch((err) => {
             if (err.error.message == "User already exists") {

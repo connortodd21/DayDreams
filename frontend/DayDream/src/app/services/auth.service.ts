@@ -29,8 +29,9 @@ export class AuthService {
         return this.http.post<Object>("http://localhost:5000/user/register", auth).toPromise()
     }
 
-    forgotPassword(email: string) {
-        const auth: AuthData = { username: "", password: "", email: email }
+    forgotPassword(email: string) {        
+        const auth = { username: "", password: "", email: email }
+        console.log(auth)
         return this.http.post<Object>('http://localhost:5000/user/forgot-password', auth).toPromise()
     }
 

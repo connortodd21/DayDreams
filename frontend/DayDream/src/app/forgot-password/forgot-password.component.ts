@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { NgForm, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AuthService } from '../services/auth.service'
+import * as CryptoJS from 'crypto-js';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
   templateUrl: './forgot-password.component.html',
@@ -23,24 +26,33 @@ export class ForgotPasswordComponent implements OnInit {
   get form() { return this.resetPasswordForm.controls }
   get response_msg() { return this.response }
 
-  onSubmitReset(form: NgForm) {
+  async onSubmitReset(form: NgForm) {
     this.submitted = true;
 
     if (this.resetPasswordForm.invalid) {
       return;
     }
-
-    this.authservice.forgotPassword(form.value.email).then((res) => {
-      console.log(res)
-      this.response = "success"
-    }).catch((error) => {
-      console.log(error)
-      if (error.error.message == "Email does not exist in our records.") {
-        this.response = "noEmail";
-      }
-      else {
-        this.response = "fatalError";
-      }
-    })
+      this.authservice.forgotPassword(form.value.email).then((res) => {
+        this.response = "success"
+      }).catch((error) => {
+        console.log(error)
+        if (error.error.message == "Email does not exist in our records.") {
+          this.response = "noEmail";
+        }
+        else {
+          this.response = "fatalError";
+        }
+      })
   }
+
+  encryptData(data) {
+    try {
+        var key = CryptoJS.enc.Base64.parse(environment.KEY);
+        var iv = CryptoJS.enc.Base64.parse(environment.IV);
+        return CryptoJS.AES.encrypt(data, key, {iv: iv}).toString();
+    } catch (e) {
+        console.log(e);
+    }
 }
+}
+
