@@ -12,7 +12,7 @@ const httpOptions = {
 
 @Injectable({ providedIn: "root" })
 
-export class UserService{
+export class UserService {
     renderComponent: String = "";
     
     constructor(private http:HttpClient) {
@@ -20,7 +20,11 @@ export class UserService{
     }
 
     
-    getUserCircles(){
+    getUserCircles() {
         return this.http.get<Circle[]>('http://localhost:5000/user/all-circles').toPromise();
+    }
+
+    getAccountInfo() {
+        return this.http.get<Object>('http://localhost:5000/user/account').toPromise();
     }
 }

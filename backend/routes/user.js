@@ -25,6 +25,14 @@ router.get("/", function (req, res) {
     res.send('This route is for all user related tasks');
 });
 
+
+/**
+ * Get account information
+ */
+router.get("/account", authenticate, (req, res) => {
+    res.status(200).send(req.user);
+});
+
 /*
  * Register new user 
  */
@@ -252,7 +260,7 @@ router.post("/change-password", authenticate, (req, res) => {
         console.log("err: " + err)
     });
 
-    var email_subject = "DayDreams Reset Password";
+    var email_subject = "DayDreams Changed Password";
     var email_body = "Dear " + username + ", \n\nOur records indicate that you have changed your password. If this was the intention, no further action is needed from your part." +
         "\n\nSincerely, \n\nThe DayDreams Team";
 

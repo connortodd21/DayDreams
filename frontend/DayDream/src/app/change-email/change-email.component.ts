@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AuthService } from '../services/auth.service'
+import { UserService } from '../services/user.service'
+import { Account } from '../models/account.model'
+
 
 @Component({
   selector: 'app-change-email',
@@ -9,16 +12,24 @@ import { AuthService } from '../services/auth.service'
 })
 export class ChangeEmailComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, public authservice: AuthService) { }
+  constructor(private formBuilder: FormBuilder, public authservice: AuthService, public userservice: UserService) { }
   response: string = "NULL";
   changeEmailForm: FormGroup;
   submitted_email: boolean = false;
+  account: Account;
+  email: String = "null";
 
   ngOnInit() {
     this.changeEmailForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       confirmEmail: ['']
     }, { validator: this.checkEmails });
+
+    this.userservice.getAccountInfo().then((res) => {
+      this.account = new Account(res);
+      this.email = this.account.email
+      console.log(this.account.email)
+    });
   }
 
   get form_email() { return this.changeEmailForm.controls }

@@ -2,7 +2,7 @@
   <mdb-card class="content">
     <mdb-card-body>
       <form (submit)="onSubmitEmail(h)" #h=ngForm [formGroup]="changeEmailForm">
-        <p class="h4 mb-4">Change Email</p>
+        <p class="h4 mb-4">Change Email: {{email}} </p>
         <div class="form-group">
           <label>New Email</label>
           <input type="text" placeholder="New Email" class="form-control" formControlName="email" [ngClass]="{ 'is-invalid': submitted_email && form_email.email.errors }" />
