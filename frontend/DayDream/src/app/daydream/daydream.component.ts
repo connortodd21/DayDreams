@@ -86,7 +86,7 @@ export class DaydreamComponent implements OnInit {
         p = 100;
       }
       this.moneyPercentage = p;
-      console.log(this.moneyPercentage)
+      // console.log(this.moneyPercentage)
     })
   }
 
@@ -133,7 +133,7 @@ export class DaydreamComponent implements OnInit {
       // let l = new DayDream(response[0][i]);
       this.lodgingInfo[i] = lodging[i];
     }
-    console.log(this.myDayDream)
+    // console.log(this.myDayDream)
   }
 
   displayTravel() {
@@ -143,7 +143,7 @@ export class DaydreamComponent implements OnInit {
       // let l = new DayDream(response[0][i]);
       this.travelInfo[i] = travel[i];
     }
-    console.log(this.myDayDream)
+    // console.log(this.myDayDream)
   }
 
   displayExcursion() {
@@ -162,11 +162,11 @@ export class DaydreamComponent implements OnInit {
     }
     var dd_id = this.route.snapshot.params['id'];
     var ld_id = l._id;
-    console.log("The ID is: " + l._id);
+    // console.log("The ID is: " + l._id);
 
     this.DaydreamService.deleteChosenLodging(dd_id, ld_id).then((data) => {
       this.myDayDream = new DayDream(data);
-      console.log("Deleting DayDream");
+      // console.log("Deleting DayDream");
       window.location.replace("/daydream/" + dd_id);
     })
   }
@@ -178,11 +178,11 @@ export class DaydreamComponent implements OnInit {
     }
     var dd_id = this.route.snapshot.params['id'];
     var tr_id = t._id;
-    console.log("The ID is: " + t._id);
+    // console.log("The ID is: " + t._id);
 
     this.DaydreamService.deleteChosenTravel(dd_id, tr_id).then((data) => {
       this.myDayDream = new DayDream(data);
-      console.log("Deleting DayDream");
+      // console.log("Deleting DayDream");
       window.location.replace("/daydream/" + dd_id);
     })
   }
@@ -196,11 +196,11 @@ export class DaydreamComponent implements OnInit {
     }
     var dd_id = this.route.snapshot.params['id'];
     var ex_id = e._id;
-    console.log("The ID is: " + e._id);
+    // console.log("The ID is: " + e._id);
 
     this.DaydreamService.deleteChosenExcursion(dd_id, ex_id).then((data) => {
       this.myDayDream = new DayDream(data);
-      console.log("Deleting DayDream");
+      // console.log("Deleting DayDream");
       window.location.replace("/daydream/" + dd_id);
     })
   }
@@ -223,7 +223,7 @@ export class DaydreamComponent implements OnInit {
     var id = this.route.snapshot.params['id'];
     this.DaydreamService.deleteChosenDaydream(id).then((data) => {
       this.myDayDream = new DayDream(data);
-      console.log("Deleting DayDream");
+      // console.log("Deleting DayDream");
       //navigate back to page
       //this._router.navigate(['/home']);
       this.returnToCircles();
@@ -234,7 +234,7 @@ export class DaydreamComponent implements OnInit {
 
   onFileChanged(event) {
     let file = event.target.files[0]
-    console.log(event.target.files[0])
+    // console.log(event.target.files[0])
     let formdata = new FormData()
     formdata.append('image', file, file.name)
     this.DaydreamService.uploadPhoto(formdata, this.myDayDream.ID).then((res) => {
@@ -255,7 +255,7 @@ export class DaydreamComponent implements OnInit {
   displayImages() {
     var id = this.route.snapshot.params['id'];
     this.DaydreamService.getPhotos(id).then((res) => {
-      console.log(res)
+      // console.log(res)
       var i: number = 0
       res.forEach(element => {
         this.images[i] = element
@@ -275,23 +275,23 @@ export class DaydreamComponent implements OnInit {
   }
 
   addFunds(event) {
-    console.log(event.target["0"].value)
+    // console.log(event.target["0"].value)
     this.DaydreamService.addContribution(this.myDayDream.ID, event.target["0"].value).then(() => {
       window.location.replace("/daydream/" + this.myDayDream.ID);
     })
   }
 
   addLodging(event) {
-    console.log(event.target["0"].value)
-    console.log(event.target["1"].value)
+    // console.log(event.target["0"].value)
+    // console.log(event.target["1"].value)
     this.DaydreamService.createLodging(this.myDayDream.ID, event.target["0"].value, event.target["1"].value).then(() => {
       window.location.replace("/daydream/" + this.myDayDream.ID);
     })
   }
 
   editLodging(l,event){
-    console.log(event.target["0"].value)
-    console.log(event.target["1"].value)
+    // console.log(event.target["0"].value)
+    // console.log(event.target["1"].value)
     var id = l._id;
     this.DaydreamService.editLodging(this.myDayDream.ID, id, event.target["0"].value, event.target["1"].value).then(()=>{
       window.location.replace("/daydream/" + this.myDayDream.ID);
@@ -300,16 +300,16 @@ export class DaydreamComponent implements OnInit {
 
 
   addTravel(event) {
-    console.log(event.target["0"].value)
-    console.log(event.target["1"].value)
+    // console.log(event.target["0"].value)
+    // console.log(event.target["1"].value)
     this.DaydreamService.createTravel(this.myDayDream.ID, event.target["0"].value, event.target["1"].value).then(() => {
       window.location.replace("/daydream/" + this.myDayDream.ID);
     })
   }
 
   editTravel(t,event){
-    console.log(event.target["0"].value)
-    console.log(event.target["1"].value)
+    // console.log(event.target["0"].value)
+    // console.log(event.target["1"].value)
     var id = t._id;
     this.DaydreamService.editTravel(this.myDayDream.ID, id, event.target["0"].value, event.target["1"].value).then(()=>{
       window.location.replace("/daydream/" + this.myDayDream.ID);
@@ -319,9 +319,9 @@ export class DaydreamComponent implements OnInit {
 
   addExcursion(event) {
 
-    console.log(event.target["0"].value)
-    console.log(event.target["1"].value)
-    console.log(event.target["2"].value)
+    // console.log(event.target["0"].value)
+    // console.log(event.target["1"].value)
+    // console.log(event.target["2"].value)
     this.DaydreamService.createExcursion(this.myDayDream.ID, event.target["0"].value, event.target["1"].value,
     event.target["2"].value).then(()=>{
       window.location.replace("/daydream/" + this.myDayDream.ID);
@@ -329,9 +329,9 @@ export class DaydreamComponent implements OnInit {
   }
 
   editExcursion(e,event){
-    console.log(event.target["0"].value)
-    console.log(event.target["1"].value)
-    console.log(event.target["2"].value)
+    // console.log(event.target["0"].value)
+    // console.log(event.target["1"].value)
+    // console.log(event.target["2"].value)
     var id = e._id;
     this.DaydreamService.editExcursion(this.myDayDream.ID, id, event.target["0"].value, event.target["1"].value,
     event.target["2"].value).then(()=>{
@@ -354,7 +354,7 @@ export class DaydreamComponent implements OnInit {
       try {
         var conts = contributions[0].total
         let i: number = 0
-        console.log(conts)
+        // console.log(conts)
         let j:number = 0
         for (i = 0; i < conts.length; i++) {
           if(conts[i].total <= 0){
@@ -362,7 +362,7 @@ export class DaydreamComponent implements OnInit {
           }
           this.contributions[j++] = conts[i]
         }
-        console.log(this.contributions)
+        // console.log(this.contributions)
       } catch (error) {
         window.alert("There are no contributors yet");
       }
@@ -370,7 +370,7 @@ export class DaydreamComponent implements OnInit {
   }
 
   reduceFunds(event){
-    console.log(event.target["0"].value)
+    // console.log(event.target["0"].value)
     this.DaydreamService.removeFunds(this.myDayDream.ID, event.target["0"].value).then(() => {
       window.location.replace("/daydream/" + this.myDayDream.ID);
     })
