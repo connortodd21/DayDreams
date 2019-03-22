@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "DayDreams backend",
   "main": "app.js",
+  "start": "node app.js",
   "scripts": {
     "test": "./test/runtest.sh",
     "start": "node app.js"
