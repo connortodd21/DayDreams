@@ -55,8 +55,9 @@ router.post("/add", authenticate, function (req, res) {
         imageUrl: url,
     })
 
+    console.log(newCircle._id)
     newCircle.save().then(() => {
-        Circle.findOneAndUpdate({ circleName: req.body.circleName }, {
+        Circle.findOneAndUpdate({ _id: newCircle._id }, {
             $push: {
                 'members': req.user.username,
             }
@@ -66,6 +67,8 @@ router.post("/add", authenticate, function (req, res) {
         }).catch((err) => {
             // console.log(err)
         })
+    }).catch((err) => {
+            console.log(err)
     })
 
 });
