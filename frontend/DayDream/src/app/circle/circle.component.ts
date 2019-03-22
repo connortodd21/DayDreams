@@ -32,6 +32,7 @@ export class CircleComponent implements OnInit {
   show = false;
   response: string = "NULL";
   messages: Array<Object>
+  url:string
 
   /* variables used in editing circle name*/
   renderComponent: string;
@@ -42,6 +43,7 @@ export class CircleComponent implements OnInit {
     this.dayDreams = [];
     this.messages = []
     this.memories = []
+    this.url = "https://cdn1.iconfinder.com/data/icons/hawcons/32/699966-icon-1-cloud-512.png"
 
   }
 
@@ -216,11 +218,7 @@ export class CircleComponent implements OnInit {
       console.log(e.error.message);
       // Duplicate user
       if (e.error.message == "User is already in circle") {
-        this.response = "Dup";
-      }
-      // User cannot be found
-      else if (e.error.message == "Username does not exist") {
-        this.response = "NoUser";
+        window.location.replace("/circle/" + this.myCircle.ID);
       }
       // Fatal error
       else {

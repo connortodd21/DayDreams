@@ -15,7 +15,7 @@
       </h1>
       <div class="grid-container">
         <div class="grid-item">
-          <img [src]="myCircle.imageUrl" class="cover" />
+          <img [src]="url" class="cover" />
           <button class="messagesButton" mdbBtn type="button" color="info" mdbWavesEffect (click)="show = !show"
             (click)="getMessages()"> View Messages </button>
           <div class="overflowTest" *ngIf="show">
@@ -27,7 +27,7 @@
           <br>
 
           <div *ngIf="show"><input #box placeholder="Add message" class="messagesInput"
-              (keyup.enter)="addMessage(box.value);box.value=''"> <a class="iconSize" (click)="addMessage(box.value);box.value=''"><i
+              (keyup.enter)="addMessage(box.value);"> <a class="iconSize" (click)="addMessage(box.value);box.value=''"><i
                 class="fa fa-angle-double-right"></i></a></div>
         </div>
 

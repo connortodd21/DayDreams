@@ -22,9 +22,9 @@ export class DaydreamComponent implements OnInit {
   moneyPercentage: number;
   contributions: Array<Object>
   colors: Array<string>
-  transportationCost: number
-  excursionCost: number
-  lodgingCost: number
+  transportationCost: number = 0
+  excursionCost: number = 0
+  lodgingCost: number = 0
 
   constructor(private route: ActivatedRoute,
     private circleService: CircleService, private DaydreamService: DaydreamService, private formBuilder: FormBuilder, private _router: Router) {
@@ -107,9 +107,6 @@ export class DaydreamComponent implements OnInit {
       if (!total[0]) {
         this.lodgingCost = 0
         return
-      }
-      else {
-        this.lodgingCost = Math.floor(total[0].TotalBalance)
       }
     })
   }

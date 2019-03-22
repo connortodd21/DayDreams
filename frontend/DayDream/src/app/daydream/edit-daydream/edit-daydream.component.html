@@ -13,7 +13,7 @@
                     </div>
 
                     <h5 class="header">Edit DayDream Description</h5>
-                    <input type="text" class="form-control" formControlName="description" value={{myDayDream.description}}
+                    <input type="text" class="form-control" formControlName="description" value={{description}}
                         [ngClass]="{ 'is-invalid': submitted && form.description.errors }" />
                     <div *ngIf="submitted && form.description.errors" class="invalid-feedback">
                         <div *ngIf="form.description.errors.required">DayDream Description is required</div>

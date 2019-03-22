@@ -23,6 +23,7 @@ export class EditDayDreamComponent implements OnInit {
   editDaydreamForm: FormGroup;
   submitted = false;
   response: string = "NULL";
+  description:string = "null"
 
 
   ngOnInit() {
