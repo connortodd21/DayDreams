@@ -1066,7 +1066,7 @@ router.get('/all-photos', authenticate, (req, res) => {
         return
         // console.log(dd.images)
     }).catch((err) => {
-        res.status(400).send(err);
+        res.send(err);
         return;
     })
 })

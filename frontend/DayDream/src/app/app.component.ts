@@ -31,12 +31,10 @@ export class AppComponent {
   ngOnInit() {
     if(this.authService.autoAuthUser()){
       this.userAuthed = true;
-    }
-
-    this.userService.getAccountInfo().then((res) => {
+      this.userService.getAccountInfo().then((res) => {
         this.account = new Account(res);
         // this.username = this.account.username; // defect 4
     });
-    
+    }
   }
 }

@@ -101,6 +101,7 @@ export class AuthService {
                     return "DNE"
                 }
                 else {
+                    console.log(error)
                     this.response_login = "failed";
                     return "FAILED"
                 }

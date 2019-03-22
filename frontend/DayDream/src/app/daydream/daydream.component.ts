@@ -243,7 +243,7 @@ export class DaydreamComponent implements OnInit {
     var route = localStorage.getItem('circle')
     var back = '/circle/' + route
     localStorage.removeItem('circle')
-    this._router.navigate([back])
+    this._router.navigate(['/home'])
   }
 
 
