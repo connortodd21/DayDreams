@@ -183,7 +183,7 @@ export class CircleComponent implements OnInit {
   }
 
   leaveCircle() {
-    let username = localStorage.getItem('username')
+    let username = localStorage.getItem('usernames')
     this.circleService.leaveCircle(this.myCircle.ID, username).then(() => {
       var confirm = window.confirm('Are you sure you want to leave this circle. To return, you must be added back by someone')
       if (confirm == false) {

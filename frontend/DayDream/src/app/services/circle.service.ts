@@ -94,7 +94,7 @@ export class CircleService{
             circleID: circleID,
             username: username
         }
-        return this.http.post("http://localhost:5000/circle/leave", info).toPromise()
+        return this.http.post("http://localhost:5000/circle/leaves", info).toPromise()
     }
 
     addUser(circleID:string, username:string){

@@ -17,7 +17,7 @@ export class ChangeEmailComponent implements OnInit {
   changeEmailForm: FormGroup;
   submitted_email: boolean = false;
   account: Account;
-  email: String = "null";
+  email: String = "{{email}}";
 
   ngOnInit() {
     this.changeEmailForm = this.formBuilder.group({
@@ -27,8 +27,8 @@ export class ChangeEmailComponent implements OnInit {
 
     this.userservice.getAccountInfo().then((res) => {
       this.account = new Account(res);
-      this.email = this.account.email
-      console.log(this.account.email)
+      // this.email = this.account.email // defect 23
+      // console.log(this.account.email)
     });
   }
 
@@ -40,7 +40,7 @@ export class ChangeEmailComponent implements OnInit {
     let email = group.controls.email.value;
     let confirmEmail = group.controls.confirmEmail.value;
 
-    return email === confirmEmail ? null : { notSame: true }
+    return email != confirmEmail ? null : { notSame: true } // defect 22
   }
 
   onSubmitEmail(form: NgForm) {
