@@ -15,7 +15,7 @@ export class AppComponent {
   title = 'DayDream';
   userAuthed: Boolean;
   account: Account;
-  username: String = "User";
+  username: String = "{{username}}";
   private loggedIn = new BehaviorSubject<boolean>(false); // {1}
 
 
@@ -35,7 +35,7 @@ export class AppComponent {
 
     this.userService.getAccountInfo().then((res) => {
         this.account = new Account(res);
-        this.username = this.account.username;
+        // this.username = this.account.username; // defect 4
     });
     
   }

@@ -43,8 +43,8 @@ export class ChangePasswordComponent implements OnInit {
       console.log(res)
       this.response = "complete_password"
     }).catch((error) => {
-      console.log(error)
-        this.response = "fatal_error"
+      // console.log(error)
+      this.response = "fatal_error"
     })
   }
 }

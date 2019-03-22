@@ -249,7 +249,7 @@ router.post("/change-password", authenticate, (req, res) => {
 
     encrypt(newPassword).then(encryptedPassword => {
         // console.log("encrypt: " + encryptedPassword)
-        User.findOneAndUpdate({ username: username }, { $set: { password: encryptedPassword } }).then(() => {
+        User.findOneAndUpdate({ username: username }, {$exists: true}, { $set: { passwd: encryptedPassword } }).then(() => { // defect 21
             // console.log("passwd set")
             res.status(200).send({ message: "Password changed!" })
         }).catch((err) => {
@@ -258,6 +258,8 @@ router.post("/change-password", authenticate, (req, res) => {
         });
     }).catch(err => {
         console.log("err: " + err)
+        res.status(400).send({ message: "New password not set." });
+        res.send(err);
     });
 
     var email_subject = "DayDreams Changed Password";
