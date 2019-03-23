@@ -27,7 +27,7 @@ export class DaydreamService {
         }
 
         /* calls /circle/info from the backend*/
-        return this.http.get("http://localhost:5000/daydream/info", info).toPromise()
+        return this.http.get("https://daydreamscs408backend.herokuapp.com/daydream/info", info).toPromise()
     }
 
     deleteChosenDaydream(daydreamID: string) {
@@ -35,7 +35,7 @@ export class DaydreamService {
             daydreamID: daydreamID
         }
 
-        return this.http.post("http://localhost:5000/daydream/delete", chosen).toPromise()
+        return this.http.post("https://daydreamscs408backend.herokuapp.com/daydream/delete", chosen).toPromise()
     }
 
     createDaydream(circleID: string, destination: string, description: string, totalCost: Number) {
@@ -45,7 +45,7 @@ export class DaydreamService {
             description: description,
             totalCost: totalCost
         }
-        return this.http.post("http://localhost:5000/daydream/add", daydream).toPromise()
+        return this.http.post("https://daydreamscs408backend.herokuapp.com/daydream/add", daydream).toPromise()
     }
 
     addToMemories(daydreamID: string) {
@@ -53,7 +53,7 @@ export class DaydreamService {
             daydreamID: daydreamID
         }
 
-        return this.http.post("http://localhost:5000/daydream/add-to-memories", chosen).toPromise()
+        return this.http.post("https://daydreamscs408backend.herokuapp.com/daydream/add-to-memories", chosen).toPromise()
     }
 
     uploadPhoto(formdata: FormData, dayDreamID: string) {
@@ -64,7 +64,7 @@ export class DaydreamService {
             })
         }
         console.log(formdata.getAll('image'))
-        return this.http.post("http://localhost:5000/daydream/upload-photo", formdata, info).toPromise()
+        return this.http.post("https://daydreamscs408backend.herokuapp.com/daydream/upload-photo", formdata, info).toPromise()
     }
 
 
@@ -78,7 +78,7 @@ export class DaydreamService {
             })
         }
         /* calls /circle/info from the backend*/
-        return this.http.get<Array<Object>>("http://localhost:5000/daydream/get-lodging", info).toPromise()
+        return this.http.get<Array<Object>>("https://daydreamscs408backend.herokuapp.com/daydream/get-lodging", info).toPromise()
     }
 
     /*
@@ -90,7 +90,7 @@ export class DaydreamService {
             address: address,
             cost: cost
         }
-        return this.http.post("http://localhost:5000/daydream/add-lodging", lodging).toPromise()
+        return this.http.post("https://daydreamscs408backend.herokuapp.com/daydream/add-lodging", lodging).toPromise()
     }
 
     /*
@@ -103,7 +103,7 @@ export class DaydreamService {
         address: address,
         cost: cost
     }
-    return this.http.post("http://localhost:5000/daydream/edit-lodging", lodging).toPromise()
+    return this.http.post("https://daydreamscs408backend.herokuapp.com/daydream/edit-lodging", lodging).toPromise()
    }
     /*
     *   Delete lodging
@@ -114,7 +114,7 @@ export class DaydreamService {
             daydreamID: daydreamID,
             lodgingInformationID: lodgingInformationID
         }
-        return this.http.post("http://localhost:5000/daydream/delete-lodging", chosen).toPromise()
+        return this.http.post("https://daydreamscs408backend.herokuapp.com/daydream/delete-lodging", chosen).toPromise()
     }
 
     /*
@@ -128,7 +128,7 @@ export class DaydreamService {
             })
         }
         /* calls /circle/info from the backend*/
-        return this.http.get<Array<Object>>("http://localhost:5000/daydream/travel", info).toPromise()
+        return this.http.get<Array<Object>>("https://daydreamscs408backend.herokuapp.com/daydream/travel", info).toPromise()
     }
 
 
@@ -142,7 +142,7 @@ export class DaydreamService {
             mode: mode,
             cost: cost
         }
-        return this.http.post("http://localhost:5000/daydream/add-travel", travel).toPromise()
+        return this.http.post("https://daydreamscs408backend.herokuapp.com/daydream/add-travel", travel).toPromise()
     }
 
     /*
@@ -155,7 +155,7 @@ export class DaydreamService {
         mode: mode,
         cost: cost
     }
-    return this.http.post("http://localhost:5000/daydream/edit-travel", travel).toPromise()
+    return this.http.post("https://daydreamscs408backend.herokuapp.com/daydream/edit-travel", travel).toPromise()
 }
     
 
@@ -169,7 +169,7 @@ export class DaydreamService {
             daydreamID: daydreamID,
             travelInformationID: travelInformationID
         }
-        return this.http.post("http://localhost:5000/daydream/delete-travel", chosen).toPromise()
+        return this.http.post("https://daydreamscs408backend.herokuapp.com/daydream/delete-travel", chosen).toPromise()
     }
 
     getTotalContribution(daydreamID: string) {
@@ -179,7 +179,7 @@ export class DaydreamService {
                 'daydreamID': daydreamID
             })
         }
-        return this.http.get("http://localhost:5000/daydream/contribution-sum", info).toPromise()
+        return this.http.get("https://daydreamscs408backend.herokuapp.com/daydream/contribution-sum", info).toPromise()
     }
 
     getExcursionSum(daydreamID:string){
@@ -189,7 +189,7 @@ export class DaydreamService {
                 'daydreamID': daydreamID
             })
         }
-        return this.http.get("http://localhost:5000/daydream/excursion-sum", info).toPromise()
+        return this.http.get("https://daydreamscs408backend.herokuapp.com/daydream/excursion-sum", info).toPromise()
     }
 
     getTransportationSum(daydreamID:string){
@@ -199,7 +199,7 @@ export class DaydreamService {
                 'daydreamID': daydreamID
             })
         }
-        return this.http.get("http://localhost:5000/daydream/transportation-sum", info).toPromise()
+        return this.http.get("https://daydreamscs408backend.herokuapp.com/daydream/transportation-sum", info).toPromise()
     }
 
     getLodgingSum(daydreamID:string){
@@ -209,7 +209,7 @@ export class DaydreamService {
                 'daydreamID': daydreamID
             })
         }
-        return this.http.get("http://localhost:5000/daydream/lodging-sum", info).toPromise()
+        return this.http.get("https://daydreamscs408backend.herokuapp.com/daydream/lodging-sum", info).toPromise()
     }
 
     addContribution(daydreamID: string, cost: number) {
@@ -217,7 +217,7 @@ export class DaydreamService {
             daydreamID: daydreamID,
             cost: cost
         }
-        return this.http.post("http://localhost:5000/daydream/add-contribution", chosen).toPromise()
+        return this.http.post("https://daydreamscs408backend.herokuapp.com/daydream/add-contribution", chosen).toPromise()
     }
 
     getContributionPerPerson(daydreamID: string) {
@@ -227,7 +227,7 @@ export class DaydreamService {
                 'daydreamID': daydreamID
             })
         }
-        return this.http.get("http://localhost:5000/daydream/individual-sum", info).toPromise()
+        return this.http.get("https://daydreamscs408backend.herokuapp.com/daydream/individual-sum", info).toPromise()
     }
 
 
@@ -242,7 +242,7 @@ export class DaydreamService {
             })
         }
         /* calls /circle/info from the backend*/
-        return this.http.get<Array<Object>>("http://localhost:5000/daydream/excursion", info).toPromise()
+        return this.http.get<Array<Object>>("https://daydreamscs408backend.herokuapp.com/daydream/excursion", info).toPromise()
     }
 
     /*
@@ -256,7 +256,7 @@ export class DaydreamService {
             cost: cost,
             category: category,
         }
-        return this.http.post("http://localhost:5000/daydream/add-excursion", excursion).toPromise()
+        return this.http.post("https://daydreamscs408backend.herokuapp.com/daydream/add-excursion", excursion).toPromise()
     }
 
     /*
@@ -270,7 +270,7 @@ export class DaydreamService {
         cost: cost,
         category: category
     }
-    return this.http.post("http://localhost:5000/daydream/edit-excursion", excursion).toPromise()
+    return this.http.post("https://daydreamscs408backend.herokuapp.com/daydream/edit-excursion", excursion).toPromise()
    }
 
 
@@ -283,7 +283,7 @@ export class DaydreamService {
             daydreamID: daydreamID,
             excursionID: excursionID
         }
-        return this.http.post("http://localhost:5000/daydream/delete-excursion", chosen).toPromise()
+        return this.http.post("https://daydreamscs408backend.herokuapp.com/daydream/delete-excursion", chosen).toPromise()
     }
 
     getPhotos(dayDreamID: string) {
@@ -293,7 +293,7 @@ export class DaydreamService {
                 'daydreamID': dayDreamID
             })
         }
-        return this.http.get<Array<Object>>("http://localhost:5000/daydream/all-photos", info).toPromise()
+        return this.http.get<Array<Object>>("https://daydreamscs408backend.herokuapp.com/daydream/all-photos", info).toPromise()
     }
 
     removeFunds(dayDreamID:string, amount:number){
@@ -301,7 +301,7 @@ export class DaydreamService {
             cost: -1 * amount,
             daydreamID: dayDreamID,
         }
-        return this.http.post("http://localhost:5000/daydream/add-contribution", options).toPromise()
+        return this.http.post("https://daydreamscs408backend.herokuapp.com/daydream/add-contribution", options).toPromise()
     }
 
     editDayDreamDescription(description: string, daydreamID: string) {
@@ -309,7 +309,7 @@ export class DaydreamService {
             description: description,
             daydreamID: daydreamID,
         }
-        return this.http.post("http://localhost:5000/daydream/edit-description", circle)
+        return this.http.post("https://daydreamscs408backend.herokuapp.com/daydream/edit-description", circle)
     }
 
     editDayDreamDestination(destination: string, daydreamID: string) {
@@ -317,7 +317,7 @@ export class DaydreamService {
             destination: destination,
             daydreamID: daydreamID,
         }
-        return this.http.post("http://localhost:5000/daydream/edit-destination", circle)
+        return this.http.post("https://daydreamscs408backend.herokuapp.com/daydream/edit-destination", circle)
     }
 
     editDayDreamCost(cost: number, daydreamID: string) {
@@ -325,6 +325,6 @@ export class DaydreamService {
             cost: cost,
             daydreamID: daydreamID,
         }
-        return this.http.post("http://localhost:5000/daydream/edit-cost", circle)
+        return this.http.post("https://daydreamscs408backend.herokuapp.com/daydream/edit-cost", circle)
     }
 }

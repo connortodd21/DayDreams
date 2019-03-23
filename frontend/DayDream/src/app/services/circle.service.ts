@@ -22,7 +22,7 @@ export class CircleService{
             imageUrl: url,
             circleID: circleID,
         }
-        return this.http.post("http://localhost:5000/circle/add-photo", options)
+        return this.http.post("https://daydreamscs408backend.herokuapp.com/circle/add-photo", options)
     }
 
     editCircleDescription(circleDescription:string, circleID:string) {
@@ -30,7 +30,7 @@ export class CircleService{
             circleDescription: circleDescription,
             circleID: circleID,
         }
-        return this.http.post("http://localhost:5000/circle/edit-circle-description", circle)
+        return this.http.post("https://daydreamscs408backend.herokuapp.com/circle/edit-circle-description", circle)
     }
 
     addMessage(message:string, circleID:string){
@@ -38,7 +38,7 @@ export class CircleService{
             circleID: circleID,
             message: message
         }
-        return this.http.post("http://localhost:5000/circle/add-message", options).toPromise()
+        return this.http.post("https://daydreamscs408backend.herokuapp.com/circle/add-message", options).toPromise()
     }
 
     setCircleUrl(url:string){
@@ -57,7 +57,7 @@ export class CircleService{
         }
 
         /* calls /circle/info from the backend*/
-        return this.http.get("http://localhost:5000/circle/info", info).toPromise().catch((err) => {
+        return this.http.get("https://daydreamscs408backend.herokuapp.com/circle/info", info).toPromise().catch((err) => {
             // this._router.navigate(['/not-found']);
         })
     }
@@ -68,7 +68,7 @@ export class CircleService{
                 'circleID': circleID
             })
         }
-        return this.http.get<Object>("http://localhost:5000/circle/all-daydreams", info).toPromise()
+        return this.http.get<Object>("https://daydreamscs408backend.herokuapp.com/circle/all-daydreams", info).toPromise()
     }
 
     getMemories(circleID:string){
@@ -77,7 +77,7 @@ export class CircleService{
                 'circleID': circleID
             })
         }
-        return this.http.get<Object>("http://localhost:5000/circle/all-memories", info).toPromise()
+        return this.http.get<Object>("https://daydreamscs408backend.herokuapp.com/circle/all-memories", info).toPromise()
     }
 
     getMessages(circleID:string){
@@ -86,7 +86,7 @@ export class CircleService{
                 'circleid': circleID
             })
         }
-        return this.http.get<Array<Object>>("http://localhost:5000/circle/chat", info).toPromise()
+        return this.http.get<Array<Object>>("https://daydreamscs408backend.herokuapp.com/circle/chat", info).toPromise()
     }
 
     leaveCircle(circleID:string, username:string){
@@ -94,7 +94,7 @@ export class CircleService{
             circleID: circleID,
             username: username
         }
-        return this.http.post("http://localhost:5000/circle/leaves", info).toPromise()
+        return this.http.post("https://daydreamscs408backend.herokuapp.com/circle/leaves", info).toPromise()
     }
 
     addUser(circleID:string, username:string){
@@ -102,14 +102,14 @@ export class CircleService{
             circleID: circleID,
             username: username
         }
-        return this.http.post("http://localhost:5000/circle/add-user", info).toPromise()
+        return this.http.post("https://daydreamscs408backend.herokuapp.com/circle/add-user", info).toPromise()
     }
 
     deleteChosenCircle(circleID:string) {
         const chosen = {
             circleID: circleID
         }
-        return this.http.post("http://localhost:5000/circle/delete", chosen).toPromise()
+        return this.http.post("https://daydreamscs408backend.herokuapp.com/circle/delete", chosen).toPromise()
     }
 
     editCircleName(circleName:string, circleID:string) {
@@ -117,7 +117,7 @@ export class CircleService{
             circleName: circleName,
             circleID: circleID,
         }
-        return this.http.post("http://localhost:5000/circle/edit-name", circle)
+        return this.http.post("https://daydreamscs408backend.herokuapp.com/circle/edit-name", circle)
     }
 
     createCircle(circleName:string, circleDescription:string, imageUrl: string){
@@ -126,6 +126,6 @@ export class CircleService{
             description: circleDescription,
             imageUrl: imageUrl
         }
-        return this.http.post("http://localhost:5000/circle/add", circle).toPromise()
+        return this.http.post("https://daydreamscs408backend.herokuapp.com/circle/add", circle).toPromise()
     }
 }

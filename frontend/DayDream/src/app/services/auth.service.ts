@@ -26,23 +26,23 @@ export class AuthService {
     registerUser(email: string, username: string, password: string) {
         const auth: AuthData = { email: email, username: username, password: password }
         console.log(auth)
-        return this.http.post<Object>("http://localhost:5000/user/register", auth).toPromise()
+        return this.http.post<Object>("https://daydreamscs408backend.herokuapp.com/user/register", auth).toPromise()
     }
 
     forgotPassword(email: string) {        
         const auth = { username: "", password: "", email: email }
         console.log(auth)
-        return this.http.post<Object>('http://localhost:5000/user/forgot-password', auth).toPromise()
+        return this.http.post<Object>('https://daydreamscs408backend.herokuapp.com/user/forgot-password', auth).toPromise()
     }
 
     changePassword(newPassword: string) {
         const auth: AuthData = { username: "", password: newPassword, email: "" }
-        return this.http.post<Object>('http://localhost:5000/user/change-password', auth).toPromise()
+        return this.http.post<Object>('https://daydreamscs408backend.herokuapp.com/user/change-password', auth).toPromise()
     }
 
     changeEmail(newEmail: string) {
         const auth: AuthData = { username: "", password: "", email: newEmail }
-        return this.http.post<Object>('http://localhost:5000/user/change-email', auth).toPromise()
+        return this.http.post<Object>('https://daydreamscs408backend.herokuapp.com/user/change-email', auth).toPromise()
     }
 
     getAuthToken() {
@@ -71,7 +71,7 @@ export class AuthService {
     async login(username: string, password: string) {
         const auth: AuthData = { username: username, password: password, email: "" }
         console.log(auth)
-        await this.http.post("http://localhost:5000/user/login", auth, httpOptions).pipe(
+        await this.http.post("https://daydreamscs408backend.herokuapp.com/user/login", auth, httpOptions).pipe(
             map(response => {
                 const token = response.headers.get('token');
                 this.token = token

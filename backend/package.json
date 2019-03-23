@@ -5,8 +5,7 @@
   "main": "app.js",
   "start": "node app.js",
   "scripts": {
-    "test": "./test/runtest.sh",
-    "start": "node app.js"
+    "test": "./test/runtest.sh"
   },
   "engines": {
     "node": "10.14.1",

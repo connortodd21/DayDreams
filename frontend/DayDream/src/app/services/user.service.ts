@@ -21,10 +21,10 @@ export class UserService {
 
     
     getUserCircles() {
-        return this.http.get<Circle[]>('http://localhost:5000/user/all-circles').toPromise();
+        return this.http.get<Circle[]>('https://daydreamscs408backend.herokuapp.com/user/all-circles').toPromise();
     }
 
     getAccountInfo() {
-        return this.http.get<Object>('http://localhost:5000/user/account').toPromise();
+        return this.http.get<Object>('https://daydreamscs408backend.herokuapp.com/user/account').toPromise();
     }
 }
