@@ -16,10 +16,13 @@ import { Router } from '@angular/router'
  */
 export class HomeComponent implements OnInit {
 
-  myCircles: Circle[];
-  fileForm: FormGroup;
-  image: string;
-  submitted = false;
+  public myCircles: Circle[];
+  public fileForm: any;
+  public image: string;
+  public submitted = false;
+  circleName: any;
+  circleDesc: any;
+  imageUrl: any;
 
   constructor(private userService: UserService, private circleService: CircleService, private formBuilder: FormBuilder, private _router: Router) {}
 
@@ -32,7 +35,7 @@ export class HomeComponent implements OnInit {
 
     // Form inputs and validators
     this.fileForm = this.formBuilder.group({
-      imageUrl: [''],
+      imageUrl:[''],
       circleDesc: ['', Validators.required],
       circleName: ['', Validators.required],
     })
