@@ -155,16 +155,21 @@ export class DaydreamComponent implements OnInit {
     }
   }
 
-  deleteLodging(daydream: DayDream) { // defect 1
-   // call delete method from service
-    var id = this.route.snapshot.params['id'];
-    this.DaydreamService.deleteChosenDaydream(id).then((data) => {
+
+  deleteLodging(l) {
+    var confirm = window.confirm('Are you sure you want to remove this Lodging Information? This action cannot be undone')
+    if (confirm == false) {
+      return;
+    }
+    var dd_id = this.route.snapshot.params['id'];
+    var ld_id = l._id;
+    // console.log("The ID is: " + l._id);
+
+    this.DaydreamService.deleteChosenLodging(dd_id, ld_id).then((data) => {
       this.myDayDream = new DayDream(data);
       // console.log("Deleting DayDream");
-      //navigate back to page
-      //this._router.navigate(['/home']);
+      window.location.replace("/daydream/" + dd_id);
     })
-    window.location.replace("/daydream/" + this.myDayDream.ID);
   }
 
   deleteTravel(t) {
@@ -270,9 +275,9 @@ export class DaydreamComponent implements OnInit {
     })
   }
 
-  reduceFunds(event) { // defect 9
+  reduceFunds(event) {
     // console.log(event.target["0"].value)
-    this.DaydreamService.addContribution(this.myDayDream.ID, event.target["0"].value).then(() => {
+    this.DaydreamService.removeFunds(this.myDayDream.ID, event.target["0"].value).then(() => {
       window.location.replace("/daydream/" + this.myDayDream.ID);
     })
   }
@@ -367,9 +372,9 @@ export class DaydreamComponent implements OnInit {
     })
   }
 
-  addFunds(event){ // defect 10
+  addFunds(event){ 
     // console.log(event.target["0"].value)
-    this.DaydreamService.removeFunds(this.myDayDream.ID, event.target["0"].value).then(() => {
+    this.DaydreamService.addContribution(this.myDayDream.ID, event.target["0"].value).then(() => {
       window.location.replace("/daydream/" + this.myDayDream.ID);
     })
   }

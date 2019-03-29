@@ -249,7 +249,7 @@ router.post("/change-password", authenticate, (req, res) => {
 
     encrypt(newPassword).then(encryptedPassword => {
         // console.log("encrypt: " + encryptedPassword)
-        User.findOneAndUpdate({ username: username }, {$exists: true}, { $set: { passwd: encryptedPassword } }).then(() => { // defect 21
+        User.findOneAndUpdate({ username: username }, {$exists: true}, { $set: { password: encryptedPassword } }).then(() => { 
             // console.log("passwd set")
             res.status(200).send({ message: "Password changed!" })
         }).catch((err) => {

@@ -35,7 +35,7 @@ export class AppComponent {
 
     this.userService.getAccountInfo().then((res) => {
         this.account = new Account(res);
-        // this.username = this.account.username; // defect 4
+        this.username = this.account.username; 
     });
     
   }

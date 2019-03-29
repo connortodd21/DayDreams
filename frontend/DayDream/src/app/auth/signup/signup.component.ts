@@ -54,13 +54,13 @@ export class SignUpComponent implements OnInit {
         this.authService.registerUser(form.value.email, form.value.username, form.value.password).then((res) => {
             this.response = "complete";
         }).catch((err) => {
-            // if (err.error.message == "User already exists") {
-                // this.response = "duplicate";
-            // }
-            // else {
+            if (err.error.message == "User already exists") {
+                this.response = "duplicate";
+            }
+            else {
                 console.log(err)
-                this.response = "fatalError"; // defect 13
-            // }
+                this.response = "fatalError";
+            }
         })
     }
 
