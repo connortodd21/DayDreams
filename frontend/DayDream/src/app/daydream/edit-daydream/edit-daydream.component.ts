@@ -42,7 +42,7 @@ export class EditDayDreamComponent implements OnInit {
       this.myDayDream = new DayDream(data);
 
       this.editDaydreamForm.controls.destination.setValue(this.myDayDream.destination);
-      this.editDaydreamForm.controls.description.setValue(this.myDayDream.description);
+      this.editDaydreamForm.controls.description.setValue(this.description);
       this.editDaydreamForm.controls.totalCost.setValue(this.myDayDream.totalCost);
 
     });
